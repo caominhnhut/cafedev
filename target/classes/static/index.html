@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="cafedevApp">
 <head>
 	<title>CafeDev Chat</title>
 	<meta charset="UTF-8">
@@ -9,6 +9,12 @@
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular-1.4.5/angular.min.js"></script>
+	<script src="js/angular-1.4.5/angular-route.js"></script>
+	
+	<script src="js/app/app.js"></script>
+	<script src="js/app/controllers/home-controller.js"></script>
+	<script src="js/app/controllers/forum-controller.js"></script>
 	
 </head>
 <body>
@@ -35,8 +41,8 @@
 <div class="header"><img src="assets/banner.png"></div>
 <div class="search">
 	<ul>
-		<li><a class="active" href="#home">HOME</a></li>
-		<li><a href="">UNANSWERED TOPICS</a></li>
+		<li><a class="active" href="#/">HOME</a></li>
+		<li><a href="#/forum">FORUM</a></li>
 		<li><a href="">YOUR TOPICS</a></li>
 		<li><a href="">iCOURSE</a></li>
 		<li class="search-control">
@@ -54,177 +60,7 @@
 <div class="content">
 	<div class="row">
 		<div class="col-md-9">
-			<!-- MAP -->
-			<div class="home">
-				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;
-				<a href="">Cafe Dev</a>
-				<span class="glyphicon glyphicon-align-justify full-screen" aria-hidden="true"></span>
-			</div>
-			<!-- END MAP -->
-			<div class="feeds">
-				<ul>
-					<!-- LIST OF FEEDS -->
-					<!-- FEED 1ST -->
-					<li>
-						<div class="feed">
-							<!-- ARTICLE -->
-							<div class="user-info">
-								<span><img src="assets/man.png"></span>
-								<b><a href="">Đánh Giá Xe</a></b>
-								<span class="glyphicon glyphicon-option-horizontal edit"></span>
-							</div>
-							<p>Sau khi ra mắt hồi tháng 3 năm nay với nhiều thay đổi về thiết kế, động cơ, nội thất tiện nghi hiện đại và khả năng vận hành với nhiều công nghệ an toàn, BMW X4 2019 lại tiếp tục làm thỏa mắt người tiêu dùng bằng loạt ảnh hoàn toàn mới.</p>
-							<img src="assets/bmw-x4.jpg">
-							<!-- END ARTICLE -->
-							<!-- COMMENTS -->
-							<div class="comments">
-								<ul>
-									<!-- ANSWER -->
-									<li>
-										<span><img class="avatar-post" src="assets/man.png"></span>
-										<textarea></textarea>
-										<button class="btn btn-primary">Post</button>
-									</li>
-									<!-- END ANSWER -->
-									<li>
-										<!-- COMMENT -->
-										<div class="row">
-											<div class="col-md-1">
-												<img class="avatar" src="assets/man.png">
-											</div>
-											<div class="col-md-11 comment">
-												<b><a href="">Cao Minh Nhut</a></b>&nbsp;
-												Xe đẹp quá, cơ mà hình như cũng không có lốp dự phòng như GLC
-											</div>
-										</div>
-										<!-- END COMMENT -->
-										<!-- REPLY -->
-										<span class="glyphicon glyphicon-share-alt show-reply"></span>
-										<div class="reply-input">
-											<textarea></textarea>
-											<span class="reply-btn">Reply</span>
-										</div>
-										<!-- END REPLY -->
-										<!-- SUB COMMENTS -->
-										<ul class="sub-comment">
-											<li>
-												<div class="row">
-													<div class="col-md-1">
-														<img class="avatar" src="assets/man.png">
-													</div>
-													<div class="col-md-11 comment">
-														<b><a href="">Vi Huynh</a></b>&nbsp;
-														Làm một chiếc đi Cao Minh Nhut
-													</div>
-												</div>	
-											</li>
-											<li>
-												<div class="row">
-													<div class="col-md-1">
-														<img class="avatar" src="assets/man.png">
-													</div>
-													<div class="col-md-11 comment">
-														<b><a href="">Duong Ngoc Thai</a></b>&nbsp;
-														Bên cạnh đó, BMW còn cắt giảm trọng lượng X4 2019 lên đến 50kg so với thế hệ trước. Cuối cùng, tổng thể xe thêm đẹp mắt hơn với lựa chọn mâm đa chấu có kích thước từ 19 đến 21 inch. Ở những phiên bản thể thao M Performance, xe sẽ được trang bị kẹp phanh màu xanh M-Sport, hệ thống treo thể thao M-Suspension, ống xả M Sport...
-													</div>
-												</div>
-											</li>
-										</ul>
-										<!-- END SUB COMMENTS -->
-									</li>
-									<li>
-										<div class="row">
-											<div class="col-md-1">
-												<img class="avatar" src="assets/man.png">
-											</div>
-											<div class="col-md-11 comment">
-												<b><a href="">An Nguyen</a></b>&nbsp;
-												Bên cạnh đó, BMW còn cắt giảm trọng lượng X4 2019 lên đến 50kg so với thế hệ trước. Cuối cùng, tổng thể xe thêm đẹp mắt hơn với lựa chọn mâm đa chấu có kích thước từ 19 đến 21 inch. Ở những phiên bản thể thao M Performance, xe sẽ được trang bị kẹp phanh màu xanh M-Sport, hệ thống treo thể thao M-Suspension, ống xả M Sport...
-											</div>
-										</div>
-										<span class="glyphicon glyphicon-share-alt show-reply"></span>
-										<div class="reply-input">
-											<textarea></textarea>
-											<span class="reply-btn">Reply</span>
-										</div>
-										<ul class="sub-comment">
-											<li>
-												<div class="row">
-													<div class="col-md-1">
-														<img class="avatar" src="assets/man.png">
-													</div>
-													<div class="col-md-11 comment">
-														<b><a href="">Vi Huynh</a></b>&nbsp;
-														Làm một chiếc đi Cao Minh Nhut
-													</div>
-												</div>	
-											</li>
-											<li>
-												<div class="row">
-													<div class="col-md-1">
-														<img class="avatar" src="assets/man.png">
-													</div>
-													<div class="col-md-11 comment">
-														<b><a href="">Duong Ngoc Thai</a></b>&nbsp;
-														Bên cạnh đó, BMW còn cắt giảm trọng lượng X4 2019 lên đến 50kg so với thế hệ trước. Cuối cùng, tổng thể xe thêm đẹp mắt hơn với lựa chọn mâm đa chấu có kích thước từ 19 đến 21 inch. Ở những phiên bản thể thao M Performance, xe sẽ được trang bị kẹp phanh màu xanh M-Sport, hệ thống treo thể thao M-Suspension, ống xả M Sport...
-													</div>
-												</div>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<div class="row">
-											<div class="col-md-1">
-												<img class="avatar" src="assets/man.png">
-											</div>
-											<div class="col-md-11 comment">
-												<b><a href="">Long Nguyen</a></b>&nbsp;
-												Về động cơ, BMW cung cấp cho X4 2019 03 tuỳ chọn động cơ xăng và 04 tùy chọn động cơ dầu với công suất giao động từ 185 - 360 mã lực. Ở phiên bản động cơ xăng 04 xy-lanh dung tích 2.0L tăng áp - xDrive30i xe sẽ có công suất 248 mã lực. Trong đó, hai phiên bản mạnh mẽ nhất bao gồm: Phiên bản máy xăng M40i được lắp động cơ 6 xy-lanh thẳng hàng (I6) 3.0L tăng áp kép cho công suất 355 mã lực và mô-ment xoắn 500Nm; ở phiên bản động cơ dầu - M40d lắp động cơ 3.0L tăng áp cho công suất 326 mã lực và mô-ment xoắn 680Nm. Sức mạnh được truyền xuống bốn bánh (hệ dẫn động X-Drive) thông qua hộp số tự động 8 cấp - 8 Steptronic.
-											</div>
-										</div>
-										<span class="glyphicon glyphicon-share-alt show-reply"></span>
-										<div class="reply-input">
-											<textarea></textarea>
-											<span class="reply-btn">Reply</span>
-										</div>
-										<ul class="sub-comment">
-											<li>
-												<div class="row">
-													<div class="col-md-1">
-														<img class="avatar" src="assets/man.png">
-													</div>
-													<div class="col-md-11 comment">
-														<b><a href="">Vi Huynh</a></b>&nbsp;
-														Làm một chiếc đi Cao Minh Nhut
-													</div>
-												</div>	
-											</li>
-											<li>
-												<div class="row">
-													<div class="col-md-1">
-														<img class="avatar" src="assets/man.png">
-													</div>
-													<div class="col-md-11 comment">
-														<b><a href="">Duong Ngoc Thai</a></b>&nbsp;
-														Bên cạnh đó, BMW còn cắt giảm trọng lượng X4 2019 lên đến 50kg so với thế hệ trước. Cuối cùng, tổng thể xe thêm đẹp mắt hơn với lựa chọn mâm đa chấu có kích thước từ 19 đến 21 inch. Ở những phiên bản thể thao M Performance, xe sẽ được trang bị kẹp phanh màu xanh M-Sport, hệ thống treo thể thao M-Suspension, ống xả M Sport...
-													</div>
-												</div>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-							<!-- END COMMENTS -->
-						</div>
-					</li>
-					<!-- END FEED 1ST -->
-					<!-- FEED 2SD.. -->
-					<li>
-						<div class="feed"></div>
-					</li>
-					<!-- END FEED 2SD -->
-				</ul>
-			</div>
+			<div ng-view></div>
 		</div>
 		<div class="col-md-3">
 
