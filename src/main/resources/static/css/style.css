@@ -214,6 +214,36 @@ a:hover{
 .panel-right-content ul li{
 	color: #999999;
 }
+/* FORUM */
+.forum{
+	margin-top: 50px;
+}
+.forum h4{
+	background-color: #03A9F4;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+    color: white;
+}
+.forum h4 a{
+	color: white;
+}
+.forum .sub-topic{
+	background-color: white;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 10px;
+}
+.forum .sub-topic .icon{
+	background-image: url("../assets/chat-icon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50px;
+}
+.forum .sub-topic .title{
+	height: 20px;
+	margin-top: -10px;
+}
 /*FOOTER*/
 .footer{
 	background-color: #03a9f4;

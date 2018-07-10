@@ -13,6 +13,10 @@ cafedevApp.config(['$routeProvider',
         templateUrl: 'views/forum.html',
         controller: 'ForumCtrl'
       }).
+      when('/topic', {
+          templateUrl: 'views/topic.html',
+          controller: 'TopicCtrl'
+        }).
       otherwise({
         redirectTo: '/'
       });

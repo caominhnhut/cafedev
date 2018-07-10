@@ -15,7 +15,7 @@
 	<script src="js/app/app.js"></script>
 	<script src="js/app/controllers/home-controller.js"></script>
 	<script src="js/app/controllers/forum-controller.js"></script>
-	
+	<script src="js/app/controllers/topic-controller.js"></script>	
 </head>
 <body>
 <div class="navigation">
@@ -60,6 +60,13 @@
 <div class="content">
 	<div class="row">
 		<div class="col-md-9">
+			<!-- MAP -->
+			<div class="home">
+				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;
+				<a href="">Cafe Dev</a>
+				<span class="glyphicon glyphicon-align-justify full-screen" aria-hidden="true"></span>
+			</div>
+			<!-- END MAP -->
 			<div ng-view></div>
 		</div>
 		<div class="col-md-3">
