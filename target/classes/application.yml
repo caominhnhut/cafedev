@@ -1,5 +1,5 @@
 app:
-  name: springboot-jwt-demo
+  name: cafedev
 
 jwt:
   header: Authorization
