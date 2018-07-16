@@ -16,6 +16,7 @@
 <script src="js/app/controllers/home-controller.js"></script>
 <script src="js/app/controllers/forum-controller.js"></script>
 <script src="js/app/controllers/topic-controller.js"></script>
+<script src="js/app/controllers/subtopic-controller.js"></script>
 </head>
 <body>
 	<div class="navigation">
@@ -31,8 +32,8 @@
 							<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;Login
 					</a></li>
 					<li>|</li>
-					<li><a href="#"> <span class="glyphicon glyphicon-user"
-							aria-hidden="true"></span>&nbsp;Register
+					<li><a href="#" data-toggle="modal" data-target="#modal-register">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Register
 					</a></li>
 				</ul>
 			</div>
@@ -178,5 +179,6 @@
 			Reserved. Designed by: Nhut Nguyen.</div>
 	</div>
 	<ng-include src="'views/modal/login.html'"></ng-include>
+	<ng-include src="'views/modal/register.html'"></ng-include>
 </body>
 </html>

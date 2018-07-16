@@ -106,7 +106,7 @@ a:hover{
 	background-color: white;
 	padding: 10px 10px 10px 10px;
 }
-.content .feeds .feed .comments .avatar,
+.comments .avatar,
 .content .feeds .feed .user-info img{
 	vertical-align: middle;
     height: 30px;
@@ -114,7 +114,7 @@ a:hover{
     border-radius: 50%;
 }
 .content .feeds .feed .user-info a,
-.content .feeds .feed .comments a{
+.comments a{
 	color: #03a9f4;
 }
 .content .feeds .feed .user-info .edit{
@@ -123,47 +123,47 @@ a:hover{
 .content .feeds .feed img{
 	width: 99%;
 }
-.content .feeds .feed .comments{
+.comments{
 	margin-top: 20px;
 }
-.content .feeds .feed .comments textarea{
+.comments textarea{
 	width: 95%;
     height: 30px;
     border-radius: 10px;
     margin-left: 30px;
 }
-.content .feeds .feed .comments .avatar-post{
+.comments .avatar-post{
 	vertical-align: middle;
     height: 30px;
     width: 30px;
     border-radius: 50%;
     position: absolute;
 }
-.content .feeds .feed .comments button{
+.comments button{
 	float: right;
 	margin-right: 15px;
 }
-.content .feeds .feed .comments .comment{
+.comments .comment{
 	background-color: #DDDDDD;
     padding: 10px;
     border-radius: 10px;
 }
-.content .feeds .feed .comments .col-md-1{
+.comments .col-md-1{
 	width: 6%;
 }
-.content .feeds .feed .comments .reply-input{
+.comments .reply-input{
 	width: 96%;
     margin: 20px 0px 20px 25px;
 }
-.content .feeds .feed .comments .reply-btn{
+.comments .reply-btn{
     margin-left: 30px;
 }
-.content .feeds .feed .comments .show-reply{
+.comments .show-reply{
 	margin-left: 55px;
     color: #03a9f4;
     cursor: pointer;
 }
-.content .feeds .feed .comments .sub-comment{
+.comments .sub-comment{
 	margin-left: 50px;
 }
 .content .btn-new-topic {
@@ -215,32 +215,40 @@ a:hover{
 	color: #999999;
 }
 /* FORUM */
-.forum{
+.forum,
+.topic,
+.sub-topic{
 	margin-top: 50px;
 }
-.forum h4{
+.forum h4,
+.topic h4,
+.sub-topic h4{
 	background-color: #03A9F4;
     height: 50px;
     line-height: 50px;
     padding-left: 10px;
     color: white;
 }
-.forum h4 a{
+.forum h4 a,
+.topic h4 a{
 	color: white;
 }
-.forum .sub-topic{
+.forum .sub-topic,
+.topic .sub-topic{
 	background-color: white;
     height: 50px;
     line-height: 50px;
     margin-bottom: 10px;
 }
-.forum .sub-topic .icon{
+.forum .sub-topic .icon,
+.topic .sub-topic .icon{
 	background-image: url("../assets/chat-icon.png");
     background-position: center;
     background-repeat: no-repeat;
     height: 50px;
 }
-.forum .sub-topic .title{
+.forum .sub-topic .title,
+.topic .sub-topic .title{
 	height: 20px;
 	margin-top: -10px;
 }
@@ -265,16 +273,19 @@ a:hover{
     height: 50px;
     line-height: 50px;
 }
-/* LOGIN */
-#modal-login .modal-content{
+/* LOGIN - REGISTER*/
+#modal-login .modal-content,
+#modal-register .modal-content{
 	border-radius: 0px;
 	width: 80%;
 }
-#modal-login .modal-header{
+#modal-login .modal-header,
+#modal-register .modal-header{
 	color: white;
 	background-color: black;
 }
-#modal-login .modal-body input{
+#modal-login .modal-body input,
+#modal-register .modal-body input{
 	width: 100%;
     height: 50px;
     border-top: none;
@@ -285,11 +296,19 @@ a:hover{
     padding-top: 20px;
     font-size: 25px;
 }
-#modal-login  .modal-footer{
+#modal-login .modal-footer,
+#modal-register .modal-footer{
 	text-align: left;	
 }
-#modal-login .modal-footer .btn-info{
+#modal-login .modal-footer .btn-info,
+#modal-register .modal-footer .btn-info{
     width: 100px;
     height: 40px;
     border-radius: 0px;
+}
+/* SUB TOPIC */
+.sub-topic .content{
+	background-color: white;
+	padding: 10px;
+	margin-bottom: 50px;
 }
