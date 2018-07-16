@@ -17,6 +17,13 @@
 <script src="js/app/controllers/forum-controller.js"></script>
 <script src="js/app/controllers/topic-controller.js"></script>
 <script src="js/app/controllers/subtopic-controller.js"></script>
+<script src="js/app/controllers/assignment-controller.js"></script>
+<script src="js/app/controllers/examination-controller.js"></script>
+<script src="js/app/controllers/chart-controller.js"></script>
+<script src="js/app/controllers/setting-controller.js"></script>
+<script src="js/app/controllers/setting-controller.js"></script>
+<script src="js/app/controllers/addfeed-controller.js"></script>
+
 </head>
 <body>
 	<div class="navigation">
@@ -76,9 +83,9 @@
 			</div>
 			<div class="col-md-3">
 
-				<button class="btn btn-warning btn-new-topic">
+				<a href="#/add-feed" class="btn btn-warning btn-new-topic">
 					<b>POST NEW TOPIC</b>
-				</button>
+				</a>
 				<!-- ASSIGNMENTS -->
 				<div class="panel-right-title">
 					<b>YOUR ASSIGNMENTS</b>
@@ -89,7 +96,7 @@
 							<div class="row">
 								<div class="col-md-1 red"></div>
 								<div class="col-md-11">
-									<a href="#">Assignment 01</a>
+									<a href="#/assignment/1">Assignment 01</a>
 								</div>
 							</div>
 						</li>
@@ -135,7 +142,7 @@
 				</div>
 				<div class="panel-right-content">
 					<ol>
-						<li><a href="">Examination 01</a></li>
+						<li><a href="#/examination/1">Examination 01</a></li>
 						<li><a href="">Examination 02</a></li>
 						<li><a href="">Examination 03</a></li>
 						<li><a href="">Examination 04</a></li>
@@ -152,8 +159,8 @@
 					<ul>
 						<li><b>Total Post:</b><i>120</i></li>
 						<li><b>Answers</b><i>20</i></li>
-						<li><a href="">Chart</a><i class="glyphicon glyphicon-stats"></i></li>
-						<li><a href="">Setting</a><i class="glyphicon glyphicon-cog"></i></li>
+						<li><a href="#/chart">Chart</a><i class="glyphicon glyphicon-stats"></i></li>
+						<li><a href="#/setting">Setting</a><i class="glyphicon glyphicon-cog"></i></li>
 					</ul>
 				</div>
 				<!-- END PROCESSING -->
