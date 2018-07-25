@@ -83,6 +83,7 @@ a:hover{
 	height: 50px;
 	padding-left: 10px;
     line-height: 50px;
+    margin-bottom: 50px;
 }
 .content .home .full-screen{
 	float: right;
@@ -95,9 +96,6 @@ a:hover{
 .content ul{
 	list-style-type: none;
 	padding: 0px;
-}
-.content ul li{
-	margin-bottom: 40px;
 }
 .content .feeds{
 	margin-top: 50px;
@@ -166,6 +164,9 @@ a:hover{
 .comments .sub-comment{
 	margin-left: 50px;
 }
+.sub-comment li{
+	margin-bottom: 20px;
+}
 .content .btn-new-topic {
 	height: 50px;
     width: 100%;
@@ -217,11 +218,6 @@ a:hover{
 	color: #999999;
 }
 /* FORUM */
-.forum,
-.topic,
-.sub-topic{
-	margin-top: 50px;
-}
 .forum h4,
 .topic h4,
 .sub-topic h4{
@@ -312,5 +308,46 @@ a:hover{
 .sub-topic .content{
 	background-color: white;
 	padding: 10px;
-	margin-bottom: 50px;
+}
+/* ASSIGNMENT */
+.assignment{
+	margin-top: 50px;
+}
+.assignment h4{
+	border-bottom: 1px solid;
+    color: #BBBBBB;
+}
+.assignment p{
+	border-bottom: 1px solid #bbbbbb;
+    padding-bottom: 50px;
+}
+/* SETTING */
+.setting img{
+	height: 200px;
+    width: 90%;
+}
+.setting .key{
+	width: 20%
+}
+.setting .value{
+	width: 80%;
+}
+.setting table tr{
+	height: 50px;
+}
+/* ADD NEW FEED */
+.add-new-feed textarea{
+	width: 907px;
+    height: 58px;
+    border-radius: 3px;
+    padding-left: 10px;
+}
+.add-new-feed button{
+	margin-top: 20px;
+    float: right;
+}
+/* LEFT CONTENT */
+.left-content {
+	-webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s;
 }

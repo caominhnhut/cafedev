@@ -13,6 +13,7 @@
 <script src="js/angular-1.4.5/angular-route.js"></script>
 
 <script src="js/app/app.js"></script>
+<script src="js/app/controllers/index-controller.js"></script>
 <script src="js/app/controllers/home-controller.js"></script>
 <script src="js/app/controllers/forum-controller.js"></script>
 <script src="js/app/controllers/topic-controller.js"></script>
@@ -25,7 +26,7 @@
 <script src="js/app/controllers/addfeed-controller.js"></script>
 
 </head>
-<body>
+<body ng-controller="IndexContrl">
 	<div class="navigation">
 		<div class="row">
 			<div class="col-md-4">
@@ -70,24 +71,24 @@
 	</div>
 	<div class="content">
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-9 left-content" ng-style="isFullScreen == true ? {'width': '100%'} : {'width': '75%'}">
 				<!-- MAP -->
 				<div class="home">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;
-					<a href="">Cafe Dev</a> <span
-						class="glyphicon glyphicon-align-justify full-screen"
-						aria-hidden="true"></span>
+					<a href="">Cafe Dev</a> 
+					<span ng-click="fullScreen()" class="glyphicon glyphicon-align-justify full-screen" aria-hidden="true"></span>
 				</div>
 				<!-- END MAP -->
 				<div ng-view></div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3" ng-hide="isFullScreen">
 
 				<a href="#/add-feed" class="btn btn-warning btn-new-topic">
 					<b>POST NEW TOPIC</b>
 				</a>
 				<!-- ASSIGNMENTS -->
 				<div class="panel-right-title">
+					<i class="glyphicon glyphicon-file"></i>
 					<b>YOUR ASSIGNMENTS</b>
 				</div>
 				<div class="panel-right-content">
@@ -138,6 +139,7 @@
 
 				<!-- EXAMINATION -->
 				<div class="panel-right-title">
+					<i class="glyphicon glyphicon-time"></i>
 					<b>EXAMINATION</b>
 				</div>
 				<div class="panel-right-content">
@@ -153,6 +155,7 @@
 
 				<!-- PROCESSING -->
 				<div class="panel-right-title">
+					<i class="glyphicon glyphicon-list-alt"></i>
 					<b>PROCESSING</b>
 				</div>
 				<div class="panel-right-content">

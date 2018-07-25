@@ -56,7 +56,7 @@ public class User implements UserDetails {
     private boolean enabled;
 
     @Column(name = "last_password_reset_date")
-    private Timestamp lastPasswordResetDate;
+    private String lastPasswordResetDate;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
@@ -86,7 +86,7 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         Timestamp now = new Timestamp(DateTime.now().getMillis());
-        this.setLastPasswordResetDate( now );
+        this.setLastPasswordResetDate( now.toString() );
         this.password = password;
     }
 
@@ -140,11 +140,11 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
-    public Timestamp getLastPasswordResetDate() {
+    public String getLastPasswordResetDate() {
         return lastPasswordResetDate;
     }
 
-    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+    public void setLastPasswordResetDate(String lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
