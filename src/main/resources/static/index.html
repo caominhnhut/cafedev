@@ -66,10 +66,10 @@
 	</div>
 	<div class="search">
 		<ul>
-			<li><a class="active" href="#/">HOME</a></li>
-			<li><a href="#/forum">FORUM</a></li>
-			<li><a href="">YOUR TOPICS</a></li>
-			<li><a href="">iCOURSE</a></li>
+			<li><a ng-class="{'active':className=='home'}"  ng-click="setClass('home')" href="javascript:void(0)">HOME</a></li>
+			<li><a ng-class="{'active':className=='forum'}" ng-click="setClass('forum')" href="javascript:void(0)">FORUM</a></li>
+			<li><a ng-class="{'active':className=='programmes'}" href="#/programs">PROGRAMMES</a></li>
+			<li><a ng-class="{'active':className=='notify'}" href="#/notify">NOTIFY &nbsp; <span class="notify">20</span></a></li>
 			<li class="search-control">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Search"

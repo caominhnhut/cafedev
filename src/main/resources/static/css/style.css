@@ -77,6 +77,11 @@ input:focus{
     padding-right: 100px;
     padding-top: 18px;
 }
+.search .notify{
+    background-color: red;
+    border-radius: 50%;
+    padding: 5px;
+}
 /*CONTENT*/
 /*HOME*/
 .content{

@@ -1,5 +1,5 @@
-cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$location', 'AuthService',
-function($scope, $http, $rootScope, $location, authService){
+cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$location', 'AuthService','$window',
+function($scope, $http, $rootScope, $location, authService, $window){
 	
 	$scope.isFullScreen = false;
 	$scope.isError = false;
@@ -65,5 +65,10 @@ function($scope, $http, $rootScope, $location, authService){
 		}).catch(function(response) {
 			console.log(response);
 		});
+	}
+	
+	$scope.setClass = function(path){
+		$scope.className = path;
+		$window.location.href = '#/'+path;
 	}
 }]);
