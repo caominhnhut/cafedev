@@ -13,6 +13,9 @@ a{
 a:hover{
 	color: blue;
 }
+input:focus{
+    outline: none;
+}
 /*NAVIGATION*/
 .navigation{
 	background-color: #FFFFFF;
@@ -24,6 +27,9 @@ a:hover{
 .navigation .col-md-8{
 	text-align: right;
     padding-right: 100px;
+}
+.navigation .col-md-8 .user-profile{
+	float: right
 }
 /*HEADER*/
 .header{
@@ -303,6 +309,9 @@ a:hover{
     width: 100px;
     height: 40px;
     border-radius: 0px;
+}
+#modal-login .login-error{
+	padding: 5px;
 }
 /* SUB TOPIC */
 .sub-topic .content{

@@ -13,6 +13,9 @@
 <script src="js/angular-1.4.5/angular-route.js"></script>
 
 <script src="js/app/app.js"></script>
+
+<script src="js/app/services/authentication-service.js"></script>
+
 <script src="js/app/controllers/index-controller.js"></script>
 <script src="js/app/controllers/home-controller.js"></script>
 <script src="js/app/controllers/forum-controller.js"></script>
@@ -35,7 +38,18 @@
 				</h2>
 			</div>
 			<div class="col-md-8">
-				<ul class="list-inline">
+				<!-- will be shown after log on -->
+				<div class="dropdown user-profile" ng-show="authenticated" ng-cloak>
+					<button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
+					Hi ! {{username}}
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a href="#">Setting</a></li>
+						<li><a href="javascript:void(0)" ng-click="logout()">Log out</a></li>
+					</ul>
+				</div>
+				<!-- should be dispaly if user has not log on yet -->
+				<ul class="list-inline" ng-hide="authenticated">
 					<li><a href="#" data-toggle="modal" data-target="#modal-login">
 							<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;Login
 					</a></li>
@@ -71,7 +85,7 @@
 	</div>
 	<div class="content">
 		<div class="row">
-			<div class="col-md-9 left-content" ng-style="isFullScreen == true ? {'width': '100%'} : {'width': '75%'}">
+			<div class="col-md-9 left-content" ng-style="isFullScreen == true ? {'width': '93%'} : {'width': '75%'}">
 				<!-- MAP -->
 				<div class="home">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;
