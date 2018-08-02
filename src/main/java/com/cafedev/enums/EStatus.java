@@ -1,0 +1,16 @@
+package com.cafedev.enums;
+
+public enum EStatus {
+
+	ACTIVE(1), PENDING(2), LOCKED(3);
+
+	private final int statusCode;
+
+	public int getStatusCode() {
+		return statusCode;
+	}
+
+	EStatus(int statusCode) {
+		this.statusCode = statusCode;
+	}
+}
