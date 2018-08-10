@@ -85,17 +85,18 @@
 	</div>
 	<div class="content">
 		<div class="row">
-			<div class="col-md-9 left-content" ng-style="isFullScreen == true ? {'width': '93%'} : {'width': '75%'}">
+			<div class="col-md-3 left-content" ng-hide="isFullScreen">Advertising</div>
+			<div class="col-md-6 center-content" ng-style="isFullScreen == true ? {'width': '100%'} : {'width': '60%'}">
 				<!-- MAP -->
 				<div class="home">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;
-					<a href="">Cafe Dev</a> 
+					<a href="#/">Cafe Dev</a> 
 					<span ng-click="fullScreen()" class="glyphicon glyphicon-align-justify full-screen" aria-hidden="true"></span>
 				</div>
 				<!-- END MAP -->
 				<div ng-view></div>
 			</div>
-			<div class="col-md-3" ng-hide="isFullScreen">
+			<div class="col-md-3 right-content" ng-hide="isFullScreen">
 
 				<a href="#/add-feed" class="btn btn-warning btn-new-topic">
 					<b>POST NEW TOPIC</b>

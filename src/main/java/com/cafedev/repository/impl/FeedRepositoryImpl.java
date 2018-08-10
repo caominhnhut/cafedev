@@ -55,12 +55,6 @@ public class FeedRepositoryImpl extends AbstractJpaRepository<Feed> implements
 			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
 		}
 		
-		List<Feed> feeds = query.getResultList();
-		for (Feed feed : feeds) {
-			feed.getComments().clear();
-			feed.getComments().addAll(commentRepository.findByFeedId(feed.getId()));
-		}
-		return feeds;
+		return query.getResultList();
 	}
-
 }

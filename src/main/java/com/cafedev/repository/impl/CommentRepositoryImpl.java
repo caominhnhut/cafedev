@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafedev.dto.RequestDTO;
 import com.cafedev.model.Comment;
 import com.cafedev.model.Feed;
 import com.cafedev.repository.AbstractJpaRepository;
@@ -25,16 +26,31 @@ public class CommentRepositoryImpl extends AbstractJpaRepository<Comment> implem
 	private EntityManager em;
 	
 	@Override
-	public List<Comment> findByFeedId(Long feedId) {
+	public List<Comment> findByFeedId(RequestDTO<Long> request) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Comment> cq = cb.createQuery(Comment.class);
 		Root<Comment> comment = cq.from(Comment.class);
 		Join<Comment, Feed> join = comment.join("feed", JoinType.LEFT);
-		cq.where(cb.equal(join.get("id"), feedId));
-		cq.orderBy(cb.asc(comment.get("createDate")));
+		cq.where(cb.equal(join.get("id"), request.getData()));
+		
+		if (request.getMetadata().getSortType() != null) {
+			switch (request.getMetadata().getSortType()) {
+			case ASC:
+				cq.orderBy(cb.asc(comment.get(request.getMetadata().getSortValue())));
+				break;
+			case DESC:
+				cq.orderBy(cb.desc(comment.get(request.getMetadata().getSortValue())));
+				break;
+			default:
+				break;
+			}
+		}
+		
 		Query query = em.createQuery(cq);
-		query.setFirstResult(0);
-		query.setMaxResults(3);
+		if (request.getMetadata().getPagination() != null) {
+			query.setFirstResult(request.getMetadata().getPagination().getOffset());
+			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
+		}
 		return query.getResultList();
 	}
 

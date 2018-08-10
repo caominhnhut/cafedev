@@ -58,7 +58,7 @@ input:focus{
     color: white;
     text-align: center;
     padding: 25px 10px;
-    text-decoration: none;./././././
+    text-decoration: none;
     height: 70px;
 }
 .search li a:hover:not(.active) {
@@ -86,7 +86,7 @@ input:focus{
 /*HOME*/
 .content{
 	background-color: #f0f0f0;
-	padding-left: 100px;
+	padding-left: 10px;
 	padding-top: 50px;
 }
 .content .home{
@@ -115,6 +115,9 @@ input:focus{
 	background-color: white;
 	padding: 10px 10px 10px 10px;
 }
+.content .feeds .li-feed{
+	margin-bottom: 20px;
+}
 .comments .avatar,
 .content .feeds .feed .user-info img{
 	vertical-align: middle;
@@ -129,7 +132,7 @@ input:focus{
 .content .feeds .feed .user-info .edit{
 	float: right;
 }
-.content .feeds .feed img{
+.content .feeds .feed .feed-image{
 	width: 99%;
 }
 .comments{
@@ -140,6 +143,8 @@ input:focus{
     height: 30px;
     border-radius: 10px;
     margin-left: 30px;
+   	outline: none;
+    padding-left: 10px;
 }
 .comments .avatar-post{
 	vertical-align: middle;
@@ -156,9 +161,18 @@ input:focus{
 	background-color: #DDDDDD;
     padding: 10px;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 .comments .col-md-1{
 	width: 6%;
+}
+.comments .reply{
+	float: right;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    margin-top: -20px;
+    color: blue;
+    cursor: pointer;
 }
 .comments .reply-input{
 	width: 96%;
@@ -174,9 +188,6 @@ input:focus{
 }
 .comments .sub-comment{
 	margin-left: 50px;
-}
-.sub-comment li{
-	margin-bottom: 20px;
 }
 .content .btn-new-topic {
 	height: 50px;
@@ -361,7 +372,19 @@ input:focus{
     float: right;
 }
 /* LEFT CONTENT */
-.left-content {
+.left-content{
+	background-color: #ffffff;
+	width: 20%;
+	height: 500px;
+	text-align: center;
+}
+/* CENTER CONTENT */
+.center-content {
 	-webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
     transition: width 2s;
+    width: 60%;
+}
+/* RIGHT CONTENT */
+.right-content{
+	width: 20%;
 }

@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 
 public class JsonExample {
 
-	/*public static Gson gson = new Gson();
+	public static Gson gson = new Gson();
 	
 	public static void genReuestDTO(){
 		RequestDTO<Long> req = new RequestDTO<Long>();
@@ -14,9 +14,8 @@ public class JsonExample {
 		req.setMetadata(new Metadata());
 		String json = gson.toJson(req);
 		System.out.println(json);
+	}	
+	/*public static void main(String[] args){
+		genReuestDTO();
 	}*/
-	
-//	public static void main(String[] args){
-//		genReuestDTO();
-//	}
 }

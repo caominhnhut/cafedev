@@ -38,6 +38,7 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			authService.setUsername($scope.credentials.username);
 			$scope.username = $scope.credentials.username;
 			$('#modal-login').modal('hide');
+			$window.location.href = '#/';
 		})
 		.catch(function(response) {
 			$rootScope.authenticated = false;

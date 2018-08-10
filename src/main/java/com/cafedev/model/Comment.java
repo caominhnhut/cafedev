@@ -1,6 +1,7 @@
 package com.cafedev.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,9 +26,6 @@ public class Comment{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "parent_id", nullable = true)
-	private Long parentId;
-
 	@Column(name = "content")
 	private String content;
 
@@ -39,10 +38,17 @@ public class Comment{
 	private User user;
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "feed_id")
 	private Feed feed;
 
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+	private List<Comment> subComments;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "parent_id")
+	private Comment parent;
+	
 	public User getUser() {
 		return user;
 	}
@@ -57,14 +63,6 @@ public class Comment{
 
 	public void setFeed(Feed feed) {
 		this.feed = feed;
-	}
-	
-	public Long getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
 	}
 
 	public Long getId() {
@@ -89,5 +87,21 @@ public class Comment{
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public List<Comment> getSubComments() {
+		return subComments;
+	}
+
+	public void setSubComments(List<Comment> subComments) {
+		this.subComments = subComments;
+	}
+	
+	public Comment getParent() {
+		return parent;
+	}
+
+	public void setParent(Comment parent) {
+		this.parent = parent;
 	}
 }

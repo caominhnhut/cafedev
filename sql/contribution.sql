@@ -27,8 +27,14 @@ insert into comment(id, content, create_date, parent_id, feed_id, owner_id) valu
 insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (12, 'Ca Sỉ nam tên gì vậy mọi người', CURRENT_TIMESTAMP(), null, 4, 2);
 insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (13, 'Ca sỉ nam tên là Minh Nhựt', CURRENT_TIMESTAMP(), null, 4, 1);
 insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (14, 'I love him so much!', CURRENT_TIMESTAMP(), null, 5, 2);
+#subcomment
+insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (15, 'Mình thích mercedes', CURRENT_TIMESTAMP(), 1, 1, 2);
+insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (16, 'Toyota Inova hân hạnh tài trợ chương trình này', CURRENT_TIMESTAMP(), 1, 1, 1);
+insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (17, 'O Viet Nam Toyota là so 1', CURRENT_TIMESTAMP(), 1, 1, 2);
+insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (18, 'Chính xác, toyota không đối thủ', CURRENT_TIMESTAMP(), 2, 1, 2);
 
 delete from comment;
-
 delete from feed;
+
+select * from feed;
 select * from comment;

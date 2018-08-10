@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint( restAuthenticationEntryPoint ).and()
                 .authorizeRequests()
                 .antMatchers(
-                        HttpMethod.POST,
+                        HttpMethod.GET,
                         "/.well-known/**",
                         "/",
                         "/auth/**",
