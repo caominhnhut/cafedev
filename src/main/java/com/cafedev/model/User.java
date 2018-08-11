@@ -63,6 +63,9 @@ public class User implements UserDetails {
 
 	@Column(name = "phone_number", nullable = true)
 	private String phoneNumber;
+	
+	@Column(name = "avatar")
+	private String avatar;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
@@ -185,6 +188,14 @@ public class User implements UserDetails {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 }

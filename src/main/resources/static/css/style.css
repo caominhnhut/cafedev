@@ -239,6 +239,10 @@ input:focus{
 .panel-right-content ul li{
 	color: #999999;
 }
+.remove-space{
+	height: 20px;
+    width: 100%;
+}
 /* FORUM */
 .forum h4,
 .topic h4,

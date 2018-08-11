@@ -31,4 +31,13 @@ public class FeedController {
 		return new ResponseEntity<List<FeedDTO>>(feedDto, HttpStatus.OK);
 	}
 	
+	@RequestMapping(method=RequestMethod.POST, value="find-latest")
+	public ResponseEntity<List<FeedDTO>> findLatest(@RequestBody RequestDTO<Long> requestDTO){
+		List<FeedDTO> feedDto = feedService.findLatest(requestDTO);
+		if(feedDto == null){
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<FeedDTO>>(feedDto, HttpStatus.OK);
+	}
+	
 }

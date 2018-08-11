@@ -8,4 +8,5 @@ import com.cafedev.model.Feed;
 public interface FeedRepository {
 
 	public List<Feed> findByOwnerId(RequestDTO<Long> request);
+	public List<Feed> findLatest(RequestDTO<Long> request);
 }

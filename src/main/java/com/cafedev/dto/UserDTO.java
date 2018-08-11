@@ -7,11 +7,13 @@ public class UserDTO {
 	private Long id;
 	private String firstName;
 	private String lastName;
+	private String avatar;
 
 	public void copyFrom(User user) {
 		this.id = user.getId();
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
+		this.avatar = user.getAvatar();
 	}
 
 	public Long getId() {
@@ -36,5 +38,13 @@ public class UserDTO {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 }

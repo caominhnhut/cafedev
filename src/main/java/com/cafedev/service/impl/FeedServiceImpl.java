@@ -46,6 +46,21 @@ public class FeedServiceImpl implements FeedService {
 		return feedDTOs;
 	}
 	
+	@Override
+	public List<FeedDTO> findLatest(RequestDTO<Long> request) {
+		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
+		List<Feed> feeds = feedRepository.findLatest(request);
+		for (Feed feed : feeds) {
+			feed.getComments().clear();
+			List<Comment> comments = commentRepository.findByFeedId(createRequest(feed.getId()));
+			feed.getComments().addAll(comments);
+			FeedDTO feedDTO = new FeedDTO();
+			feedDTO.copyFrom(feed);
+			feedDTOs.add(feedDTO);
+		}
+		return feedDTOs;
+	}
+	
 	private RequestDTO<Long> createRequest(Long id){
 		RequestDTO<Long> requestComment = new RequestDTO<Long>();		
 		Metadata metadata = new Metadata();
@@ -57,5 +72,4 @@ public class FeedServiceImpl implements FeedService {
 		requestComment.setMetadata(metadata);
 		return requestComment;
 	}
-
 }

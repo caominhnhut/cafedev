@@ -1,11 +1,20 @@
-cafedevApp.controller('HomeCtrl', ['$scope','$http','AuthService', function($scope, $http, authService){
+cafedevApp.controller('HomeCtrl', ['$scope','$http','AuthService', '$window','$rootScope', 
+function($scope, $http, authService, $window, $rootScope){
 
-	$scope.getAllFeeds = function(){
+	//Clear everything when browser close.
+	$scope.onExit = function() {
+		$rootScope.authenticated = false;
+		authService.removeJwtToken();
+		authService.removeUsername();
+	};	
+	//$window.onbeforeunload =  $scope.onExit;
+	
+	$scope.getFeedsByOwner = function(){
 		var request = {
 				"metadata": {
 					"pagination": {
 						"offset": 0,
-						"maxResult": 3
+						"maxResult": 10
 					},
 					"sortType": "DESC",
 					"sortValue": "createDate"
@@ -20,13 +29,31 @@ cafedevApp.controller('HomeCtrl', ['$scope','$http','AuthService', function($sco
 		})
 		.then(function(res) {
 			$scope.feeds = res.data;
-			console.log($scope.feeds);
 		})
 		.catch(function(response) {
 			alert("Server is error, please try again!")
 		});
 	}
-	$scope.getAllFeeds();
+	
+	$scope.loadFeeds = function(){
+		var token = authService.getJwtToken();
+		if(token != null){
+			$rootScope.authenticated = true;
+			$scope.username = authService.getUsername();
+			$scope.getFeedsByOwner();
+			authService.getUser()
+			.then(function(response) {
+				console.log(response);
+			})
+			.catch(function(response) {
+				console.log(response);
+			});
+		}else{
+			$rootScope.authenticated = false;
+			alert("401");
+		}
+	}
+	$scope.loadFeeds();
 	
 	$scope.isShowReplyField = 0;
 	var previousId = -1;

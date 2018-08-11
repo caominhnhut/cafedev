@@ -1,5 +1,6 @@
 package com.cafedev.rest;
 
+import com.cafedev.dto.UserDTO;
 import com.cafedev.model.User;
 import com.cafedev.service.UserService;
 
@@ -45,7 +46,10 @@ public class UserController {
 	 */
 	@RequestMapping("/whoami")
 	@PreAuthorize("hasRole('USER')")
-	public User user(Principal user) {
-		return this.userService.findByUsername(user.getName());
+	public UserDTO user(Principal user) {
+		User userRes = this.userService.findByUsername(user.getName());
+		UserDTO userDto = new UserDTO();
+		userDto.copyFrom(userRes);
+		return userDto;
 	}
 }

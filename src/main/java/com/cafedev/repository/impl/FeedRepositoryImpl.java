@@ -57,4 +57,30 @@ public class FeedRepositoryImpl extends AbstractJpaRepository<Feed> implements
 		
 		return query.getResultList();
 	}
+
+	@Override
+	public List<Feed> findLatest(RequestDTO<Long> request) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Feed> cq = cb.createQuery(Feed.class);
+		Root<Feed> root = cq.from(Feed.class);
+		if (request.getMetadata().getSortType() != null) {
+			switch (request.getMetadata().getSortType()) {
+			case ASC:
+				cq.orderBy(cb.asc(root.get(request.getMetadata().getSortValue())));
+				break;
+			case DESC:
+				cq.orderBy(cb.desc(root.get(request.getMetadata().getSortValue())));
+				break;
+			default:
+				break;
+			}
+		}
+
+		Query query = em.createQuery(cq);
+		if (request.getMetadata().getPagination() != null) {
+			query.setFirstResult(request.getMetadata().getPagination().getOffset());
+			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
+		}
+		return query.getResultList();
+	}
 }

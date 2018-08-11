@@ -7,8 +7,8 @@
 				<div class="feed">
 					<!-- ARTICLE -->
 					<div class="user-info">
-						<span><img src="assets/man.png"></span>
-						<b><a href="">Đánh Giá Xe</a></b>
+						<span><img ng-src="{{feed.user.avatar}}"></span>
+						<b><a href="">{{feed.user.firstName +" "+feed.user.lastName}}</a></b>
 						<span class="glyphicon glyphicon-option-horizontal edit"></span>
 					</div>
 					<p>{{feed.description}}</p>
@@ -21,10 +21,10 @@
 								<!-- COMMENT -->
 								<div class="row">
 									<div class="col-md-1">
-										<img class="avatar" src="assets/man.png">
+										<img class="avatar" ng-src="{{comment.user.avatar}}">
 									</div>
 									<div class="col-md-11 comment">
-										<b><a href="">Cao Minh Nhut</a></b>&nbsp;
+										<b><a href="">{{comment.user.firstName+" "+comment.user.lastName}}</a></b>&nbsp;
 										{{comment.content}}
 									</div>									
 								</div>
@@ -34,30 +34,20 @@
 								<div class="reply-input" ng-show="isShowReplyField==comment.id">
 									<textarea></textarea>
 								</div>
+								<div class="remove-space" ng-hide="isShowReplyField==comment.id"></div>
 								<!-- END REPLY -->
 								<!-- SUB COMMENTS -->
 								<ul class="sub-comment">
-									<li>
+									<li ng-repeat="subcomment in comment.subComments">
 										<div class="row">
 											<div class="col-md-1">
-												<img class="avatar" src="assets/man.png">
+												<img class="avatar" ng-src="{{subcomment.user.avatar}}">
 											</div>
 											<div class="col-md-11 comment">
-												<b><a href="">Vi Huynh</a></b>&nbsp;
-												Làm một chiếc đi Cao Minh Nhut
+												<b><a href="">{{subcomment.firstName+" "+subcomment.lastName}}</a></b>&nbsp;
+												{{subcomment.content}}
 											</div>
 										</div>	
-									</li>
-									<li>
-										<div class="row">
-											<div class="col-md-1">
-												<img class="avatar" src="assets/man.png">
-											</div>
-											<div class="col-md-11 comment">
-												<b><a href="">Duong Ngoc Thai</a></b>&nbsp;
-												Bên cạnh đó, BMW còn cắt giảm trọng lượng X4 2019 lên đến 50kg so với thế hệ trước. Cuối cùng, tổng thể xe thêm đẹp mắt hơn với lựa chọn mâm đa chấu có kích thước từ 19 đến 21 inch. Ở những phiên bản thể thao M Performance, xe sẽ được trang bị kẹp phanh màu xanh M-Sport, hệ thống treo thể thao M-Suspension, ống xả M Sport...
-											</div>
-										</div>
 									</li>
 								</ul>
 								<!-- END SUB COMMENTS -->
