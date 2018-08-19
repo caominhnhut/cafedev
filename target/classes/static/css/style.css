@@ -13,6 +13,9 @@ a{
 a:hover{
 	color: blue;
 }
+input:focus{
+    outline: none;
+}
 /*NAVIGATION*/
 .navigation{
 	background-color: #FFFFFF;
@@ -24,6 +27,9 @@ a:hover{
 .navigation .col-md-8{
 	text-align: right;
     padding-right: 100px;
+}
+.navigation .col-md-8 .user-profile{
+	float: right
 }
 /*HEADER*/
 .header{
@@ -71,11 +77,16 @@ a:hover{
     padding-right: 100px;
     padding-top: 18px;
 }
+.search .notify{
+    background-color: red;
+    border-radius: 50%;
+    padding: 5px;
+}
 /*CONTENT*/
 /*HOME*/
 .content{
 	background-color: #f0f0f0;
-	padding-left: 100px;
+	padding-left: 10px;
 	padding-top: 50px;
 }
 .content .home{
@@ -104,6 +115,9 @@ a:hover{
 	background-color: white;
 	padding: 10px 10px 10px 10px;
 }
+.content .feeds .li-feed{
+	margin-bottom: 20px;
+}
 .comments .avatar,
 .content .feeds .feed .user-info img{
 	vertical-align: middle;
@@ -118,7 +132,7 @@ a:hover{
 .content .feeds .feed .user-info .edit{
 	float: right;
 }
-.content .feeds .feed img{
+.content .feeds .feed .feed-image{
 	width: 99%;
 }
 .comments{
@@ -129,6 +143,8 @@ a:hover{
     height: 30px;
     border-radius: 10px;
     margin-left: 30px;
+   	outline: none;
+    padding-left: 10px;
 }
 .comments .avatar-post{
 	vertical-align: middle;
@@ -145,9 +161,18 @@ a:hover{
 	background-color: #DDDDDD;
     padding: 10px;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 .comments .col-md-1{
 	width: 6%;
+}
+.comments .reply{
+	float: right;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    margin-top: -20px;
+    color: blue;
+    cursor: pointer;
 }
 .comments .reply-input{
 	width: 96%;
@@ -163,9 +188,6 @@ a:hover{
 }
 .comments .sub-comment{
 	margin-left: 50px;
-}
-.sub-comment li{
-	margin-bottom: 20px;
 }
 .content .btn-new-topic {
 	height: 50px;
@@ -216,6 +238,10 @@ a:hover{
 }
 .panel-right-content ul li{
 	color: #999999;
+}
+.remove-space{
+	height: 20px;
+    width: 100%;
 }
 /* FORUM */
 .forum h4,
@@ -304,6 +330,9 @@ a:hover{
     height: 40px;
     border-radius: 0px;
 }
+#modal-login .login-error{
+	padding: 5px;
+}
 /* SUB TOPIC */
 .sub-topic .content{
 	background-color: white;
@@ -347,7 +376,19 @@ a:hover{
     float: right;
 }
 /* LEFT CONTENT */
-.left-content {
+.left-content{
+	background-color: #ffffff;
+	width: 20%;
+	height: 500px;
+	text-align: center;
+}
+/* CENTER CONTENT */
+.center-content {
 	-webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
     transition: width 2s;
+    width: 60%;
+}
+/* RIGHT CONTENT */
+.right-content{
+	width: 20%;
 }

@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -18,17 +22,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername( String username ) throws UsernameNotFoundException {
-        User u = userRepository.findByUsername( username );
-        return u;
+        return userRepository.findByUsername( username );
     }
 
     public User findById( Long id ) throws AccessDeniedException {
-        User u = userRepository.findOne( id );
-        return u;
+        return userRepository.findOne( id );
     }
 
     public List<User> findAll() throws AccessDeniedException {
-        List<User> result = userRepository.findAll();
-        return result;
+        return userRepository.findAll();
     }
 }

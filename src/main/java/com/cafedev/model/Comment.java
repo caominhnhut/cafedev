@@ -17,6 +17,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
+
 @Entity
 @Table(name = "COMMENT")
 public class Comment{

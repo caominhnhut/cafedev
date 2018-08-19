@@ -1,11 +1,13 @@
 package com.cafedev.dto;
 
-//import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.cafedev.model.Comment;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
 public class CommentDTO {
 
 	private Long id;

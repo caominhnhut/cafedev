@@ -13,6 +13,10 @@
 <script src="js/angular-1.4.5/angular-route.js"></script>
 
 <script src="js/app/app.js"></script>
+<script src="js/app/services/const-uri.js"></script>
+
+<script src="js/app/services/authentication-service.js"></script>
+
 <script src="js/app/controllers/index-controller.js"></script>
 <script src="js/app/controllers/home-controller.js"></script>
 <script src="js/app/controllers/forum-controller.js"></script>
@@ -35,7 +39,18 @@
 				</h2>
 			</div>
 			<div class="col-md-8">
-				<ul class="list-inline">
+				<!-- will be shown after log on -->
+				<div class="dropdown user-profile" ng-show="authenticated" ng-cloak>
+					<button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
+					Hi ! {{username}}
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a href="#">Setting</a></li>
+						<li><a href="javascript:void(0)" ng-click="logout()">Log out</a></li>
+					</ul>
+				</div>
+				<!-- should be dispaly if user has not log on yet -->
+				<ul class="list-inline" ng-hide="authenticated">
 					<li><a href="#" data-toggle="modal" data-target="#modal-login">
 							<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;Login
 					</a></li>
@@ -52,10 +67,10 @@
 	</div>
 	<div class="search">
 		<ul>
-			<li><a class="active" href="#/">HOME</a></li>
-			<li><a href="#/forum">FORUM</a></li>
-			<li><a href="">YOUR TOPICS</a></li>
-			<li><a href="">iCOURSE</a></li>
+			<li><a ng-class="{'active':className=='home'}"  ng-click="setClass('home')" href="javascript:void(0)">HOME</a></li>
+			<li><a ng-class="{'active':className=='forum'}" ng-click="setClass('forum')" href="javascript:void(0)">FORUM</a></li>
+			<li><a ng-class="{'active':className=='programmes'}" href="#/programs">PROGRAMMES</a></li>
+			<li><a ng-class="{'active':className=='notify'}" href="#/notify">NOTIFY &nbsp; <span class="notify">20</span></a></li>
 			<li class="search-control">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Search"
@@ -71,17 +86,18 @@
 	</div>
 	<div class="content">
 		<div class="row">
-			<div class="col-md-9 left-content" ng-style="isFullScreen == true ? {'width': '100%'} : {'width': '75%'}">
+			<div class="col-md-3 left-content" ng-hide="isFullScreen">Advertising</div>
+			<div class="col-md-6 center-content" ng-style="isFullScreen == true ? {'width': '100%'} : {'width': '60%'}">
 				<!-- MAP -->
 				<div class="home">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;
-					<a href="">Cafe Dev</a> 
+					<a href="#/">Cafe Dev</a> 
 					<span ng-click="fullScreen()" class="glyphicon glyphicon-align-justify full-screen" aria-hidden="true"></span>
 				</div>
 				<!-- END MAP -->
 				<div ng-view></div>
 			</div>
-			<div class="col-md-3" ng-hide="isFullScreen">
+			<div class="col-md-3 right-content" ng-hide="isFullScreen">
 
 				<a href="#/add-feed" class="btn btn-warning btn-new-topic">
 					<b>POST NEW TOPIC</b>

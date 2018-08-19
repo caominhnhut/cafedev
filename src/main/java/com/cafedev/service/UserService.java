@@ -5,8 +5,9 @@ import com.cafedev.model.User;
 import java.util.List;
 
 /**
- * Created by fan.jin on 2016-10-15.
+ * Created by Nhut Nguyen on 01-07-2018.
  */
+
 public interface UserService {
     User findById(Long id);
     User findByUsername(String username);

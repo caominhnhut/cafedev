@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by fanjin on 2017-10-16.
+ * Created by Nhut Nguyen on 01-07-2018.
  */
 @Component
 public class DeviceProvider {

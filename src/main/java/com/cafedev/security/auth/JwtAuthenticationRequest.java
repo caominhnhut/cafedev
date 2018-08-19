@@ -1,8 +1,9 @@
 package com.cafedev.security.auth;
 
 /**
- * Created by fanjin on 2017-10-09.
+ * Created by Nhut Nguyen on 01-07-2018.
  */
+
 public class JwtAuthenticationRequest {
     private String username;
     private String password;

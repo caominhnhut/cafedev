@@ -2,6 +2,9 @@ package com.cafedev.dto;
 
 import com.cafedev.enums.ESortType;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
 public class Metadata {
 
 	private Pagination pagination;

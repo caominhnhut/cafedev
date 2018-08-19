@@ -1,10 +1,13 @@
 package com.cafedev.repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
 
 public abstract class AbstractJpaRepository<T> {
 

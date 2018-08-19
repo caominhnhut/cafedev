@@ -14,6 +14,10 @@ import org.springframework.security.core.GrantedAuthority;
 import com.cafedev.enums.EUserRoleName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
+
 @Entity
 @Table(name="ROLE")
 public class Role implements GrantedAuthority {

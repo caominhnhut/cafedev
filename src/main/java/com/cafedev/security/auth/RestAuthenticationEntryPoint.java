@@ -1,9 +1,5 @@
 package com.cafedev.security.auth;
 
-/**
- * Created by fan.jin on 2016-11-12.
- */
-
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -13,8 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by fan.jin on 2016-11-07.
+ * Created by Nhut Nguyen on 01-07-2018.
  */
+
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

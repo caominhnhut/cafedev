@@ -14,8 +14,11 @@ import org.springframework.stereotype.Repository;
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.model.Feed;
 import com.cafedev.repository.AbstractJpaRepository;
-import com.cafedev.repository.CommentRepository;
 import com.cafedev.repository.FeedRepository;
+
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
 
 @Repository
 public class FeedRepositoryImpl extends AbstractJpaRepository<Feed> implements
@@ -24,16 +27,13 @@ public class FeedRepositoryImpl extends AbstractJpaRepository<Feed> implements
 	@Autowired
 	private EntityManager em;
 
-	@Autowired
-	private CommentRepository commentRepository;
-
 	@Override
-	public List<Feed> findByOwnerId(RequestDTO<Long> request) {
+	public List<Feed> findByOwnerId(RequestDTO request, Long userId) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Feed> cq = cb.createQuery(Feed.class);
 		Root<Feed> root = cq.from(Feed.class);
 		cq.select(root);
-		cq.where(cb.equal(root.get("user").get("id"), request.getData()));
+		cq.where(cb.equal(root.get("user").get("id"), userId));
 
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
@@ -59,7 +59,7 @@ public class FeedRepositoryImpl extends AbstractJpaRepository<Feed> implements
 	}
 
 	@Override
-	public List<Feed> findLatest(RequestDTO<Long> request) {
+	public List<Feed> findLatest(RequestDTO request) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Feed> cq = cb.createQuery(Feed.class);
 		Root<Feed> root = cq.from(Feed.class);

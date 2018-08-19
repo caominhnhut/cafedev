@@ -1,35 +1,21 @@
 cafedevApp.factory('AuthService', function($http) {
-
-	var user = null;
-	var TOKEN_KEY = 'jwtToken';
-	var USERNAME_KEY = 'username';
-
-	var getUsername = function(){
-		return localStorage.getItem(USERNAME_KEY);
+	
+	
+	//------USER NAME------
+	var getValueByKey = function(key){
+		return localStorage.getItem(key);
 	}
 	
-	var setUsername = function(username) {
-		localStorage.setItem(USERNAME_KEY, username);
+	var setKeyValue = function(key, value) {
+		localStorage.setItem(key, value);
 	};
 	
-	var removeUsername = function() {
-		localStorage.removeItem(USERNAME_KEY);
-	};
-	
-	var getJwtToken = function() {
-		return localStorage.getItem(TOKEN_KEY);
-	};
-
-	var setJwtToken = function(token) {
-		localStorage.setItem(TOKEN_KEY, token);
-	};
-
-	var removeJwtToken = function() {
-		localStorage.removeItem(TOKEN_KEY);
+	var removeByKey = function(key) {
+		localStorage.removeItem(key);
 	};
 
 	var createAuthorizationTokenHeader = function() {
-		var token = getJwtToken();
+		var token = getValueByKey(TOKEN_KEY);
 		if (token) {
 			return {
 				"Authorization" : "Bearer " + token,
@@ -40,7 +26,7 @@ cafedevApp.factory('AuthService', function($http) {
 				'Content-Type' : 'application/json'
 			};
 		}
-	}
+	};
 
 	var getUser = function() {
 		return $http({
@@ -52,12 +38,9 @@ cafedevApp.factory('AuthService', function($http) {
 
 	return {
 		getUser : getUser,
-		getJwtToken : getJwtToken,
-		setJwtToken : setJwtToken,
-		removeJwtToken : removeJwtToken,
-		createAuthorizationTokenHeader : createAuthorizationTokenHeader,
-		getUsername : getUsername,
-		setUsername : setUsername,
-		removeUsername : removeUsername
+		getValueByKey : getValueByKey,
+		setKeyValue : setKeyValue,
+		removeByKey : removeByKey,
+		createAuthorizationTokenHeader : createAuthorizationTokenHeader
 	};
 });

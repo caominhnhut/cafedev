@@ -1,5 +1,8 @@
 package com.cafedev.dto;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
 public class Pagination {
 
 	private int offset;

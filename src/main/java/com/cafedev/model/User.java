@@ -29,6 +29,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.cafedev.enums.EStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
+
 @Entity
 @Table(name = "USERS", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"username", "email" }) })

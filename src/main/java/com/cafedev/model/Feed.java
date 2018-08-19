@@ -16,6 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
+
 @Entity
 @Table(name = "FEED")
 public class Feed{

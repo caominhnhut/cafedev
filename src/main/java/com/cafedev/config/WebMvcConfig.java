@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override

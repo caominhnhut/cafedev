@@ -19,6 +19,10 @@ import com.cafedev.model.Feed;
 import com.cafedev.repository.AbstractJpaRepository;
 import com.cafedev.repository.CommentRepository;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
+
 @Repository
 public class CommentRepositoryImpl extends AbstractJpaRepository<Comment> implements CommentRepository {
 
@@ -26,12 +30,12 @@ public class CommentRepositoryImpl extends AbstractJpaRepository<Comment> implem
 	private EntityManager em;
 	
 	@Override
-	public List<Comment> findByFeedId(RequestDTO<Long> request) {
+	public List<Comment> findByFeedId(RequestDTO request, Long feedId) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Comment> cq = cb.createQuery(Comment.class);
 		Root<Comment> comment = cq.from(Comment.class);
 		Join<Comment, Feed> join = comment.join("feed", JoinType.LEFT);
-		cq.where(cb.equal(join.get("id"), request.getData()));
+		cq.where(cb.equal(join.get("id"), feedId));
 		
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {

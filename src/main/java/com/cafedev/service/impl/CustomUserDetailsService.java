@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by fan.jin on 2016-10-31.
+ * Created by Nhut Nguyen on 01-07-2018.
  */
 
 @Service

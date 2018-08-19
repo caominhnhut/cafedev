@@ -1,5 +1,9 @@
 package com.cafedev.model;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
+
 public class UserTokenState {
     private String access_token;
     private Long expires_in;

@@ -18,6 +18,10 @@ import com.cafedev.repository.CommentRepository;
 import com.cafedev.repository.FeedRepository;
 import com.cafedev.service.FeedService;
 
+/**
+ * Created by Nhut Nguyen on 01-07-2018.
+ */
+
 @Service
 public class FeedServiceImpl implements FeedService {
 
@@ -31,13 +35,13 @@ public class FeedServiceImpl implements FeedService {
 	private CommentRepository commentRepository;
 	
 	@Override
-	public List<FeedDTO> findByOwnerId(RequestDTO<Long> request) {
+	public List<FeedDTO> findByOwnerId(RequestDTO request, Long userId) {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
-		List<Feed> feeds = feedRepository.findByOwnerId(request);
+		List<Feed> feeds = feedRepository.findByOwnerId(request, userId);
 		/*Get 3rd comments ***/
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
-			List<Comment> comments = commentRepository.findByFeedId(createRequest(feed.getId()));
+			List<Comment> comments = commentRepository.findByFeedId(createRequest(), feed.getId());
 			feed.getComments().addAll(comments);
 			FeedDTO feedDTO = new FeedDTO();
 			feedDTO.copyFrom(feed);
@@ -47,12 +51,12 @@ public class FeedServiceImpl implements FeedService {
 	}
 	
 	@Override
-	public List<FeedDTO> findLatest(RequestDTO<Long> request) {
+	public List<FeedDTO> findLatest(RequestDTO request) {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
 		List<Feed> feeds = feedRepository.findLatest(request);
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
-			List<Comment> comments = commentRepository.findByFeedId(createRequest(feed.getId()));
+			List<Comment> comments = commentRepository.findByFeedId(createRequest(), feed.getId());
 			feed.getComments().addAll(comments);
 			FeedDTO feedDTO = new FeedDTO();
 			feedDTO.copyFrom(feed);
@@ -61,14 +65,13 @@ public class FeedServiceImpl implements FeedService {
 		return feedDTOs;
 	}
 	
-	private RequestDTO<Long> createRequest(Long id){
-		RequestDTO<Long> requestComment = new RequestDTO<Long>();		
+	private RequestDTO createRequest(){
+		RequestDTO requestComment = new RequestDTO();		
 		Metadata metadata = new Metadata();
 		Pagination pagination = new Pagination(0, config.getMaxResult());
 		metadata.setPagination(pagination);
 		metadata.setSortType(ESortType.ASC);
 		metadata.setSortValue(config.getSortValue());
-		requestComment.setData(id);
 		requestComment.setMetadata(metadata);
 		return requestComment;
 	}

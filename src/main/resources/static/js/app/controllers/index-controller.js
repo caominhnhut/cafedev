@@ -5,10 +5,10 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	$scope.isError = false;
 	
 	$scope.loadPage = function(){
-		var token = authService.getJwtToken();
+		var token = authService.getValueByKey(TOKEN_KEY);
 		if(token != null){
 			$rootScope.authenticated = true;
-			$scope.username = authService.getUsername();
+			$scope.username = authService.getValueByKey(USERNAME_KEY);
 		}else{
 			$rootScope.authenticated = false;
 		}
@@ -34,38 +34,34 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		.then(function(res) {
 			$rootScope.authenticated = true;
 			$scope.isError = false;
-			authService.setJwtToken(res.data.access_token);
-			authService.setUsername($scope.credentials.username);
-			$scope.username = $scope.credentials.username;
+			authService.setKeyValue(TOKEN_KEY, res.data.access_token);
 			$('#modal-login').modal('hide');
-			$window.location.href = '#/';
+			authService.getUser()
+			.then(function(user) {
+				$scope.username = user.data.firstName+" "+user.data.lastName;
+				authService.setKeyValue(USERNAME_KEY, $scope.username);
+				authService.setKeyValue(USERID_KEY, user.data.id);
+				$window.location.href = '#/';
+			}).catch(function(error) {
+				alert("Server is busy now. Please try again later.");
+			});
 		})
 		.catch(function(response) {
 			$rootScope.authenticated = false;
 			$scope.isError = true;
-			authService.removeJwtToken();
-			authService.removeUsername();			
+			authService.removeByKey(TOKEN_KEY);
+			authService.removeByKey(USERNAME_KEY);
+			authService.removeByKey(USERID_KEY);
 		});
 	};
 	
 	$scope.logout = function(){
 		$rootScope.authenticated = false;
 		$scope.isError = false;
-		authService.removeJwtToken();
-		authService.removeUsername();
-	}
-	
-	$scope.getAllUserInfo = function() {
-		$http({
-		      headers: authService.createAuthorizationTokenHeader(),
-		      method: 'GET',
-		      url: 'api/user/all'
-		})
-		.then(function(res) {
-			console.log(res);
-		}).catch(function(response) {
-			console.log(response);
-		});
+		authService.removeByKey(TOKEN_KEY);
+		authService.removeByKey(USERNAME_KEY);
+		authService.removeByKey(USERID_KEY);
+		$window.location.reload();
 	}
 	
 	$scope.setClass = function(path){

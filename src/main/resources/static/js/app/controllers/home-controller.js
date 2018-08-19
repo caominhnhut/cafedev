@@ -2,11 +2,11 @@ cafedevApp.controller('HomeCtrl', ['$scope','$http','AuthService', '$window','$r
 function($scope, $http, authService, $window, $rootScope){
 
 	//Clear everything when browser close.
-	$scope.onExit = function() {
-		$rootScope.authenticated = false;
-		authService.removeJwtToken();
-		authService.removeUsername();
-	};	
+//	$scope.onExit = function() {
+//		$rootScope.authenticated = false;
+//		authService.removeJwtToken();
+//		authService.removeUsername();
+//	};	
 	//$window.onbeforeunload =  $scope.onExit;
 	
 	$scope.getFeedsByOwner = function(){
@@ -18,11 +18,35 @@ function($scope, $http, authService, $window, $rootScope){
 					},
 					"sortType": "DESC",
 					"sortValue": "createDate"
-				},
-				"data": 1
+				}
 			}
 		$http({
-			url: 'rest/feed/find-by-owner',
+			url: 'rest/feed/find-by-owner/'+authService.getValueByKey(USERID_KEY),
+			method: 'POST',
+			data: request,
+			headers: authService.createAuthorizationTokenHeader()
+		})
+		.then(function(res) {
+			$scope.feeds = res.data;
+		})
+		.catch(function(response) {
+			alert("Server is error, please try again!")
+		});
+	}
+	
+	$scope.getLatestFeeds = function(){
+		var request = {
+				"metadata": {
+					"pagination": {
+						"offset": 0,
+						"maxResult": 10
+					},
+					"sortType": "DESC",
+					"sortValue": "createDate"
+				}
+			}
+		$http({
+			url: 'rest/no-auth/feed/find-latest',
 			method: 'POST',
 			data: request,
 			headers: authService.createAuthorizationTokenHeader()
@@ -36,21 +60,16 @@ function($scope, $http, authService, $window, $rootScope){
 	}
 	
 	$scope.loadFeeds = function(){
-		var token = authService.getJwtToken();
+		var token = authService.getValueByKey(TOKEN_KEY);
 		if(token != null){
 			$rootScope.authenticated = true;
-			$scope.username = authService.getUsername();
+			$scope.username = authService.getValueByKey(USERNAME_KEY);
 			$scope.getFeedsByOwner();
-			authService.getUser()
-			.then(function(response) {
-				console.log(response);
-			})
-			.catch(function(response) {
-				console.log(response);
-			});
+			console.log("Find feeds by owner");
 		}else{
 			$rootScope.authenticated = false;
-			alert("401");
+			$scope.getLatestFeeds();
+			console.log("Find latest feeds");
 		}
 	}
 	$scope.loadFeeds();

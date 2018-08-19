@@ -22,7 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 /**
- * Created by fan.jin on 2016-10-19.
+ * Created by Nhut Nguyen on 01-07-2018.
  */
 
 @Configuration
@@ -88,7 +88,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // TokenAuthenticationFilter will ignore the below paths
         web.ignoring().antMatchers(
                 HttpMethod.POST,
-                "/auth/login"
+                "/auth/login",
+                "/rest/no-auth/feed/find-latest"
         );
         web.ignoring().antMatchers(
                 HttpMethod.GET,
