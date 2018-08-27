@@ -28,6 +28,15 @@ cafedevApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/add-feed', {
 		templateUrl : 'views/add-feed.html',
 		controller : 'AddFeedCtrl'
+	}).when('/programmes', {
+		templateUrl : 'views/programmes.html',
+		controller : 'ProgrammesCtrl'
+	}).when('/notify', {
+		templateUrl : 'views/notify.html',
+		controller : 'NotifyCtrl'
+	}).when('/about', {
+		templateUrl : 'views/about.html',
+		controller : 'AboutCtrl'
 	})
 	.otherwise({
 		redirectTo : '/'

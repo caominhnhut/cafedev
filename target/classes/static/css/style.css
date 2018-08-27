@@ -392,3 +392,108 @@ input:focus{
 .right-content{
 	width: 20%;
 }
+/* ABOUT */
+.about .left{
+	background-color: #307999;
+	border-left: 10px solid #1EAAF1;
+	padding-top: 20px;
+    text-align: center;
+    padding-bottom: 50px;
+   	height: 875px;
+}
+.about .left img{
+	width: 200px;
+    border-radius: 50%;
+}
+.about .right{
+	background-color: #CCCCCC;
+	height: 875px;
+}
+.about .left .contact-title,
+.about .left .about-title{
+    margin-top: 9px;
+    text-align: center;
+    color: white;
+    background-color: #347998;
+    width: 35%;
+    position: absolute;
+    margin-left: 28%;
+}
+.about .left .about-title{
+	width: 55%;
+    margin-left: 19%;
+}
+.about .left a{
+	color: #333333;
+}
+.about .left h5{
+	border-bottom: 1px solid;
+    height: 30px;
+}
+.about .left .advisor-item{
+	height: 300px;
+    border: 1px solid white;
+    border-top: 10px solid white;
+    border-bottom: 10px solid white;
+}
+.advisor-item ul{
+	padding-top: 10px;
+    color: white;
+}
+.advisor-item ul li{
+	height: 30px;
+}
+.about .right .header{
+	background: black;
+    height: 30px;
+    color: white;
+    text-align: center;
+    line-height: 2;
+}
+/* PROGRAMMES */
+.programmes .people{
+	background-color:  #1EAAF1;
+	color: white;
+	padding: 10px;
+	border-radius: 10px;
+	margin-bottom: 50px;
+}
+.programmes .people .des{
+	width: 70%;
+    border-left: 5px double white;
+    padding-left: 10px;
+}
+.programmes .reason{
+	background-color: #00CCCC;
+	color: white;
+	border-radius: 10px;
+	padding: 10px;
+	margin-bottom: 50px;
+}
+.programmes .reason .advantage{
+	width: 80%;
+    margin: auto;
+}
+.programmes .reason .advantage ul{
+	border-left: 10px solid;
+}
+.programmes .reason .advantage ul li{
+	margin-top: 50px;
+}
+.programmes .reason .advantage .round{
+    height: 50px;
+    background-color: white;
+    color: #21CCCB;
+    width: 50px;
+    border-radius: 50%;
+    margin-left: -30px;
+    margin-top: 10px;
+    font-size: 35px;
+}
+.programmes .process{
+	background-color: white;
+	color: #777777;
+	border-radius: 10px;
+	padding: 10px;
+	margin-bottom: 50px;
+}
