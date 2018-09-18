@@ -89,6 +89,13 @@ public class User implements UserDetails {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments = new ArrayList<Comment>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Article> articles = new ArrayList<Article>();
+
+	public List<Article> getArticles() {
+		return articles;
+	}
 
 	public List<Comment> getComments() {
 		return comments;

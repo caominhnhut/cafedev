@@ -46,3 +46,19 @@ insert into comment(id, content, create_date, parent_id, feed_id, owner_id) valu
 insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (16, 'Toyota Inova hân hạnh tài trợ chương trình này', CURRENT_TIMESTAMP(), 1, 1, 1);
 insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (17, 'O Viet Nam Toyota là so 1', CURRENT_TIMESTAMP(), 1, 1, 2);
 insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (18, 'Chính xác, toyota không đối thủ', CURRENT_TIMESTAMP(), 2, 1, 2);
+#topic
+insert into topic(id, name, create_date) values (1, 'JAVA PROGRAMMING', CURRENT_TIMESTAMP());
+insert into topic(id, name, create_date) values (2, 'FONT END', CURRENT_TIMESTAMP());
+insert into topic(id, name, create_date) values (3, 'DATABASE', CURRENT_TIMESTAMP());
+#article
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (1, 'Java 1', 'Java can ban 1', 'qqqqqqqqqq', CURRENT_TIMESTAMP(), 1, 1);
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (2, 'Java 2', 'Java can ban 2', 'wwwwwwww', CURRENT_TIMESTAMP(), 1, 1);
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (3, 'Java 3', 'Java can ban 3', 'eeeeeeeeeee', CURRENT_TIMESTAMP(), 1, 1);
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (4, 'Java 4', 'Java can ban 4', 'rrrrrrrrrrrrrrrrrr', CURRENT_TIMESTAMP(), 1, 1);
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (5, 'Java 5', 'Java can ban 5', 'ttttttttttttttttttttt', CURRENT_TIMESTAMP(), 1, 1);
+
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (6, 'Fontend 1', 'Front end can ban 1', 'uuuuuuuuuuu', CURRENT_TIMESTAMP(), 2, 2);
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (7, 'Front end 2', 'Front end can ban 2', 'iiiiiiiiiiiiiiiiiiiiiiii', CURRENT_TIMESTAMP(), 2, 2);
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (8, 'Front end 3', 'Front end can ban 3', 'oooooooooooo', CURRENT_TIMESTAMP(), 2, 2);
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (9, 'Front end 4', 'Front end can ban 4', 'pppppppppppp', CURRENT_TIMESTAMP(), 2, 2);
+insert into article(id, name, description, content, create_date, topic_id, owner_id) values (10, 'Front end 5', 'Front end can ban 5', 'aaaaaaaaaaa', CURRENT_TIMESTAMP(), 2, 2);
