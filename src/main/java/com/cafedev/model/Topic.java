@@ -32,6 +32,9 @@ public class Topic {
 
 	@Column(name = "create_date")
 	private Date createDate;
+	
+	@Column(name = "order_id")
+	private Long orderId;
 
 	@OneToMany(mappedBy = "topic", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Article> articles = new ArrayList<Article>();
@@ -66,5 +69,13 @@ public class Topic {
 
 	public void setArticles(List<Article> articles) {
 		this.articles = articles;
+	}
+	
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
 	}
 }

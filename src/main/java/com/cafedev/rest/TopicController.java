@@ -3,6 +3,7 @@ package com.cafedev.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,11 @@ public class TopicController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="topic")
 	public ResponseEntity<List<TopicDTO>> findAll(){
-		return null;
+		List<TopicDTO> topicDtos = topicService.findAll();
+		if(topicDtos == null){
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<TopicDTO>>(topicDtos, HttpStatus.OK);
 	}
 
 }

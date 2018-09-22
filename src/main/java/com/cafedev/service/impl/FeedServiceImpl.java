@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.cafedev.config.AppConfigurationProperties;
 import com.cafedev.dto.FeedDTO;
-import com.cafedev.dto.Metadata;
-import com.cafedev.dto.Pagination;
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.enums.ESortType;
 import com.cafedev.model.Comment;
@@ -39,9 +37,11 @@ public class FeedServiceImpl implements FeedService {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
 		List<Feed> feeds = feedRepository.findByOwnerId(request, userId);
 		/*Get 3rd comments ***/
+		RequestDTO requestDto = RequestDTO.getInstance();
+		requestDto.createRequest(config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
-			List<Comment> comments = commentRepository.findByFeedId(createRequest(), feed.getId());
+			List<Comment> comments = commentRepository.findByFeedId(requestDto, feed.getId());
 			feed.getComments().addAll(comments);
 			FeedDTO feedDTO = new FeedDTO();
 			feedDTO.copyFrom(feed);
@@ -54,25 +54,16 @@ public class FeedServiceImpl implements FeedService {
 	public List<FeedDTO> findLatest(RequestDTO request) {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
 		List<Feed> feeds = feedRepository.findLatest(request);
+		RequestDTO requestDto = RequestDTO.getInstance();
+		requestDto.createRequest(config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
-			List<Comment> comments = commentRepository.findByFeedId(createRequest(), feed.getId());
+			List<Comment> comments = commentRepository.findByFeedId(requestDto, feed.getId());
 			feed.getComments().addAll(comments);
 			FeedDTO feedDTO = new FeedDTO();
 			feedDTO.copyFrom(feed);
 			feedDTOs.add(feedDTO);
 		}
 		return feedDTOs;
-	}
-	
-	private RequestDTO createRequest(){
-		RequestDTO requestComment = new RequestDTO();		
-		Metadata metadata = new Metadata();
-		Pagination pagination = new Pagination(0, config.getMaxResult());
-		metadata.setPagination(pagination);
-		metadata.setSortType(ESortType.ASC);
-		metadata.setSortValue(config.getSortValue());
-		requestComment.setMetadata(metadata);
-		return requestComment;
 	}
 }

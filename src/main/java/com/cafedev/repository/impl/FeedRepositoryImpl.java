@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafedev.config.AppConfigurationProperties;
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.model.Feed;
 import com.cafedev.repository.AbstractJpaRepository;
@@ -26,6 +27,9 @@ public class FeedRepositoryImpl extends AbstractJpaRepository<Feed> implements
 
 	@Autowired
 	private EntityManager em;
+	
+	@Autowired
+	private AppConfigurationProperties config;
 
 	@Override
 	public List<Feed> findByOwnerId(RequestDTO request, Long userId) {

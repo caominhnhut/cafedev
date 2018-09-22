@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cafedev.model.Topic;
 
-public interface TopicReposiroty {
+public interface TopicRepository {
 
 	public List<Topic> findAll();
 }

@@ -16,12 +16,12 @@ import com.cafedev.dto.Metadata;
 import com.cafedev.dto.Pagination;
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.enums.ESortType;
-import com.cafedev.model.Topic;
+import com.cafedev.model.Article;
 import com.cafedev.repository.AbstractJpaRepository;
-import com.cafedev.repository.TopicRepository;
+import com.cafedev.repository.ArticleRepository;
 
 @Repository
-public class TopicRepositoryImpl extends AbstractJpaRepository<Topic> implements TopicRepository{
+public class ArticleRepositoryImpl extends AbstractJpaRepository<Article> implements ArticleRepository{
 
 	@Autowired
 	EntityManager em;
@@ -30,13 +30,14 @@ public class TopicRepositoryImpl extends AbstractJpaRepository<Topic> implements
 	AppConfigurationProperties config;
 	
 	@Override
-	public List<Topic> findAll() {
+	public List<Article> findByTopicId(Long topicId) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Topic> cq = cb.createQuery(Topic.class);
-		Root<Topic> root = cq.from(Topic.class);
-		cq.select(root);
+		CriteriaQuery<Article> cq = cb.createQuery(Article.class);
+		Root<Article> root = cq.from(Article.class);
+		cq.where(cb.equal(root.get("topic").get("id"), topicId));
+		
 		RequestDTO request = RequestDTO.getInstance();
-		request.createRequest(config.getMaxTopicNumber(), ESortType.DESC, config.getSortTopicValue());
+		request.createRequest(config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:

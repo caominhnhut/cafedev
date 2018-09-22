@@ -16,9 +16,15 @@ public class AppConfigurationProperties {
 
 	@Value("${max-result}")
 	private int maxResult;
+	
+	@Value("${max-topic-number}")
+	private int maxTopicNumber;
 
 	@Value("${sort-value}")
 	private String sortValue;
+	
+	@Value("${sort-topic-value}")
+	private String sortTopicValue;
 	
 	public String getSortValue() {
 		return sortValue;
@@ -34,5 +40,21 @@ public class AppConfigurationProperties {
 
 	public void setMaxResult(int maxResult) {
 		this.maxResult = maxResult;
+	}
+	
+	public int getMaxTopicNumber() {
+		return maxTopicNumber;
+	}
+
+	public void setMaxTopicNumber(int maxTopicNumber) {
+		this.maxTopicNumber = maxTopicNumber;
+	}
+
+	public String getSortTopicValue() {
+		return sortTopicValue;
+	}
+
+	public void setSortTopicValue(String sortTopicValue) {
+		this.sortTopicValue = sortTopicValue;
 	}
 }

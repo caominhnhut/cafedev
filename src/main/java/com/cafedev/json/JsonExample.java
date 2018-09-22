@@ -12,7 +12,7 @@ public class JsonExample {
 	public static Gson gson = new Gson();
 	
 	public static void genReuestDTO(){
-		RequestDTO req = new RequestDTO();
+		RequestDTO req = RequestDTO.getInstance();
 		req.setMetadata(new Metadata());
 		String json = gson.toJson(req);
 		System.out.println(json);
