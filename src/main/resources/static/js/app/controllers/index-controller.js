@@ -1,7 +1,7 @@
 cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$location', 'AuthService','$window',
 function($scope, $http, $rootScope, $location, authService, $window){
 	
-	$scope.isFullScreen = true;
+	$scope.isFullScreen = false;
 	$scope.isError = false;
 	
 	$scope.loadPage = function(){

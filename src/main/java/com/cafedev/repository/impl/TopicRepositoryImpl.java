@@ -36,7 +36,7 @@ public class TopicRepositoryImpl extends AbstractJpaRepository<Topic> implements
 		Root<Topic> root = cq.from(Topic.class);
 		cq.select(root);
 		RequestDTO request = RequestDTO.getInstance();
-		request.createRequest(config.getMaxTopicNumber(), ESortType.DESC, config.getSortTopicValue());
+		request.createRequest(config.getMaxTopicNumber(), ESortType.ASC, config.getSortTopicValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:
