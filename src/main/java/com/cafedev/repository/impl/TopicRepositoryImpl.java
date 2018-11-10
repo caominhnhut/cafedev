@@ -35,8 +35,8 @@ public class TopicRepositoryImpl extends AbstractJpaRepository<Topic> implements
 		CriteriaQuery<Topic> cq = cb.createQuery(Topic.class);
 		Root<Topic> root = cq.from(Topic.class);
 		cq.select(root);
-		RequestDTO request = RequestDTO.getInstance();
-		request.createRequest(config.getMaxTopicNumber(), ESortType.ASC, config.getSortTopicValue());
+		RequestDTO request = new RequestDTO<>();
+		request.createMetadata(config.getMaxTopicNumber(), ESortType.ASC, config.getSortTopicValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:

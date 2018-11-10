@@ -30,12 +30,12 @@ public class CommentRepositoryImpl extends AbstractJpaRepository<Comment> implem
 	private EntityManager em;
 	
 	@Override
-	public List<Comment> findByFeedId(RequestDTO request, Long feedId) {
+	public List<Comment> findByFeedId(RequestDTO<Long> request) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Comment> cq = cb.createQuery(Comment.class);
 		Root<Comment> comment = cq.from(Comment.class);
-		Join<Comment, Feed> join = comment.join("feed", JoinType.LEFT);
-		cq.where(cb.equal(join.get("id"), feedId));
+		cq.select(comment);
+		cq.where(cb.equal(comment.get("feed").get("id"), request.getData()));
 		
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {

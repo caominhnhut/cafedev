@@ -5,31 +5,27 @@ import com.cafedev.enums.ESortType;
 /**
  * Created by Nhut Nguyen on 01-07-2018.
  */
-public class RequestDTO {
+public class RequestDTO<T> {
 
 	private Metadata metadata;
-	private static RequestDTO instance = new RequestDTO();
+	private T data;
 	
-	private RequestDTO(){};
-
-	public static RequestDTO getInstance(){
-		return instance; 
-	}
+	public RequestDTO(){};
 	
-	public void createRequest(int maxNumber, ESortType sortType, String sortValue){
-		Metadata metadata = new Metadata();
+	public void createMetadata(int maxNumber, ESortType sortType, String sortValue){
 		Pagination pagination = new Pagination(0, maxNumber);
-		metadata.setPagination(pagination);
-		metadata.setSortType(sortType);
-		metadata.setSortValue(sortValue);
-		this.metadata = metadata;
+		metadata = new Metadata(pagination, sortType, sortValue);
 	}
 	
 	public Metadata getMetadata() {
 		return metadata;
 	}
 
-	public void setMetadata(Metadata metadata) {
-		this.metadata = metadata;
+	public T getData() {
+		return data;
+	}
+
+	public void setData(T data) {
+		this.data = data;
 	}
 }

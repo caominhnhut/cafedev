@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cafedev.dto.RequestDTO;
 import com.cafedev.dto.TopicDTO;
 import com.cafedev.model.Article;
 import com.cafedev.model.Topic;
@@ -38,5 +39,10 @@ public class TopicServiceImpl implements TopicService {
 			}
 		}
 		return topicDtos;
+	}
+
+	@Override
+	public List<TopicDTO> findById(RequestDTO<Long> request) {
+		return null;
 	}
 }

@@ -18,10 +18,11 @@ function($scope, $http, authService, $window, $rootScope){
 					},
 					"sortType": "DESC",
 					"sortValue": "createDate"
-				}
+				},
+				"data": authService.getValueByKey(USERID_KEY)
 			}
 		$http({
-			url: 'rest/feed/find-by-owner/'+authService.getValueByKey(USERID_KEY),
+			url: 'rest/feed/find-by-owner/',
 			method: 'POST',
 			data: request,
 			headers: authService.createAuthorizationTokenHeader()

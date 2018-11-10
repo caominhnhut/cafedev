@@ -36,8 +36,8 @@ public class ArticleRepositoryImpl extends AbstractJpaRepository<Article> implem
 		Root<Article> root = cq.from(Article.class);
 		cq.where(cb.equal(root.get("topic").get("id"), topicId));
 		
-		RequestDTO request = RequestDTO.getInstance();
-		request.createRequest(config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
+		RequestDTO request = new RequestDTO<>();
+		request.createMetadata(config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:

@@ -11,5 +11,5 @@ import com.cafedev.model.Comment;
 
 public interface CommentRepository {
 
-	List<Comment> findByFeedId(RequestDTO request, Long feedId);
+	List<Comment> findByFeedId(RequestDTO<Long> request);
 }

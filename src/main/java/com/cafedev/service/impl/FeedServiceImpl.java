@@ -33,15 +33,16 @@ public class FeedServiceImpl implements FeedService {
 	private CommentRepository commentRepository;
 	
 	@Override
-	public List<FeedDTO> findByOwnerId(RequestDTO request, Long userId) {
+	public List<FeedDTO> findByOwnerId(RequestDTO<Long> request) {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
-		List<Feed> feeds = feedRepository.findByOwnerId(request, userId);
+		List<Feed> feeds = feedRepository.findByOwnerId(request);
 		/*Get 3rd comments ***/
-		RequestDTO requestDto = RequestDTO.getInstance();
-		requestDto.createRequest(config.getMaxResult(), ESortType.ASC, config.getSortValue());
+		RequestDTO requestDto = new RequestDTO<Long>();
+		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
-			List<Comment> comments = commentRepository.findByFeedId(requestDto, feed.getId());
+			requestDto.setData(feed.getId());
+			List<Comment> comments = commentRepository.findByFeedId(requestDto);
 			feed.getComments().addAll(comments);
 			FeedDTO feedDTO = new FeedDTO();
 			feedDTO.copyFrom(feed);
@@ -54,11 +55,12 @@ public class FeedServiceImpl implements FeedService {
 	public List<FeedDTO> findLatest(RequestDTO request) {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
 		List<Feed> feeds = feedRepository.findLatest(request);
-		RequestDTO requestDto = RequestDTO.getInstance();
-		requestDto.createRequest(config.getMaxResult(), ESortType.ASC, config.getSortValue());
+		RequestDTO requestDto = new RequestDTO<>();
+		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
-			List<Comment> comments = commentRepository.findByFeedId(requestDto, feed.getId());
+			requestDto.setData(feed.getId());
+			List<Comment> comments = commentRepository.findByFeedId(requestDto);
 			feed.getComments().addAll(comments);
 			FeedDTO feedDTO = new FeedDTO();
 			feedDTO.copyFrom(feed);

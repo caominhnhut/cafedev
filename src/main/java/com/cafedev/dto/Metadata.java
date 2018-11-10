@@ -7,14 +7,19 @@ import com.cafedev.enums.ESortType;
  */
 public class Metadata {
 
-	private Pagination pagination;
+	private Pagination pagination = new Pagination();
 	private ESortType sortType;
 	private String sortValue;
 
 	public Metadata(){
-		pagination = new Pagination();
 		sortType = ESortType.DESC;
 		sortValue = "createDate";
+	}
+	
+	public Metadata(Pagination pagination, ESortType sortType, String sortValue){
+		this.pagination = pagination;
+		this.sortType = sortType;
+		this.sortValue = sortValue;
 	}
 	
 	public Pagination getPagination() {
