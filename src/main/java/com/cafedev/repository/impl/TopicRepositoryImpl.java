@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafedev.config.AppConfigurationProperties;
-import com.cafedev.dto.Metadata;
-import com.cafedev.dto.Pagination;
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.enums.ESortType;
 import com.cafedev.model.Topic;
