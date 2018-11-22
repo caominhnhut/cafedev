@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.cafedev.step.Processor;
-import com.cafedev.step.Reader;
-import com.cafedev.step.Writer;
+import com.cafedev.batchstep.simple.Processor;
+import com.cafedev.batchstep.simple.Reader;
+import com.cafedev.batchstep.simple.Writer;
 
 @Configuration
 @EnableBatchProcessing
-public class BatchConfig {
+public class BatchConfigSimple {
 
 	@Autowired
 	public JobBuilderFactory jobBuilderFactory;

@@ -11,10 +11,8 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cafedev.config.AppConfigurationProperties;
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.model.Feed;
-import com.cafedev.repository.AbstractJpaRepository;
 import com.cafedev.repository.FeedRepository;
 
 /**
@@ -22,14 +20,10 @@ import com.cafedev.repository.FeedRepository;
  */
 
 @Repository
-public class FeedRepositoryImpl extends AbstractJpaRepository<Feed> implements
-		FeedRepository {
+public class FeedRepositoryImpl implements FeedRepository {
 
 	@Autowired
 	private EntityManager em;
-	
-	@Autowired
-	private AppConfigurationProperties config;
 
 	@Override
 	public List<Feed> findByOwnerId(RequestDTO<Long> request) {
@@ -63,7 +57,7 @@ public class FeedRepositoryImpl extends AbstractJpaRepository<Feed> implements
 	}
 
 	@Override
-	public List<Feed> findLatest(RequestDTO request) {
+	public List<Feed> findLatest(RequestDTO<Object> request) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Feed> cq = cb.createQuery(Feed.class);
 		Root<Feed> root = cq.from(Feed.class);
@@ -85,6 +79,7 @@ public class FeedRepositoryImpl extends AbstractJpaRepository<Feed> implements
 			query.setFirstResult(request.getMetadata().getPagination().getOffset());
 			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
 		}
+		
 		return query.getResultList();
 	}
 }

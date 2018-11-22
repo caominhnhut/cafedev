@@ -11,5 +11,7 @@ public class Execute {
 //		json.createJson();
 //		json = jsonFactory.getJsonRequest(ERequestType.REQUEST_ARTICLE);
 //		json.createJson();
+//		json = jsonFactory.getJsonRequest(ERequestType.REQUEST_USER);
+//		json.createJson();
 //	}
 }

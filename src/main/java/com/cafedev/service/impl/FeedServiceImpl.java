@@ -37,7 +37,7 @@ public class FeedServiceImpl implements FeedService {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
 		List<Feed> feeds = feedRepository.findByOwnerId(request);
 		/*Get 3rd comments ***/
-		RequestDTO requestDto = new RequestDTO<Long>();
+		RequestDTO<Long> requestDto = new RequestDTO<Long>();
 		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
@@ -52,10 +52,10 @@ public class FeedServiceImpl implements FeedService {
 	}
 	
 	@Override
-	public List<FeedDTO> findLatest(RequestDTO request) {
+	public List<FeedDTO> findLatest(RequestDTO<Object> request) {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
 		List<Feed> feeds = feedRepository.findLatest(request);
-		RequestDTO requestDto = new RequestDTO<>();
+		RequestDTO<Long> requestDto = new RequestDTO<Long>();
 		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();

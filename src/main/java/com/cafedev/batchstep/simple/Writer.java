@@ -1,4 +1,4 @@
-package com.cafedev.step;
+package com.cafedev.batchstep.simple;
 
 import java.util.List;
 

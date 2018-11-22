@@ -23,30 +23,30 @@ public class JobLauncherController {
 	Job simpleJob;
 	
 	@Autowired
-	@Qualifier("importStudentJob")
-	Job importStudentJob;
+	@Qualifier("importUserJob")
+	Job importUser;
 	
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping("no-auth/launchjob")
-	public String handle() throws Exception{
+	public String handle(){
 		try {
 			JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
 			jobLauncher.run(simpleJob, jobParameters);
 		} catch (Exception e) {
-			log.info(e.getMessage());
+			log.error(e.getMessage());
 		}
 		return "Done";
 	}
 	
-	@RequestMapping("no-auth/launchjob-student")
+	@RequestMapping("no-auth/import-user")
 	public String importStudent() throws Exception{
 		try {
 			JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
-			jobLauncher.run(importStudentJob, jobParameters);
+			jobLauncher.run(importUser, jobParameters);
 		} catch (Exception e) {
-			log.info(e.getMessage());
+			log.error(e.getMessage());
 		}
-		return "Finish";
+		return "Done";
 	}
 }

@@ -20,8 +20,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Created by Nhut Nguyen on 01-07-2018.
  */
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "USERS", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"username", "email" }) })
@@ -44,22 +43,15 @@ public class User implements UserDetails {
 	private Long id;
 
 	@Column(name = "username")
-	@Min(4)
-	@Max(20)
 	private String username;
 
-	@JsonIgnore
 	@Column(name = "password")
 	private String password;
 
 	@Column(name = "first_name", nullable = true)
-	@Min(4)
-	@Max(20)
 	private String firstName;
 
 	@Column(name = "last_name", nullable = true)
-	@Min(4)
-	@Max(20)
 	private String lastName;
 
 	@Column(name = "email", length = 50)
@@ -78,11 +70,15 @@ public class User implements UserDetails {
 	@Column(name = "create_date")
 	private Date createDate;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", 
 	joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
 	inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private List<Role> roles = new ArrayList<Role>();
+
+	public List<Role> getRoles() {
+		return roles;
+	}
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Feed> feeds = new ArrayList<Feed>();

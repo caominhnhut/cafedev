@@ -85,8 +85,6 @@ public class AuthenticationController {
 		Device device = deviceProvider.getCurrentDevice(request);
 
 		if (authToken != null && principal != null) {
-
-			// TODO check user password last update
 			String refreshedToken = tokenHelper.refreshToken(authToken, device);
 			int expiresIn = tokenHelper.getExpiredIn(device);
 

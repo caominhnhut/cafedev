@@ -15,11 +15,10 @@ import com.cafedev.config.AppConfigurationProperties;
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.enums.ESortType;
 import com.cafedev.model.Topic;
-import com.cafedev.repository.AbstractJpaRepository;
 import com.cafedev.repository.TopicRepository;
 
 @Repository
-public class TopicRepositoryImpl extends AbstractJpaRepository<Topic> implements TopicRepository{
+public class TopicRepositoryImpl implements TopicRepository{
 
 	@Autowired
 	EntityManager em;
@@ -33,7 +32,7 @@ public class TopicRepositoryImpl extends AbstractJpaRepository<Topic> implements
 		CriteriaQuery<Topic> cq = cb.createQuery(Topic.class);
 		Root<Topic> root = cq.from(Topic.class);
 		cq.select(root);
-		RequestDTO request = new RequestDTO<>();
+		RequestDTO<Object> request = new RequestDTO<>();
 		request.createMetadata(config.getMaxTopicNumber(), ESortType.ASC, config.getSortTopicValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {

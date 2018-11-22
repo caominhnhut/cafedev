@@ -6,10 +6,13 @@ public class JsonFactory {
 		JsonRequest request = null;
 		switch (requestType) {
 		case REQUEST_ID:
-			request = new LongRequestDTO();
+			request = new IdRequestDTO();
 			break;
 		case REQUEST_ARTICLE:
 			request = new ArticleRequestDTO();
+			break;
+		case REQUEST_USER:
+			request = new UserRequestFactory();
 			break;
 		default:
 			break;

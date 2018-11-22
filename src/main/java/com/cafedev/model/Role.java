@@ -18,40 +18,50 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Created by Nhut Nguyen on 01-07-2018.
  */
 
+@SuppressWarnings("serial")
 @Entity
-@Table(name="ROLE")
+@Table(name = "ROLE")
 public class Role implements GrantedAuthority {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
 
-    @Enumerated( EnumType.STRING)
-    @Column(name="name")
-    EUserRoleName name;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "name")
+	EUserRoleName name;
 
-    @Override
-    public String getAuthority() {
-        return name.name();
-    }
+	public Role(){
+		
+	}
+	
+	public Role(Long id, EUserRoleName name) {
+		this.id = id;
+		this.name = name;
+	}
 
-    public void setName(EUserRoleName name) {
-        this.name = name;
-    }
+	@Override
+	public String getAuthority() {
+		return name.name();
+	}
 
-    @JsonIgnore
-    public EUserRoleName getName() {
-        return name;
-    }
+	public void setName(EUserRoleName name) {
+		this.name = name;
+	}
 
-    @JsonIgnore
-    public Long getId() {
-        return id;
-    }
+	@JsonIgnore
+	public EUserRoleName getName() {
+		return name;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@JsonIgnore
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 }

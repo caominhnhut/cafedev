@@ -12,16 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafedev.config.AppConfigurationProperties;
-import com.cafedev.dto.Metadata;
-import com.cafedev.dto.Pagination;
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.enums.ESortType;
 import com.cafedev.model.Article;
-import com.cafedev.repository.AbstractJpaRepository;
 import com.cafedev.repository.ArticleRepository;
 
 @Repository
-public class ArticleRepositoryImpl extends AbstractJpaRepository<Article> implements ArticleRepository{
+public class ArticleRepositoryImpl implements ArticleRepository{
 
 	@Autowired
 	EntityManager em;
@@ -36,7 +33,7 @@ public class ArticleRepositoryImpl extends AbstractJpaRepository<Article> implem
 		Root<Article> root = cq.from(Article.class);
 		cq.where(cb.equal(root.get("topic").get("id"), topicId));
 		
-		RequestDTO request = new RequestDTO<>();
+		RequestDTO<Object> request = new RequestDTO<>();
 		request.createMetadata(config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
