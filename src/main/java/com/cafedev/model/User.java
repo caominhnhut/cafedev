@@ -88,6 +88,9 @@ public class User implements UserDetails {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Article> articles = new ArrayList<Article>();
+	
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Examination_User> examinations = new ArrayList<>();
 
 	public List<Article> getArticles() {
 		return articles;
@@ -205,4 +208,12 @@ public class User implements UserDetails {
 		this.avatar = avatar;
 	}
 
+	public List<Examination_User> getExaminations() {
+		return examinations;
+	}
+
+	public void setExaminations(List<Examination_User> examinations) {
+		this.examinations = examinations;
+	}
+	
 }

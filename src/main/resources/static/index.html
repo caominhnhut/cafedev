@@ -165,11 +165,9 @@
 				</div>
 				<div class="panel-right-content">
 					<ol>
-						<li><a href="#/examination/1">Examination 01</a></li>
-						<li><a href="">Examination 02</a></li>
-						<li><a href="">Examination 03</a></li>
-						<li><a href="">Examination 04</a></li>
-						<li><a href="">Examination 05</a></li>
+						<li ng-repeat="exam in examinations">
+							<a ng-class="{'adisabled': (exam.idExamination==1||exam.idExamination==2)? !usable : usable}" href="#/examination/{{exam.idExamination}}" ng-click="doOperation($event,exam.idExamination)">{{exam.title}}</a>
+						</li>
 					</ol>
 				</div>
 				<!-- END EXAMINATION -->

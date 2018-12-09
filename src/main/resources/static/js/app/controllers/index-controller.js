@@ -9,12 +9,13 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		if(token != null){
 			$rootScope.authenticated = true;
 			$scope.username = authService.getValueByKey(USERNAME_KEY);
+			
+		
 		}else{
 			$rootScope.authenticated = false;
 		}
 	}
 	$scope.loadPage();
-	
 	$scope.fullScreen = function(){
 		if($scope.isFullScreen){
 			$scope.isFullScreen = false;
@@ -25,6 +26,7 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	
 	$scope.credentials = {};
 	$scope.login = function() {
+		debugger;
 		$http({
 			url: 'auth/login',
 			method: 'POST',
@@ -68,4 +70,28 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		$scope.className = path;
 		$window.location.href = '#/'+path;
 	}
+	
+	$scope.getExamination = function(){
+		$http({
+			url: 'rest/examination/find-by-user?idUser=1',
+			method: 'GET'
+		})
+		.then(function(res) {
+			$scope.examinations= res.data;
+			console.log($scope.examinations);
+		})
+		.catch(function(response) {
+			alert("Server is error, please try again!")
+		});
+	}
+	$scope.getExamination();
+	
+	$scope.doOperation = function(e,id){
+		if(id ==2|| id==1){
+			e.preventDefault();
+		}
+		
+	}
+	
+
 }]);
