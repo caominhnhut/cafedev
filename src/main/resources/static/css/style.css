@@ -228,6 +228,9 @@ input:focus{
 .content .panel-right-content .green{
 	background-color: green;
 }
+.panel-right-content ol, ul{
+	padding-left: 0;
+}
 .panel-right-content ol li{
 	color: #999999;
 	margin-bottom: 10px;

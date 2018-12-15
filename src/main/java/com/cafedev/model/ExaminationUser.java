@@ -12,15 +12,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "EXAMINATION_USER")
-public class Examination_User {
+public class ExaminationUser {
 	@EmbeddedId
 	private ExaminationUserId id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@MapsId("examinationId")
 	private Examination examination;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@MapsId("userId")
 	private User user;
 
@@ -70,7 +70,7 @@ public class Examination_User {
 		this.deadline = deadline;
 	}
 
-	public Examination_User() {
+	public ExaminationUser() {
 		super();
 	}
 

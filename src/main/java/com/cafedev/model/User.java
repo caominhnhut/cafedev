@@ -90,7 +90,7 @@ public class User implements UserDetails {
 	private List<Article> articles = new ArrayList<Article>();
 	
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Examination_User> examinations = new ArrayList<>();
+    private List<ExaminationUser> examinations = new ArrayList<>();
 
 	public List<Article> getArticles() {
 		return articles;
@@ -208,11 +208,11 @@ public class User implements UserDetails {
 		this.avatar = avatar;
 	}
 
-	public List<Examination_User> getExaminations() {
+	public List<ExaminationUser> getExaminations() {
 		return examinations;
 	}
 
-	public void setExaminations(List<Examination_User> examinations) {
+	public void setExaminations(List<ExaminationUser> examinations) {
 		this.examinations = examinations;
 	}
 	

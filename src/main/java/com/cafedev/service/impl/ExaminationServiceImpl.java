@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cafedev.dto.ExaminationDTO;
 import com.cafedev.model.Examination;
+import com.cafedev.model.ExaminationUser;
 import com.cafedev.repository.ExaminationRepository;
 import com.cafedev.service.ExaminationService;
 
@@ -26,6 +27,11 @@ public class ExaminationServiceImpl implements ExaminationService {
 			lstExaminationDTO.add(examinationDTO);
 		}
 		return lstExaminationDTO;
+	}
+
+	@Override
+	public ExaminationUser findByUserAndExam(Long userId,Long examId) {
+		return examination.findByUserAndExamId(userId, examId);
 	}
 	
 }

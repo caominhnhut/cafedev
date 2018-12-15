@@ -35,14 +35,14 @@ public class Examination {
 	private String content;
 
 	@OneToMany(mappedBy = "examination", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Examination_User> examinationUser = new ArrayList<>();
+	private List<ExaminationUser> examinationUser = new ArrayList<>();
 
 	@JsonIgnore
-	public List<Examination_User> getExaminationUser() {
+	public List<ExaminationUser> getExaminationUser() {
 		return examinationUser;
 	}
 
-	public void setExaminationUser(List<Examination_User> examinationUser) {
+	public void setExaminationUser(List<ExaminationUser> examinationUser) {
 		this.examinationUser = examinationUser;
 	}
 
