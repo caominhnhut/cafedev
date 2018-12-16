@@ -26,7 +26,6 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	
 	$scope.credentials = {};
 	$scope.login = function() {
-		debugger;
 		$http({
 			url: 'auth/login',
 			method: 'POST',
@@ -78,7 +77,6 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		})
 		.then(function(res) {
 			$scope.examinations= res.data;
-			console.log($scope.examinations);
 		})
 		.catch(function(response) {
 			alert("Server is error, please try again!")
@@ -86,12 +84,9 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	}
 	$scope.getExamination();
 	
-	$scope.doOperation = function(e,id){
+	$scope.doOperation = function($event,idExam){
 		if(id ==2|| id==1){
 			e.preventDefault();
 		}
-		
 	}
-	
-
 }]);

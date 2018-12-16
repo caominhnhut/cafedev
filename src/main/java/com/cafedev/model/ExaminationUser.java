@@ -29,6 +29,9 @@ public class ExaminationUser {
 
 	@Column(name = "deadline")
 	private Date deadline;
+	
+	@Column(name = "status")
+	private boolean status;
 
 	public ExaminationUserId getId() {
 		return id;
@@ -68,6 +71,15 @@ public class ExaminationUser {
 
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
+	}
+	
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	public ExaminationUser() {
