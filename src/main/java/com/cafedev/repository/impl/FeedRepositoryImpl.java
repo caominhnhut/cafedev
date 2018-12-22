@@ -31,7 +31,7 @@ public class FeedRepositoryImpl implements FeedRepository {
 		CriteriaQuery<Feed> cq = cb.createQuery(Feed.class);
 		Root<Feed> root = cq.from(Feed.class);
 		cq.select(root);
-		cq.where(cb.equal(root.get("Users").get("id"), request.getData()));
+		cq.where(cb.equal(root.get("user").get("id"), request.getData()));
 
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
