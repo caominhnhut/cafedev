@@ -1,11 +1,8 @@
 package com.cafedev.security;
 
-import com.cafedev.common.TimeProvider;
-import com.cafedev.model.User;
+import java.util.Date;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,9 +10,12 @@ import org.springframework.mobile.device.Device;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+import com.cafedev.common.TimeProvider;
+import com.cafedev.model.User;
 
-import java.util.Date;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 
 /**
@@ -179,4 +179,17 @@ public class TokenHelper {
         return request.getHeader(AUTH_HEADER);
     }
 
+    public boolean isTokenExpired(String token) {
+    	final Claims claims = this.getAllClaimsFromToken(token);
+    	if(claims != null){
+    		Date date = claims.getExpiration();
+	        long expiredAt = date.getTime();
+	        long currentTime = timeProvider.now().getTime();
+	        if(currentTime>expiredAt){
+	        	return true;
+	        }
+	        return false;
+    	}
+        return true;
+    }
 }
