@@ -44,7 +44,6 @@ public class FeedRepositoryImpl implements FeedRepository {
 			default:
 				break;
 			}
-
 		}
 
 		Query query = em.createQuery(cq);

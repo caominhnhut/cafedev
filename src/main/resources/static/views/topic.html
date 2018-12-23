@@ -5,14 +5,14 @@
 				<a href="#/topic/1">JAVA CLASS</a>
 			</h4>
 			<ul>
-				<li class="row sub-topic">
+				<li ng-repeat="article in articles" class="row sub-topic">
 					<div class="col-md-1 icon"></div>
 					<div class="col-md-5">
 						<div class="title">
-							<b><a href="#/sub-topic/1">Java Basic</a></b>
+							<b><a>{{article.name}}</a></b>
 						</div>
 						<div>
-							<a>SSO, Login, Register</a>
+							<a>{{article.description}}</a>
 						</div>
 					</div>
 					<div class="col-md-2">3 Posts</div>
@@ -23,60 +23,7 @@
 						<div>Fri, Jun 22, 2017 9:36 am</div>
 					</div>
 				</li>
-				<li class="row sub-topic">
-					<div class="col-md-1 icon"></div>
-					<div class="col-md-5">
-						<div class="title">
-							<b><a>Spring Boot Tutorial</a></b>
-						</div>
-						<div>
-							<a>All thing you need to know...</a>
-						</div>
-					</div>
-					<div class="col-md-2">3 Posts</div>
-					<div class="col-md-4">
-						<div class="title">
-							Last post by <b>Admin</b>
-						</div>
-						<div>Fri, Jun 22, 2017 9:36 am</div>
-					</div>
-				</li>
-				<li class="row sub-topic">
-					<div class="col-md-1 icon"></div>
-					<div class="col-md-5">
-						<div class="title">
-							<b><a>Spring Security</a></b>
-						</div>
-						<div>
-							<a>SSO, Login, Register</a>
-						</div>
-					</div>
-					<div class="col-md-2">3 Posts</div>
-					<div class="col-md-4">
-						<div class="title">
-							Last post by <b>Nhut Nguyen</b>
-						</div>
-						<div>Fri, Jun 22, 2017 9:36 am</div>
-					</div>
-				</li>
-				<li class="row sub-topic">
-					<div class="col-md-1 icon"></div>
-					<div class="col-md-5">
-						<div class="title">
-							<b><a>JPA, HIBERNATE</a></b>
-						</div>
-						<div>
-							<a>SSO, Login, Register</a>
-						</div>
-					</div>
-					<div class="col-md-2">3 Posts</div>
-					<div class="col-md-4">
-						<div class="title">
-							Last post by <b>Nhut Nguyen</b>
-						</div>
-						<div>Fri, Jun 22, 2017 9:36 am</div>
-					</div>
-				</li>
+
 			</ul>
 		</li>
 	</ul>

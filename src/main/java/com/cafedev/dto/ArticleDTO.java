@@ -1,5 +1,7 @@
 package com.cafedev.dto;
 
+import com.cafedev.model.Article;
+
 public class ArticleDTO {
 
 	private Long id;
@@ -8,12 +10,22 @@ public class ArticleDTO {
 	private String content;
 	private String createDate;
 
+	public ArticleDTO() {
+		
+	}
+	
 	public ArticleDTO(Long id, String name, String description, String content, String createDate){
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.content = content;
 		this.createDate = createDate;
+	}
+	
+	public void coppyArticle(Article art) {
+		this.id = art.getId();
+		this.name = art.getName();
+		this.description = art.getDescription();
 	}
 	
 	public Long getId() {

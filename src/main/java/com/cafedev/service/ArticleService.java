@@ -1,14 +1,10 @@
-package com.cafedev.repository;
+package com.cafedev.service;
 
 import java.util.List;
 
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.model.Article;
 
-public interface ArticleRepository{
-
-	public List<Article> findByTopicId(Long topicId);
-	
+public interface ArticleService {
 	public List<Article> findAllByTopicId(RequestDTO<Long> request);
-	
 }

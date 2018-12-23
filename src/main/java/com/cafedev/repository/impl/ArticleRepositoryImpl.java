@@ -54,6 +54,38 @@ public class ArticleRepositoryImpl implements ArticleRepository{
 			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
 		}
 		
+		return  query.getResultList();
+	}
+
+	@Override
+	public List<Article> findAllByTopicId(RequestDTO<Long> request) {
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Article> cq = cb.createQuery(Article.class);
+		Root<Article> root = cq.from(Article.class);
+		cq.where(cb.equal(root.get("topic").get("id"), request.getData()));
+		
+		if (request.getMetadata().getSortType() != null) {
+			switch (request.getMetadata().getSortType()) {
+			case ASC:
+				cq.orderBy(cb.asc(root.get(request.getMetadata().getSortValue())));
+				break;
+			case DESC:
+				cq.orderBy(cb.desc(root.get(request.getMetadata().getSortValue())));
+				break;
+			default:
+				break;
+			}
+
+		}
+
+		Query query = em.createQuery(cq);
+		if (request.getMetadata().getPagination() != null) {
+			query.setFirstResult(request.getMetadata().getPagination().getOffset());
+			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
+		}
+		
 		return query.getResultList();
 	}
+	
 }

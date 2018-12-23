@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.joda.time.DateTime;
+
 /**
  * Created by Nhut Nguyen on 01-07-2018.
  */
@@ -35,7 +37,7 @@ public class Article {
 	private String content;
 
 	@Column(name = "create_date")
-	private Date createDate;
+	private DateTime createDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topic_id")
@@ -77,11 +79,11 @@ public class Article {
 		this.content = content;
 	}
 
-	public Date getCreateDate() {
+	public DateTime getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(DateTime createDate) {
 		this.createDate = createDate;
 	}
 
