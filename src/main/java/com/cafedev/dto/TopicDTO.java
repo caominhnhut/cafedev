@@ -9,16 +9,22 @@ import com.cafedev.model.Topic;
 public class TopicDTO {
 
 	private String topicName;
+	private Long topicId;
 	private List<ArticleDTO> articles = new ArrayList<ArticleDTO>();
-	
-	public void coppyFrom(Topic topic){
+
+	public void coppyFrom(Topic topic) {
 		this.topicName = topic.getName();
-		for(Article article:topic.getArticles()){
-			ArticleDTO articleDto = new ArticleDTO(article.getId(), article.getName(), article.getDescription(), article.getContent(), article.getCreateDate().toString());
-			articles.add(articleDto);
+		this.setTopicId(topic.getId());
+		List<Article> arts = topic.getArticles();
+		if (arts != null) {
+			for (Article article : arts) {
+				ArticleDTO articleDto = new ArticleDTO(article.getId(), article.getName(), article.getDescription(),
+						article.getContent());
+				articles.add(articleDto);
+			}
 		}
 	}
-	
+
 	public String getTopicName() {
 		return topicName;
 	}
@@ -33,5 +39,13 @@ public class TopicDTO {
 
 	public void setArticles(List<ArticleDTO> articles) {
 		this.articles = articles;
+	}
+
+	public Long getTopicId() {
+		return topicId;
+	}
+
+	public void setTopicId(Long topicId) {
+		this.topicId = topicId;
 	}
 }

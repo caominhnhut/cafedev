@@ -15,5 +15,5 @@ cafedevApp.controller('ExaminationCtrl', ['$scope','$http','$routeParams','AuthS
 		});
 		
 	}
-	$scope.getExaminationDetail();
+	//$scope.getExaminationDetail();
 }]);

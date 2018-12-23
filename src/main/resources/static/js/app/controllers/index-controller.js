@@ -81,7 +81,7 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			alert("Server is error, please try again!")
 		});
 	}
-	$scope.getExamination();
+	//$scope.getExamination();
 	
 	$scope.doOperation = function($event,idExam){
 		if(id ==2|| id==1){
@@ -102,6 +102,6 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			alert("Sever is error, please try again!")
 		});
 	}
-	$scope.getAssignment();
+	//$scope.getAssignment();
 
 }]);

@@ -26,7 +26,7 @@ public class TopicController {
 	@Autowired
 	private TopicService topicService;
 	
-	@RequestMapping(method=RequestMethod.GET, value="topic")
+	@RequestMapping(method=RequestMethod.GET, value="no-auth/topic")
 	public ResponseEntity<List<TopicDTO>> findAll(){
 		List<TopicDTO> topicDtos = topicService.findAll();
 		if(topicDtos == null){
@@ -35,7 +35,7 @@ public class TopicController {
 		return new ResponseEntity<List<TopicDTO>>(topicDtos, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="topic")
+	@RequestMapping(method=RequestMethod.POST, value="no-auth/topic")
 	public ResponseEntity<List<TopicDTO>> findById(@RequestBody RequestDTO<Long> requestDto){
 		List<TopicDTO> topicDtos = topicService.findById(requestDto);
 		if(topicDtos == null){

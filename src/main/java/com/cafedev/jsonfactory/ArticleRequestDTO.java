@@ -10,7 +10,7 @@ public class ArticleRequestDTO extends JsonRequest{
 	public String createJson() {
 		RequestDTO<ArticleDTO> req = new RequestDTO<ArticleDTO>();
 		req.createMetadata(10, ESortType.DESC, "createDate");
-		req.setData(new ArticleDTO(1L, "Article name", "This is article desc", "Hi, how are you", "5-11-2018"));
+		//req.setData(new ArticleDTO(1L, "Article name", "This is article desc", "Hi, how are you", "5-11-2018"));
 		String json = gson.toJson(req);
 		log.info(json);
 		return json;

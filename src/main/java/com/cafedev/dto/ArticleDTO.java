@@ -14,12 +14,11 @@ public class ArticleDTO {
 		
 	}
 	
-	public ArticleDTO(Long id, String name, String description, String content, String createDate){
+	public ArticleDTO(Long id, String name, String description, String content){
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.content = content;
-		this.createDate = createDate;
 	}
 	
 	public void coppyArticle(Article art) {

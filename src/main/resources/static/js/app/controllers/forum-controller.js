@@ -2,7 +2,7 @@ cafedevApp.controller('ForumCtrl', ['$scope','$http','AuthService', function($sc
 	
 	$scope.getTopic = function(){
 		$http({
-			url: 'rest/topic',
+			url: 'rest/no-auth/topic',
 			method: 'GET',
 			headers: authService.createAuthorizationTokenHeader()
 		})
