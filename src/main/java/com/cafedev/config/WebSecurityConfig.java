@@ -73,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
-                        "/rest/**"
+                        "/rest/no-auth/**"
                 ).permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated().and()
@@ -89,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(
                 HttpMethod.POST,
                 "/auth/login",
-                "/rest/no-auth/feed/find-latest"
+                "/rest/no-auth/**"
         );
         web.ignoring().antMatchers(
                 HttpMethod.GET,

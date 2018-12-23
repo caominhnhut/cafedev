@@ -9,8 +9,7 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		if(token != null){
 			$rootScope.authenticated = true;
 			$scope.username = authService.getValueByKey(USERNAME_KEY);
-			
-		
+
 		}else{
 			$rootScope.authenticated = false;
 		}
@@ -89,4 +88,20 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			e.preventDefault();
 		}
 	}
+
+	$scope.getAssignment = function(){
+		$http({
+			url: 'rest/assignment/find-by-user-id',
+			method: 'GET'
+		})
+		.then(function(res){
+			$scope.assignments = res.data;
+			console.log($scope.assignment);
+		})
+		.catch(function(response) {
+			alert("Sever is error, please try again!")
+		});
+	}
+	$scope.getAssignment();
+
 }]);
