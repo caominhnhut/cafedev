@@ -1,5 +1,8 @@
 package com.cafedev.repository;
 
+import java.util.List;
+
+import com.cafedev.model.Role;
 import com.cafedev.model.User;
 
 /**
@@ -9,5 +12,6 @@ import com.cafedev.model.User;
 public interface UserRepository {
     Long save(User user);
     User findByUsername(String userName);
+    List<Role> getRoles();
 }
 

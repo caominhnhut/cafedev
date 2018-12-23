@@ -69,13 +69,12 @@ public class User implements UserDetails {
 
 	@Column(name = "create_date")
 	private Date createDate;
-
+	
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", 
 	joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
 	inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private List<Role> roles = new ArrayList<Role>();
-
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -214,6 +213,25 @@ public class User implements UserDetails {
 
 	public void setExaminations(List<ExaminationUser> examinations) {
 		this.examinations = examinations;
+	}
+	@Override
+	public String toString() {
+		StringBuffer strUser = new StringBuffer();
+		strUser
+		.append("User Info:\nUsername: ").append(this.username)
+		.append("\nPassword: ").append(this.password)
+		.append("\nfirstName: ").append(this.firstName)
+		.append("\nlastName: ").append(this.lastName)
+		.append("\nemail: ").append(this.email)
+		.append("\nphoneNumber: ").append(this.phoneNumber)
+		.append("\navatar: ").append(this.avatar)
+		.append("\nroles:\n");
+		for(Role r: roles)
+		{
+			strUser.append(r.getId()+" - "+r.getName().name()+"\n");
+		}
+		
+		return strUser.toString();
 	}
 	
 }

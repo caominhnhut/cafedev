@@ -57,7 +57,6 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/user/create")
-	@PreAuthorize("hasRole('ADMIN')")
 	public Long create(@RequestBody UserRequestDTO userDto) {
 		User user = userDto.toUser();
 		return this.userService.save(user);
