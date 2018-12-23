@@ -1,8 +1,8 @@
 package com.cafedev.service;
 
-import com.cafedev.model.User;
-
 import java.util.List;
+
+import com.cafedev.model.User;
 
 /**
  * Created by Nhut Nguyen on 01-07-2018.

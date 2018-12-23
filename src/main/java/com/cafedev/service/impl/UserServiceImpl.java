@@ -46,9 +46,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Long save(User user) {
-		user.getRoles().add(new Role(1l, EUserRoleName.ROLE_USER));
+		
+		List<Role> roles = userRepository.getRoles();
+		for(Role role: user.getRoles()){
+			for(Role r:roles) { 
+				if(r.getName().equals(role.getName())) {
+					role.setId(r.getId());
+					break;
+				}
+			}
+		}
+		
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		Long userId = userRepository.save(user);
-		return userId;
+		return userRepository.save(user);
 	}
 }

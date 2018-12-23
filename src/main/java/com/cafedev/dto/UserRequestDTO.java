@@ -1,5 +1,10 @@
 package com.cafedev.dto;
 
+import java.util.Date;
+import java.util.List;
+
+import com.cafedev.enums.EUserRoleName;
+import com.cafedev.model.Role;
 import com.cafedev.model.User;
 
 public class UserRequestDTO {
@@ -11,6 +16,7 @@ public class UserRequestDTO {
 	private String email;
 	private String phoneNumber;
 	private String avatar;
+	private List<String> roles;
 
 	public User toUser(){
 		User user = new User();
@@ -21,7 +27,27 @@ public class UserRequestDTO {
 		user.setEmail(email);
 		user.setPhoneNumber(phoneNumber);
 		user.setAvatar(avatar);
+		for(String roleName:this.getRoles()) {
+			Role role = new Role();
+			role.setName(EUserRoleName.valueOf(roleName));
+			user.getRoles().add(role);
+		}
 		return user;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuffer strDto = new StringBuffer();
+		strDto
+		.append("User Info:\nUsername: ").append(this.userName)
+		.append("\nPassword: ").append(this.password)
+		.append("\nfirstName: ").append(this.firstName)
+		.append("\nlastName: ").append(this.lastName)
+		.append("\nemail: ").append(this.email)
+		.append("\nphoneNumber: ").append(this.phoneNumber)
+		.append("\navatar: ").append(this.avatar)
+		.append("\nroles: ").append(this.roles);
+		return strDto.toString();
 	}
 
 	public String getUserName() {
@@ -78,5 +104,13 @@ public class UserRequestDTO {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 }

@@ -1,5 +1,7 @@
 package com.cafedev.repository.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,16 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cafedev.model.Role;
 import com.cafedev.model.User;
 import com.cafedev.repository.UserRepository;
 
 @Repository
 @Transactional
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 
 	@Autowired
 	EntityManager em;
-	
+
 	@Override
 	public Long save(User user) {
 		em.persist(user);
@@ -37,4 +40,13 @@ public class UserRepositoryImpl implements UserRepository{
 		return (User) query.getSingleResult();
 	}
 
+	@Override
+	public List<Role> getRoles() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Role> cq = cb.createQuery(Role.class);
+		Root<Role> root = cq.from(Role.class);
+		cq.select(root);
+		Query query = em.createQuery(cq);
+		return query.getResultList();
+	}
 }
