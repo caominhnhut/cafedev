@@ -114,47 +114,15 @@
 				</div>
 				<div class="panel-right-content">
 					<ul>
-						<li>
+						<li ng-repeat="assignment in assignments">
 							<div class="row">
 								<div class="col-md-1 red"></div>
 								<div class="col-md-11">
-									<a href="#/assignment/1">Assignment 01</a>
+									<a>{{assignment.title}}</a>
 								</div>
 							</div>
 						</li>
-						<li>
-							<div class="row">
-								<div class="col-md-1 red"></div>
-								<div class="col-md-11">
-									<a href="#">Assignment 02</a>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="row">
-								<div class="col-md-1 yellow"></div>
-								<div class="col-md-11">
-									<a href="#">Assignment 03</a>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="row">
-								<div class="col-md-1 green"></div>
-								<div class="col-md-11">
-									<a href="#">Assignment 04</a>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="row">
-								<div class="col-md-1 green"></div>
-								<div class="col-md-11">
-									<a href="#">Assignment 05</a>
-								</div>
-							</div>
-						</li>
-					</ul>
+
 				</div>
 				<!-- END ASSIGNMENTS -->
 
