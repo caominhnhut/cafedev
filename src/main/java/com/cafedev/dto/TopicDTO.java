@@ -14,7 +14,7 @@ public class TopicDTO {
 
 	public void coppyFrom(Topic topic) {
 		this.topicName = topic.getName();
-		this.setTopicId(topic.getId());
+		this.topicId = topic.getId();
 		List<Article> arts = topic.getArticles();
 		if (arts != null) {
 			for (Article article : arts) {
@@ -48,4 +48,5 @@ public class TopicDTO {
 	public void setTopicId(Long topicId) {
 		this.topicId = topicId;
 	}
+
 }
