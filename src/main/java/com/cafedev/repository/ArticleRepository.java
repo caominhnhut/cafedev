@@ -11,4 +11,6 @@ public interface ArticleRepository{
 	
 	public List<Article> findAllByTopicId(RequestDTO<Long> request);
 	
+	public Article getContentById(Long articleId);
+	
 }

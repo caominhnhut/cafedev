@@ -25,6 +25,7 @@ public class ArticleDTO {
 		this.id = art.getId();
 		this.name = art.getName();
 		this.description = art.getDescription();
+		this.content = art.getContent();
 	}
 	
 	public Long getId() {

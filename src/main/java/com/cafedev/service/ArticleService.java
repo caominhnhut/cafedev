@@ -7,4 +7,6 @@ import com.cafedev.model.Article;
 
 public interface ArticleService {
 	public List<Article> findAllByTopicId(RequestDTO<Long> request);
+	
+	public Article getContentById(Long articleId);
 }
