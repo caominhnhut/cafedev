@@ -1,6 +1,9 @@
 app:
   name: cafedev
 
+server:
+    port: 8080
+
 jwt:
   header: Authorization
   expires_in: 60 #3600 # 60 minutes

@@ -6,12 +6,16 @@
 				<h4 class="modal-title">User Register</h4>
 			</div>
 			<div class="modal-body">
-				<div><input type="text" placeholder="Email"></div>
-				<div><input type="password" placeholder="Password"></div>
-				<div><input type="password" placeholder="Confirm password"></div>
+				<div><input type="text" placeholder="User Name" ng-model="registerInfo.username"></div>
+				<div><input type="email" placeholder="Email" ng-model="registerInfo.email"></div>
+				<div><input type="password" placeholder="Password" ng-model="registerInfo.password"></div>
+				<div><input type="password" placeholder="Confirm password" ng-model="registerInfo.confirmPassword"></div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-info">Register</button>
+				<button class="btn btn-info" ng-click=create()>Register</button>
+			</div>
+			<div class="login-error" ng-show="isError">
+				<div class="alert alert-danger">Your Password and Confirm Password do not match</div>
 			</div>
 		</div>
 	</div>

@@ -18,7 +18,7 @@ public class UserRequestDTO {
 	private String avatar;
 	private List<String> roles;
 
-	public User toUser(){
+	public User toUser() {
 		User user = new User();
 		user.setUsername(userName);
 		user.setPassword(password);
@@ -27,26 +27,28 @@ public class UserRequestDTO {
 		user.setEmail(email);
 		user.setPhoneNumber(phoneNumber);
 		user.setAvatar(avatar);
-		for(String roleName:this.getRoles()) {
+		// if getroles null ->set 1 role user
+		if (this.getRoles()==null || this.getRoles().isEmpty()) {
 			Role role = new Role();
-			role.setName(EUserRoleName.valueOf(roleName));
+			role.setName(EUserRoleName.ROLE_USER);
 			user.getRoles().add(role);
+		} else {
+			for (String roleName : this.getRoles()) {
+				Role role = new Role();
+				role.setName(EUserRoleName.valueOf(roleName));
+				user.getRoles().add(role);
+			}
 		}
 		return user;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuffer strDto = new StringBuffer();
-		strDto
-		.append("User Info:\nUsername: ").append(this.userName)
-		.append("\nPassword: ").append(this.password)
-		.append("\nfirstName: ").append(this.firstName)
-		.append("\nlastName: ").append(this.lastName)
-		.append("\nemail: ").append(this.email)
-		.append("\nphoneNumber: ").append(this.phoneNumber)
-		.append("\navatar: ").append(this.avatar)
-		.append("\nroles: ").append(this.roles);
+		strDto.append("User Info:\nUsername: ").append(this.userName).append("\nPassword: ").append(this.password)
+				.append("\nfirstName: ").append(this.firstName).append("\nlastName: ").append(this.lastName)
+				.append("\nemail: ").append(this.email).append("\nphoneNumber: ").append(this.phoneNumber)
+				.append("\navatar: ").append(this.avatar).append("\nroles: ").append(this.roles);
 		return strDto.toString();
 	}
 

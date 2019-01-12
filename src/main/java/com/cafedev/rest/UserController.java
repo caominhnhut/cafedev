@@ -24,7 +24,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 
 @RestController
-@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/rest/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
 	@Autowired
@@ -56,7 +56,7 @@ public class UserController {
 		return userDto;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/user/create")
+	@RequestMapping(method = RequestMethod.POST, value = "no-auth/create")
 	public Long create(@RequestBody UserRequestDTO userDto) {
 		User user = userDto.toUser();
 		return this.userService.save(user);

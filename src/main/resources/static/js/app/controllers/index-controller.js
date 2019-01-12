@@ -24,6 +24,28 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	}
 	
 	$scope.credentials = {};
+	$scope.registerInfo = {};
+	
+	$scope.create= function(){
+		if($scope.registerInfo.password==$scope.registerInfo.confirmPassword)
+		{
+			
+		$http({
+			url: '/rest/no-auth/create',
+			method: 'POST',
+			data: $scope.registerInfo
+		});
+		alert("Successful Register, please try the first login");
+			$('#modal-register').modal('hide');
+			$('#modal-login').modal('show');
+			//$window.location.href = '#/';
+		}
+		else
+		{
+			$scope.isError = true;
+		}
+		
+	}
 	$scope.login = function() {
 		$http({
 			url: 'auth/login',
