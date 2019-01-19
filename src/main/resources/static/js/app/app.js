@@ -37,8 +37,11 @@ cafedevApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/about', {
 		templateUrl : 'views/about.html',
 		controller : 'AboutCtrl'
-	})
-	.otherwise({
+	}).when('/test', {
+		templateUrl : 'views/test.html',
+		controller : 'TestCtrl'
+			
+	}).otherwise({
 		redirectTo : '/'
 	});
 } ]);

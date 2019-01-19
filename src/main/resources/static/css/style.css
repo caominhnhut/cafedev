@@ -507,3 +507,29 @@ a.adisabled {
 a.adisabled:hover { text-decoration: none; }
 a.adisabled:focus { text-decoration: none; }
 a.adisabled:active { text-decoration: none; }
+/*EXAMINATION*/
+.buttonStart{
+	margin-left: 50%;
+	width: 20%;	
+}
+
+  
+  #progressBar {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    
+  }
+.k-drag-clue.k-state-selected, .k-draghandle.k-state-selected:hover, .k-ghost-splitbar-horizontal, .k-ghost-splitbar-vertical, .k-list>.k-state-highlight, .k-list>.k-state-selected, .k-marquee-color, .k-panel>.k-state-selected, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-state-selected, .k-state-selected:link, .k-state-selected:visited {
+display: flex;
+justify-content: center;
+color: #ffc107;
+text-align: center;
+white-space: nowrap;
+background-color: #ffc107;
+transition: width .6s ease;
+background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-size: 1rem 1rem;
+
+  }
+/*END EXAMINATION*/
