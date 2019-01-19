@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cafedev.dto.UserDTO;
 import com.cafedev.model.Role;
 import com.cafedev.model.User;
 import com.cafedev.repository.UserRepository;
@@ -24,9 +25,9 @@ public class UserRepositoryImpl implements UserRepository {
 	EntityManager em;
 
 	@Override
-	public Long save(User user) {
-		em.persist(user);
-		return user.getId();
+	public User save(User user) {
+			em.persist(user);
+			return user;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import com.cafedev.model.User;
  */
 
 public interface UserRepository {
-    Long save(User user);
+    User save(User user);
     User findByUsername(String userName);
     List<Role> getRoles();
 }

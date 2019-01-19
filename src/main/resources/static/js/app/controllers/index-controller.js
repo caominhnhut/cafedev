@@ -30,15 +30,28 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		if($scope.registerInfo.password==$scope.registerInfo.confirmPassword)
 		{
 			
-		$http({
-			url: '/rest/no-auth/create',
-			method: 'POST',
-			data: $scope.registerInfo
-		});
-		alert("Successful Register, please try the first login");
-			$('#modal-register').modal('hide');
-			$('#modal-login').modal('show');
-			//$window.location.href = '#/';
+			$http({
+				url: '/rest/no-auth/create',
+				method: 'POST',
+				data: $scope.registerInfo
+			})
+			.then(function(res){
+				
+				if(res.data.id!=null)
+				{
+					alert("Successful Register, please check your email and try your first login");
+					$('#modal-register').modal('hide');
+					$('#modal-login').modal('show');
+					//$window.location.href = '#/';
+				}
+				else
+				{
+					$scope.userError = true;
+				}
+			})
+			.catch(function(error) {
+				alert("Server is busy now. Please try again later.");
+			});
 		}
 		else
 		{
@@ -75,7 +88,7 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			authService.removeByKey(USERNAME_KEY);
 			authService.removeByKey(USERID_KEY);
 		});
-	};
+	}
 	
 	$scope.logout = function(){
 		$rootScope.authenticated = false;

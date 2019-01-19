@@ -6,7 +6,9 @@ import com.cafedev.model.User;
 import com.cafedev.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,8 +59,16 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "no-auth/create")
-	public Long create(@RequestBody UserRequestDTO userDto) {
+	public ResponseEntity<UserDTO> create(@RequestBody UserRequestDTO userDto) {
 		User user = userDto.toUser();
-		return this.userService.save(user);
+		user = this.userService.save(user);
+		if(user == null) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		UserDTO userDTO = new UserDTO();
+		userDTO.copyFrom(user);
+		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+		
+		
 	}
 }
