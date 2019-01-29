@@ -2,6 +2,7 @@ package com.cafedev.service;
 
 import java.util.List;
 
+import com.cafedev.dto.ResponseDTO;
 import com.cafedev.model.User;
 
 /**
@@ -12,5 +13,5 @@ public interface UserService {
     User findById(Long id);
     User findByUsername(String username);
     List<User> findAll ();
-    User save(User user);
+    ResponseDTO<User> save(User user);
 }

@@ -1,4 +1,4 @@
-package com.warmup.blockingqueue;
+package com.warmup.thread.blockingqueue;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;

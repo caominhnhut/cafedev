@@ -1,4 +1,4 @@
-package com.warmup.synchronization;
+package com.warmup.thread.synchronization;
 
 public class FirstThread extends Thread {
 

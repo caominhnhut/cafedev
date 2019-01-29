@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cafedev.dto.UserDTO;
 import com.cafedev.model.Role;
 import com.cafedev.model.User;
 import com.cafedev.repository.UserRepository;

@@ -1,5 +1,7 @@
 package com.cafedev.rest;
 
+import com.cafedev.common.MessageConst;
+import com.cafedev.dto.ResponseDTO;
 import com.cafedev.dto.UserDTO;
 import com.cafedev.dto.UserRequestDTO;
 import com.cafedev.model.User;
@@ -58,17 +60,23 @@ public class UserController {
 		return userDto;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "no-auth/create")
-	public ResponseEntity<UserDTO> create(@RequestBody UserRequestDTO userDto) {
-		User user = userDto.toUser();
-		user = this.userService.save(user);
-		if(user == null) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
+	@RequestMapping(method = RequestMethod.POST, value = "no-auth/user/create")
+	public ResponseEntity<ResponseDTO<UserDTO>> create(@RequestBody UserRequestDTO userRequestDto) {
+		ResponseDTO<UserDTO> response = new ResponseDTO<UserDTO>();
+		User user = new User();
+		try {
+			user = userRequestDto.toUser();
+			ResponseDTO<User> userResult = this.userService.save(user);
+			
+			if(userResult.getData() != null){
+				UserDTO userDTO = new UserDTO();
+				userDTO.copyFrom(userResult.getData());
+				response.setData(userDTO);
+			}
+			response.setErrorMessage(userResult.getErrorMessage());
+		} catch (IllegalArgumentException e) {
+			response.setErrorMessage(MessageConst.ERROR_ROLE_INVALID);
 		}
-		UserDTO userDTO = new UserDTO();
-		userDTO.copyFrom(user);
-		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
-		
-		
+		return new ResponseEntity<ResponseDTO<UserDTO>>(response, HttpStatus.OK);
 	}
 }

@@ -1,4 +1,4 @@
-package com.warmup.waitnotify;
+package com.warmup.thread.waitnotify;
 
 public class Banking {
 

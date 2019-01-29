@@ -21,8 +21,8 @@ public class WriterUser implements ItemWriter<UserRequestDTO>{
 		for(UserRequestDTO userDto:userDtos){
 			User us = userDto.toUser();
 			System.out.println("Importing for "+us.getUsername());
-			Long id = userService.save(us);
-			System.out.println("Finished for "+us.getUsername()+" - "+id);
+			//us = userService.save(us);
+			System.out.println("Finished for "+us.getUsername()+" - "+us.getId());
 		}
 	}
 

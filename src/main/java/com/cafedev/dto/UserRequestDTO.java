@@ -1,6 +1,5 @@
 package com.cafedev.dto;
 
-import java.util.Date;
 import java.util.List;
 
 import com.cafedev.enums.EUserRoleName;
@@ -27,7 +26,6 @@ public class UserRequestDTO {
 		user.setEmail(email);
 		user.setPhoneNumber(phoneNumber);
 		user.setAvatar(avatar);
-		// if getroles null ->set 1 role user
 		if (this.getRoles()==null || this.getRoles().isEmpty()) {
 			Role role = new Role();
 			role.setName(EUserRoleName.ROLE_USER);

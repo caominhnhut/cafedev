@@ -1,4 +1,4 @@
-package com.warmup.blockingqueue;
+package com.warmup.thread.blockingqueue;
 
 import java.util.Arrays;
 import java.util.List;
