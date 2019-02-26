@@ -1,5 +1,6 @@
 package com.cafedev.repository.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,9 +11,12 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.model.Comment;
+import com.cafedev.model.Feed;
+import com.cafedev.model.User;
 import com.cafedev.repository.CommentRepository;
 
 /**
@@ -55,4 +59,12 @@ public class CommentRepositoryImpl implements CommentRepository {
 		return query.getResultList();
 	}
 
+
+	@Override
+	@Transactional
+	public Comment save(Comment comment) {
+		em.persist(comment);
+		return comment;
+	}
+	
 }

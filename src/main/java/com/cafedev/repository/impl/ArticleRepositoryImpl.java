@@ -35,7 +35,7 @@ public class ArticleRepositoryImpl implements ArticleRepository{
 		
 		RequestDTO<Object> request = new RequestDTO<>();
 		request.createMetadata(config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
-		if (request.getMetadata().getSortType() != null) {
+/*		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:
 				cq.orderBy(cb.asc(root.get(request.getMetadata().getSortValue())));
@@ -46,15 +46,15 @@ public class ArticleRepositoryImpl implements ArticleRepository{
 			default:
 				break;
 			}
-		}
+		}*/
 
 		Query query = em.createQuery(cq);
 		if (request.getMetadata().getPagination() != null) {
 			query.setFirstResult(request.getMetadata().getPagination().getOffset());
 			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
 		}
-		
-		return  query.getResultList();
+		List<Article> rr = query.getResultList();
+		return  rr;
 	}
 
 	@Override

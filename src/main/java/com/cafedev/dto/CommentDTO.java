@@ -26,14 +26,16 @@ public class CommentDTO {
 		this.createDate = comment.getCreateDate();
 		this.user = new UserDTO();
 		this.user.copyFrom(comment.getUser());
-		for(Comment cm:comment.getSubComments()){
-			CommentDTO cmd = new CommentDTO();
-			cmd.setId(cm.getId());
-			cmd.setContent(cm.getContent());
-			cmd.setCreateDate(cm.getCreateDate());
-			cmd.user = new UserDTO();
-			cmd.user.copyFrom(cm.getUser());
-			subComments.add(cmd);
+		if(comment.getSubComments() != null){
+			for(Comment cm:comment.getSubComments()){
+				CommentDTO cmd = new CommentDTO();
+				cmd.setId(cm.getId());
+				cmd.setContent(cm.getContent());
+				cmd.setCreateDate(cm.getCreateDate());
+				cmd.user = new UserDTO();
+				cmd.user.copyFrom(cm.getUser());
+				subComments.add(cmd);
+			}
 		}
 	}
 	

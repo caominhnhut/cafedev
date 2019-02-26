@@ -3,6 +3,7 @@ package com.cafedev.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,14 @@ import com.cafedev.service.FeedService;
 
 @RestController
 @RequestMapping(value="/rest/",produces = MediaType.APPLICATION_JSON_VALUE)
+@ComponentScan("com.cafedev.service.CommentService")
 public class FeedController {
 
 	@Autowired
 	private FeedService feedService;
+	
+/*	@Autowired
+	private CommentService commentService;*/
 	
 	@RequestMapping(method=RequestMethod.POST, value="feed/find-by-owner")
 	public ResponseEntity<List<FeedDTO>> findByOwnerId(@RequestBody RequestDTO<Long> requestDTO){
