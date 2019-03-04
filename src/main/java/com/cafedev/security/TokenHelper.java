@@ -147,15 +147,8 @@ public class TokenHelper {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
         final String username = getUsernameFromToken(token);
-        final Date created = getIssuedAtDateFromToken(token);
-//        return (
-//                username != null &&
-//                username.equals(userDetails.getUsername()) &&
-//                        !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())
-//        );
-        return true;
+        return (username != null && username.equals(userDetails.getUsername()));
     }
 
     private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {

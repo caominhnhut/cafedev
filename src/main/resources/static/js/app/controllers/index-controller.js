@@ -15,6 +15,7 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		}
 	}
 	$scope.loadPage();
+
 	$scope.fullScreen = function(){
 		if($scope.isFullScreen){
 			$scope.isFullScreen = false;
@@ -71,15 +72,14 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			$scope.isError = false;
 			authService.setKeyValue(TOKEN_KEY, res.data.access_token);
 			$('#modal-login').modal('hide');
-			authService.getUser()
-			.then(function(user) {
-				$scope.username = user.data.firstName+" "+user.data.lastName;
-				authService.setKeyValue(USERNAME_KEY, $scope.username);
-				authService.setKeyValue(USERID_KEY, user.data.id);
-				$window.location.href = '#/';
-			}).catch(function(error) {
-				alert("Server is busy now. Please try again later.");
-			});
+			return authService.getUser();
+		})
+		.then(function(user) {
+			$scope.username = user.data.firstName+" "+user.data.lastName;
+			console.log("Xxxxx",$scope.username);
+			authService.setKeyValue(USERNAME_KEY, $scope.username);
+			authService.setKeyValue(USERID_KEY, user.data.id);
+			$window.location.href = '#/';
 		})
 		.catch(function(response) {
 			$rootScope.authenticated = false;

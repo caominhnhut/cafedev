@@ -32,7 +32,7 @@ cafedevApp.factory('AuthService', function($http) {
 		return $http({
 			headers : createAuthorizationTokenHeader(),
 			method : 'GET',
-			url : 'api/whoami'
+			url : '/rest/whoami'
 		});
 	};
 
