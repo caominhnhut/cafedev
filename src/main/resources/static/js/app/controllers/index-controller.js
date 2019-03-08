@@ -58,8 +58,36 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		{
 			$scope.isError = true;
 		}
-		
 	}
+
+	$scope.getAssignment = function(){
+		$http({
+			url: 'rest/assignment/find-by-user-id',
+			method: 'GET',
+			headers: authService.createAuthorizationTokenHeader()
+		})
+		.then(function(res){
+			$scope.assignments = res.data;
+		})
+		.catch(function(response) {
+			console.log("Can't not show your assigments. Please try again a minute");
+		});
+	}
+
+	$scope.getExamination = function(){
+		$http({
+			url: 'rest/examination/find-by-user',
+			method: 'GET',
+			headers: authService.createAuthorizationTokenHeader()
+		})
+		.then(function(res) {
+			$scope.examinations= res.data;
+		})
+		.catch(function(response) {
+			console.log("Can't not show your examination. Please try again a minute");
+		});
+	}
+
 	$scope.login = function() {
 		$http({
 			url: 'auth/login',
@@ -79,6 +107,8 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			console.log("Xxxxx",$scope.username);
 			authService.setKeyValue(USERNAME_KEY, $scope.username);
 			authService.setKeyValue(USERID_KEY, user.data.id);
+			$scope.getAssignment();
+			$scope.getExamination();
 			$window.location.href = '#/';
 		})
 		.catch(function(response) {
@@ -104,39 +134,9 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		$window.location.href = '#/'+path;
 	}
 	
-	$scope.getExamination = function(){
-		$http({
-			url: 'rest/examination/find-by-user?idUser=1',
-			method: 'GET'
-		})
-		.then(function(res) {
-			$scope.examinations= res.data;
-		})
-		.catch(function(response) {
-			alert("Server is error, please try again!")
-		});
-	}
-	//$scope.getExamination();
-	
 	$scope.doOperation = function($event,idExam){
 		if(id ==2|| id==1){
 			e.preventDefault();
 		}
 	}
-
-	$scope.getAssignment = function(){
-		$http({
-			url: 'rest/assignment/find-by-user-id',
-			method: 'GET'
-		})
-		.then(function(res){
-			$scope.assignments = res.data;
-			console.log($scope.assignment);
-		})
-		.catch(function(response) {
-			alert("Sever is error, please try again!")
-		});
-	}
-	//$scope.getAssignment();
-
 }]);

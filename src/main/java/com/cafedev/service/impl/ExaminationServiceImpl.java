@@ -1,12 +1,10 @@
 package com.cafedev.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafedev.dto.ExaminationDTO;
 import com.cafedev.model.Examination;
 import com.cafedev.model.ExaminationUser;
 import com.cafedev.repository.ExaminationRepository;
@@ -18,15 +16,8 @@ public class ExaminationServiceImpl implements ExaminationService {
 	private ExaminationRepository examination;
 
 	@Override
-	public List<ExaminationDTO> findByUserId(Long id) {
-		List<ExaminationDTO> lstExaminationDTO = new ArrayList<ExaminationDTO>();
-		List<Examination> lstExamination = examination.findByUserId(id);
-		for (Examination examination : lstExamination) {
-			ExaminationDTO examinationDTO = new ExaminationDTO();
-			examinationDTO.copyFrom(examination);
-			lstExaminationDTO.add(examinationDTO);
-		}
-		return lstExaminationDTO;
+	public List<Examination> findByUserId(Long id) {
+		return examination.findByUserId(id);
 	}
 
 	@Override

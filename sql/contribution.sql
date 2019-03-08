@@ -13,7 +13,6 @@ INSERT INTO USER_ROLE (user_id, role_id) VALUES (1, 1);
 INSERT INTO USER_ROLE (user_id, role_id) VALUES (2, 1);
 INSERT INTO USER_ROLE (user_id, role_id) VALUES (2, 2);
 
-
 insert into feed(id, create_date, description, file_path, owner_id) values (1, CURRENT_TIMESTAMP(), 'Người lạ ơi', '/upload/java-01.png', 1);
 insert into feed(id, create_date, description, file_path, owner_id) values (2, CURRENT_TIMESTAMP(), 'Nơi tình yêu bắt đầu', '/upload/java-02.jpg', 1);
 insert into feed(id, create_date, description, file_path, owner_id) values (3, CURRENT_TIMESTAMP(), 'Người Tình Mùa Đông', '/upload/java-01.png', 1);
@@ -62,3 +61,63 @@ insert into article(id, name, description, content, create_date, topic_id, owner
 insert into article(id, name, description, content, create_date, topic_id, owner_id) values (8, 'Front end 3', 'Front end can ban 3', 'oooooooooooo', CURRENT_TIMESTAMP(), 2, 2);
 insert into article(id, name, description, content, create_date, topic_id, owner_id) values (9, 'Front end 4', 'Front end can ban 4', 'pppppppppppp', CURRENT_TIMESTAMP(), 2, 2);
 insert into article(id, name, description, content, create_date, topic_id, owner_id) values (10, 'Front end 5', 'Front end can ban 5', 'aaaaaaaaaaa', CURRENT_TIMESTAMP(), 2, 2);
+
+insert into category(id,name, parent_id) values (1,'category-1', null);
+insert into category(id,name, parent_id) values (2,'category-2', null);
+insert into category(id,name, parent_id) values (3,'category-3', null);
+
+insert into category(id,name, parent_id) values (4,'01-sub-category-1', 1);
+insert into category(id,name, parent_id) values (5,'01-sub-category-2', 1);
+insert into category(id,name, parent_id) values (6,'01-sub-category-3', 1);
+
+insert into category(id,name, parent_id) values (7,'02-sub-category-1', 2);
+insert into category(id,name, parent_id) values (8,'02-sub-category-2', 2);
+insert into category(id,name, parent_id) values (9,'02-sub-category-3', 2);
+
+insert into category(id,name, parent_id) values (10,'03-sub-category-1', 3);
+insert into category(id,name, parent_id) values (11,'03-sub-category-2', 3);
+insert into category(id,name, parent_id) values (12,'03-sub-category-3', 3);
+
+insert into category(id,name, parent_id) values (13,'011-sub-category-1', 4);
+insert into category(id,name, parent_id) values (14,'012-sub-category-2', 4);
+insert into category(id,name, parent_id) values (15,'021-sub-category-3', 7);
+insert into category(id,name, parent_id) values (16,'022-sub-category-1', 7);
+insert into category(id,name, parent_id) values (17,'031-sub-category-2', 10);
+insert into category(id,name, parent_id) values (18,'032-sub-category-3', 10);
+
+insert into assignment(id, title, content) values (1, "Assignment 01", "Tim so lon nhat trong mang mot chieu");
+insert into assignment(id, title, content) values (2, "Assignment 02", "Sap mang theo thu tu tang dan");
+insert into assignment(id, title, content) values (3, "Assignment 03", "Kiem tra chu so nguyen duong (n) co phai la so nguyen to");
+insert into assignment(id, title, content) values (4, "Assignment 04", "Kiem tra chu so nguyen duong (n) co phai la so hoan hao");
+insert into assignment(id, title, content) values (5, "Assignment 05", "Kiem tra chu so nguyen duong (n) co phai la so chinh phuong");
+insert into assignment(id, title, content) values (6, "Assignment 06", "Kiem tra chu so nguyen duong (n) co phai la so chan");
+
+insert into assignment_user(user_id, assignment_id) values (1,1);
+insert into assignment_user(user_id, assignment_id) values (1,2);
+insert into assignment_user(user_id, assignment_id) values (1,3);
+insert into assignment_user(user_id, assignment_id) values (1,4);
+insert into assignment_user(user_id, assignment_id) values (1,5);
+insert into assignment_user(user_id, assignment_id) values (2,2);
+insert into assignment_user(user_id, assignment_id) values (2,3);
+insert into assignment_user(user_id, assignment_id) values (2,4);
+insert into assignment_user(user_id, assignment_id) values (2,5);
+insert into assignment_user(user_id, assignment_id) values (2,6);
+
+insert into examination(id, title, content) values (1, "Examination 01", "Tim so lon nhat trong mang mot chieu");
+insert into examination(id, title, content) values (2, "Examination 02", "Sap mang theo thu tu tang dan");
+insert into examination(id, title, content) values (3, "Examination 03", "Kiem tra chu so nguyen duong (n) co phai la so nguyen to");
+insert into examination(id, title, content) values (4, "Examination 04", "Kiem tra chu so nguyen duong (n) co phai la so hoan hao");
+insert into examination(id, title, content) values (5, "Examination 05", "Kiem tra chu so nguyen duong (n) co phai la so chinh phuong");
+insert into examination(id, title, content) values (6, "Examination 06", "Kiem tra chu so nguyen duong (n) co phai la so cha");
+
+insert into examination_user(user_id, examination_id) values (1, 1);
+insert into examination_user(user_id, examination_id) values (1, 2);
+insert into examination_user(user_id, examination_id) values (1, 3);
+insert into examination_user(user_id, examination_id) values (1, 4);
+insert into examination_user(user_id, examination_id) values (1, 5);
+insert into examination_user(user_id, examination_id) values (2, 2);
+insert into examination_user(user_id, examination_id) values (2, 3);
+insert into examination_user(user_id, examination_id) values (2, 4);
+insert into examination_user(user_id, examination_id) values (2, 5);
+insert into examination_user(user_id, examination_id) values (2, 6);
+
