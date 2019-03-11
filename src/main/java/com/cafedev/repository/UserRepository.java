@@ -2,7 +2,6 @@ package com.cafedev.repository;
 
 import java.util.List;
 
-import com.cafedev.model.Feed;
 import com.cafedev.model.Role;
 import com.cafedev.model.User;
 

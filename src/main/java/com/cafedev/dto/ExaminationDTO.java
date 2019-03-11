@@ -1,8 +1,6 @@
 package com.cafedev.dto;
 
-import com.cafedev.model.Comment;
 import com.cafedev.model.Examination;
-import com.cafedev.model.Feed;
 
 public class ExaminationDTO {
 	private Long idExamination;

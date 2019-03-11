@@ -1,6 +1,5 @@
 package com.cafedev.repository.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafedev.dto.RequestDTO;
-import com.cafedev.model.ExaminationUser;
 import com.cafedev.model.Feed;
 import com.cafedev.repository.FeedRepository;
 
