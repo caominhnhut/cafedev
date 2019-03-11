@@ -9,19 +9,8 @@ public class ArticleDTO {
 	private String description;
 	private String content;
 	private String createDate;
-
-	public ArticleDTO() {
-		
-	}
 	
-	public ArticleDTO(Long id, String name, String description, String content){
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.content = content;
-	}
-	
-	public void coppyArticle(Article art) {
+	public void coppyFrom(Article art) {
 		this.id = art.getId();
 		this.name = art.getName();
 		this.description = art.getDescription();

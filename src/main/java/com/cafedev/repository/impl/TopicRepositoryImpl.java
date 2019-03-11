@@ -33,7 +33,7 @@ public class TopicRepositoryImpl implements TopicRepository{
 		Root<Topic> root = cq.from(Topic.class);
 		cq.select(root);
 		RequestDTO<Object> request = new RequestDTO<>();
-		request.createMetadata(config.getMaxTopicNumber(), ESortType.ASC, config.getSortTopicValue());
+		request.createMetadata(config.getMaxTopicNumber(), ESortType.DESC, config.getSortTopicValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:
