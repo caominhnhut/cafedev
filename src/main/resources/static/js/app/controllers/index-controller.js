@@ -143,8 +143,8 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	}
 	
 	$scope.doOperation = function($event,idExam){
-		if(id ==2|| id==1){
-			e.preventDefault();
-		}
+		// if(id ==2|| id==1){
+		// 	e.preventDefault();
+		// }
 	}
 }]);
