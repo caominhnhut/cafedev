@@ -35,7 +35,7 @@ public class Examination {
 	private String content;
 
 	@OneToMany(mappedBy = "examination", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ExaminationUser> examinationUser = new ArrayList<>();
+	private List<ExaminationUser> examinationUser = new ArrayList<ExaminationUser>();
 
 	@JsonIgnore
 	public List<ExaminationUser> getExaminationUser() {

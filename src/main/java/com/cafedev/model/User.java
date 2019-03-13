@@ -233,5 +233,32 @@ public class User implements UserDetails {
 		
 		return strUser.toString();
 	}
+
+	public User(Long id, String username, String password, String firstName,
+			String lastName, String email, String phoneNumber, String avatar,
+			EStatus status, Date createDate, List<Role> roles,
+			List<Feed> feeds, List<Comment> comments, List<Article> articles,
+			List<ExaminationUser> examinations) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.avatar = avatar;
+		this.status = status;
+		this.createDate = createDate;
+		this.roles = roles;
+		this.feeds = feeds;
+		this.comments = comments;
+		this.articles = articles;
+		this.examinations = examinations;
+	}
+
+	public User() {
+		super();
+	}
 	
 }

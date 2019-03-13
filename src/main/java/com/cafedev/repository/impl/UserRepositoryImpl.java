@@ -49,4 +49,17 @@ public class UserRepositoryImpl implements UserRepository {
 		Query query = em.createQuery(cq);
 		return query.getResultList();
 	}
+
+	@Override
+	public List<User> findUserById(long id) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<User> cq = cb.createQuery(User.class);
+		Root<User> root = cq.from(User.class);
+		cq.select(root);
+		cq.where(cb.equal(root.get("id"), id));
+		List<User> user = em.createQuery(cq).getResultList();
+		
+		return user;
+	}
+	
 }

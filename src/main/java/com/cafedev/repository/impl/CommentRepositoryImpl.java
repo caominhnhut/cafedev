@@ -10,6 +10,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.model.Comment;
@@ -55,4 +56,12 @@ public class CommentRepositoryImpl implements CommentRepository {
 		return query.getResultList();
 	}
 
+
+	@Override
+	@Transactional
+	public Comment save(Comment comment) {
+		em.persist(comment);
+		return comment;
+	}
+	
 }

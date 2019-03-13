@@ -53,6 +53,22 @@ public class Comment{
 	@JoinColumn(name = "parent_id")
 	private Comment parent;
 	
+	public Comment() {
+		super();
+	}
+
+	public Comment(Long id, String content, Date createDate, User user,
+			Feed feed, List<Comment> subComments, Comment parent) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.createDate = createDate;
+		this.user = user;
+		this.feed = feed;
+		this.subComments = subComments;
+		this.parent = parent;
+	}
+
 	public User getUser() {
 		return user;
 	}

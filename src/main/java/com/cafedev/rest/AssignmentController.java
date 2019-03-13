@@ -31,7 +31,7 @@ public class AssignmentController {
 		User user = (User) authentication.getPrincipal();
 		
 		List<Assignment> assignments = assignmentService.findByUserId(user.getId());
-		if(assignments == null) {
+		if(assignments.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
 		

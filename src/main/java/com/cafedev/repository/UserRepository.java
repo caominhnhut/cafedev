@@ -13,5 +13,6 @@ public interface UserRepository {
     User save(User user);
     User findByUsername(String userName);
     List<Role> getRoles();
+    List<User> findUserById(long id);
 }
 

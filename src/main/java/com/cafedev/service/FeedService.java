@@ -13,4 +13,5 @@ public interface FeedService {
 
 	public List<FeedDTO> findByOwnerId(RequestDTO<Long> request);
 	public List<FeedDTO> findLatest(RequestDTO<Object> request);
+	
 }

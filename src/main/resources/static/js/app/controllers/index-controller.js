@@ -3,18 +3,61 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	
 	$scope.isFullScreen = false;
 	$scope.isError = false;
+
+	$scope.setClass = function(path){
+		$scope.className = path;
+		$window.location.href = '#/'+path;
+	}
 	
+	$scope.getAssignment = function(){
+		$http({
+			url: 'rest/assignment/find-by-user-id',
+			method: 'GET',
+			headers: authService.createAuthorizationTokenHeader()
+		})
+		.then(function(res){
+			$scope.assignments = res.data;
+		})
+		.catch(function(response) {
+			console.log("Can't not show your assigments. Please try again a minute");
+		});
+	}
+
+	$scope.getExamination = function(){
+		$http({
+			url: 'rest/examination/find-by-user',
+			method: 'GET',
+			headers: authService.createAuthorizationTokenHeader()
+		})
+		.then(function(res) {
+			$scope.examinations= res.data;
+		})
+		.catch(function(response) {
+			console.log("Can't not show your examination. Please try again a minute");
+		});
+	}
+
 	$scope.loadPage = function(){
 		var token = authService.getValueByKey(TOKEN_KEY);
 		if(token != null){
 			$rootScope.authenticated = true;
 			$scope.username = authService.getValueByKey(USERNAME_KEY);
-
+			$scope.getAssignment();
+			$scope.getExamination();
 		}else{
 			$rootScope.authenticated = false;
 		}
+
+		var url = $location.url();
+		if(url.length > 1){
+			url = url.substring(1, url.length);
+		}else{
+			url = "home";
+		}
+		$scope.setClass(url);
 	}
 	$scope.loadPage();
+
 	$scope.fullScreen = function(){
 		if($scope.isFullScreen){
 			$scope.isFullScreen = false;
@@ -57,8 +100,8 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		{
 			$scope.isError = true;
 		}
-		
 	}
+
 	$scope.login = function() {
 		$http({
 			url: 'auth/login',
@@ -71,15 +114,15 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			$scope.isError = false;
 			authService.setKeyValue(TOKEN_KEY, res.data.access_token);
 			$('#modal-login').modal('hide');
-			authService.getUser()
-			.then(function(user) {
-				$scope.username = user.data.firstName+" "+user.data.lastName;
-				authService.setKeyValue(USERNAME_KEY, $scope.username);
-				authService.setKeyValue(USERID_KEY, user.data.id);
-				$window.location.href = '#/';
-			}).catch(function(error) {
-				alert("Server is busy now. Please try again later.");
-			});
+			return authService.getUser();
+		})
+		.then(function(user) {
+			$scope.username = user.data.firstName+" "+user.data.lastName;
+			authService.setKeyValue(USERNAME_KEY, $scope.username);
+			authService.setKeyValue(USERID_KEY, user.data.id);
+			$scope.getAssignment();
+			$scope.getExamination();
+			$window.location.href = '#/';
 		})
 		.catch(function(response) {
 			$rootScope.authenticated = false;
@@ -99,44 +142,9 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		$window.location.reload();
 	}
 	
-	$scope.setClass = function(path){
-		$scope.className = path;
-		$window.location.href = '#/'+path;
-	}
-	
-	$scope.getExamination = function(){
-		$http({
-			url: 'rest/examination/find-by-user?idUser=1',
-			method: 'GET'
-		})
-		.then(function(res) {
-			$scope.examinations= res.data;
-		})
-		.catch(function(response) {
-			alert("Server is error, please try again!")
-		});
-	}
-	//$scope.getExamination();
-	
 	$scope.doOperation = function($event,idExam){
-		if(id ==2|| id==1){
-			e.preventDefault();
-		}
+		// if(id ==2|| id==1){
+		// 	e.preventDefault();
+		// }
 	}
-
-	$scope.getAssignment = function(){
-		$http({
-			url: 'rest/assignment/find-by-user-id',
-			method: 'GET'
-		})
-		.then(function(res){
-			$scope.assignments = res.data;
-			console.log($scope.assignment);
-		})
-		.catch(function(response) {
-			alert("Sever is error, please try again!")
-		});
-	}
-	//$scope.getAssignment();
-
 }]);

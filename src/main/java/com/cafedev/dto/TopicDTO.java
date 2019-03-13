@@ -3,6 +3,7 @@ package com.cafedev.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cafedev.common.TimeProvider;
 import com.cafedev.model.Article;
 import com.cafedev.model.Topic;
 
@@ -18,8 +19,11 @@ public class TopicDTO {
 		List<Article> arts = topic.getArticles();
 		if (arts != null) {
 			for (Article article : arts) {
-				ArticleDTO articleDto = new ArticleDTO(article.getId(), article.getName(), article.getDescription(),
-						article.getContent());
+				ArticleDTO articleDto = new ArticleDTO();
+				articleDto.setId(article.getId());
+				articleDto.setName(article.getName());
+				articleDto.setDescription(article.getDescription());
+				articleDto.setCreateDate(TimeProvider.convertDateToString(article.getCreateDate()));
 				articles.add(articleDto);
 			}
 		}

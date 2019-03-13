@@ -53,8 +53,7 @@ public class ArticleRepositoryImpl implements ArticleRepository{
 			query.setFirstResult(request.getMetadata().getPagination().getOffset());
 			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
 		}
-		
-		return  query.getResultList();
+		return query.getResultList();
 	}
 
 	@Override

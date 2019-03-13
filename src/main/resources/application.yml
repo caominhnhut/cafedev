@@ -6,7 +6,7 @@ server:
 
 jwt:
   header: Authorization
-  expires_in: 60 #3600 # 60 minutes
+  expires_in: 3600
   mobile_expires_in: 600 # 10 minutes
   secret: queenvictoria
   

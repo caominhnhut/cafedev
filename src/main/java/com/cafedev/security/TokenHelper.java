@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.cafedev.common.TimeProvider;
-import com.cafedev.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -147,19 +146,8 @@ public class TokenHelper {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
         final String username = getUsernameFromToken(token);
-        final Date created = getIssuedAtDateFromToken(token);
-//        return (
-//                username != null &&
-//                username.equals(userDetails.getUsername()) &&
-//                        !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())
-//        );
-        return true;
-    }
-
-    private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
-        return (lastPasswordReset != null && created.before(lastPasswordReset));
+        return (username != null && username.equals(userDetails.getUsername()));
     }
 
     public String getToken( HttpServletRequest request ) {

@@ -81,4 +81,16 @@ public class FeedRepositoryImpl implements FeedRepository {
 		
 		return query.getResultList();
 	}
+	
+	@Override
+	public List<Feed> findFeedById(long id) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Feed> cq = cb.createQuery(Feed.class);
+		Root<Feed> root = cq.from(Feed.class);
+		cq.select(root);
+		cq.where(cb.equal(root.get("id"), id));
+		 List<Feed> lstfeed = em.createQuery(cq).getResultList();
+		
+		return lstfeed;
+	}
 }

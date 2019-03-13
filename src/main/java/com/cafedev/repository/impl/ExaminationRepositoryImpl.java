@@ -1,11 +1,12 @@
 package com.cafedev.repository.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -24,13 +25,17 @@ public class ExaminationRepositoryImpl implements ExaminationRepository {
 	@Override
 	public List<Examination> findByUserId(Long id) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Examination> cq = cb.createQuery(Examination.class);
-		Root<Examination> root = cq.from(Examination.class);
-		Join<Examination, ExaminationUser> join = root.join("examinationUser");
-		cq.where(cb.equal(join.get("user").get("id"), id));
-		List<Examination> lstExamination = em.createQuery(cq).getResultList();
-		return lstExamination;
-
+		CriteriaQuery<ExaminationUser> cq = cb.createQuery(ExaminationUser.class);
+		Root<ExaminationUser> root = cq.from(ExaminationUser.class);
+		cq.select(root);
+		cq.where(cb.equal(root.get("user").get("id"), id));
+		Query query = em.createQuery(cq);
+		List<Examination> examinations = new ArrayList<Examination>();
+		List<ExaminationUser> examinationUsers = query.getResultList();
+		for(ExaminationUser examinationUser: examinationUsers){
+			examinations.add(examinationUser.getExamination());
+		}
+		return examinations;
 	}
 	
 	@Override
