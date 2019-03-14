@@ -25,6 +25,8 @@ insert into feed(id, create_date, description, file_path, owner_id) values (9, C
 insert into feed(id, create_date, description, file_path, owner_id) values (10, CURRENT_TIMESTAMP(), 'Chỉ còn những mùa nhớ', '/upload/java-01.png', 2);
 insert into feed(id, create_date, description, file_path, owner_id) values (11, CURRENT_TIMESTAMP(), 'Thà rằng như thế', '/upload/java-02.jpg', 2);
 insert into feed(id, create_date, description, file_path, owner_id) values (12, CURRENT_TIMESTAMP(), 'I love hotel califoniha', '/upload/java-01.png', 2);
+insert into feed(id, create_date, description, file_path, owner_id) values (13, CURRENT_TIMESTAMP(), 'havana', '/upload/java-01.png', 2);
+insert into feed(id, create_date, description, file_path, owner_id) values (14, CURRENT_TIMESTAMP(), 'depasito', '/upload/java-01.png', 2);
 
 insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (1, 'Bài hát này thật hay', CURRENT_TIMESTAMP(), null, 1, 1);
 insert into comment(id, content, create_date, parent_id, feed_id, owner_id) values (2, 'Ca sỉ nữ hát hay quá', CURRENT_TIMESTAMP(), null, 1, 2);
@@ -120,4 +122,7 @@ insert into examination_user(user_id, examination_id) values (2, 3);
 insert into examination_user(user_id, examination_id) values (2, 4);
 insert into examination_user(user_id, examination_id) values (2, 5);
 insert into examination_user(user_id, examination_id) values (2, 6);
+
+update examination_user
+set status = 1
 

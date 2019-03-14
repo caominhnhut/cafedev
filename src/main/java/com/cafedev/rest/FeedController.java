@@ -1,5 +1,6 @@
 package com.cafedev.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafedev.dto.FeedDTO;
 import com.cafedev.dto.RequestDTO;
+import com.cafedev.model.Feed;
 import com.cafedev.service.FeedService;
 
 /**
@@ -44,4 +46,15 @@ public class FeedController {
 		return new ResponseEntity<List<FeedDTO>>(feedDto, HttpStatus.OK);
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="no-auth/feed/find-today")
+	public ResponseEntity<List<FeedDTO>> findToDay(){
+		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
+		List<Feed> feeds = feedService.findToDay();
+		for (Feed feed : feeds) {
+			FeedDTO feedDTO = new FeedDTO();
+			feedDTO.copyFrom(feed);
+			feedDTOs.add(feedDTO);
+		}
+		return new ResponseEntity<List<FeedDTO>>(feedDTOs, HttpStatus.OK);
+	}
 }

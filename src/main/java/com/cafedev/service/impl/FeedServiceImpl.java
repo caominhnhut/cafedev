@@ -68,4 +68,9 @@ public class FeedServiceImpl implements FeedService {
 		}
 		return feedDTOs;
 	}
+
+	@Override
+	public List<Feed> findToDay() {
+		return feedRepository.findToDay();
+	}
 }
