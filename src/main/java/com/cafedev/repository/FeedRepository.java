@@ -14,5 +14,5 @@ public interface FeedRepository {
 	public List<Feed> findByOwnerId(RequestDTO<Long> request);
 	public List<Feed> findLatest(RequestDTO<Object> request);
 	public List<Feed> findFeedById(long id);
-
+	public int countByDate();
 }

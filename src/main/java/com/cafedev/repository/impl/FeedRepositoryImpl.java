@@ -1,11 +1,20 @@
 package com.cafedev.repository.impl;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,8 +98,26 @@ public class FeedRepositoryImpl implements FeedRepository {
 		Root<Feed> root = cq.from(Feed.class);
 		cq.select(root);
 		cq.where(cb.equal(root.get("id"), id));
-		 List<Feed> lstfeed = em.createQuery(cq).getResultList();
+		List<Feed> lstfeed = em.createQuery(cq).getResultList();
 		
 		return lstfeed;
+	}
+
+	@Override
+	public int countByDate() {
+		Timestamp startTime = Timestamp.valueOf(LocalDateTime.of(LocalDate.now(), LocalTime.of(00, 00, 00)));
+		Timestamp endTime = Timestamp.valueOf(LocalDateTime.now());
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Feed> cq = cb.createQuery(Feed.class);
+		Root<Feed> root = cq.from(Feed.class);
+		Path<Date> createDate = root.<Date>get("createDate");//cb.between(root.<Date>get("createDate"));
+		cq.select(root)
+		.where(cb.between(createDate, startTime, endTime));
+		Query query = em.createQuery(cq);
+		return query.getResultList().size();
+		
+//		return em.createQuery("select f from Feed f where f.createDate BETWEEN :timestamp AND CURRENT_TIMESTAMP")
+//		.setParameter("timestamp", startTime).getResultList().size();
 	}
 }

@@ -9,10 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafedev.dto.FeedCommentDTO;
 import com.cafedev.dto.FeedDTO;
 import com.cafedev.dto.RequestDTO;
+import com.cafedev.repository.CommentRepository;
+import com.cafedev.repository.FeedRepository;
+import com.cafedev.service.FeedCommentService;
 import com.cafedev.service.FeedService;
 
 /**
@@ -25,6 +30,10 @@ public class FeedController {
 
 	@Autowired
 	private FeedService feedService;
+	
+	@Autowired
+	private FeedCommentService feedCommentService;
+	
 	
 	@RequestMapping(method=RequestMethod.POST, value="feed/find-by-owner")
 	public ResponseEntity<List<FeedDTO>> findByOwnerId(@RequestBody RequestDTO<Long> requestDTO){
@@ -42,6 +51,12 @@ public class FeedController {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<FeedDTO>>(feedDto, HttpStatus.OK);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="no-auth/feed/count-by-date")
+	@ResponseBody
+	public FeedCommentDTO countByDate() {
+		return feedCommentService.countByDate();
 	}
 	
 }

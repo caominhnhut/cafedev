@@ -1,11 +1,19 @@
 package com.cafedev.repository.impl;
 
+
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +70,21 @@ public class CommentRepositoryImpl implements CommentRepository {
 	public Comment save(Comment comment) {
 		em.persist(comment);
 		return comment;
+	}
+
+
+	@Override
+	public int countByDate() {
+		Timestamp startTime = Timestamp.valueOf(LocalDateTime.of(LocalDate.now(), LocalTime.of(00, 00, 00)));
+		Timestamp endTime = Timestamp.valueOf(LocalDateTime.now());
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Comment> cq = cb.createQuery(Comment.class);
+		Root<Comment> root = cq.from(Comment.class);
+		Path<Date> createDate = root.<Date>get("createDate");
+		cq.select(root).where(cb.between(createDate, startTime, endTime));
+		Query query = em.createQuery(cq);
+		return query.getResultList().size();
 	}
 	
 }

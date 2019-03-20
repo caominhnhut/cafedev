@@ -61,10 +61,4 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return true;
 	}
-	
-	@Override
-	public int countListCommentByDate() {
-		return commentRepository.countListCommentByDate();
-	}
-
 }

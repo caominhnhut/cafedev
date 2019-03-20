@@ -36,9 +36,4 @@ public class CommentController {
 		}
 		return new ResponseEntity<ResponseDTO<CommentDTO>>(response,HttpStatus.OK);
 	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="no-auth/comment/count-list-comments")
-	public int countListCommentByDate() {
-		return commentService.countListCommentByDate();
-	}
 }

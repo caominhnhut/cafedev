@@ -5,5 +5,4 @@ import com.cafedev.model.Comment;
 
 public interface CommentService {
 	ResponseDTO<Comment> saveComment(Comment comment);
-	public int countListCommentByDate();
 }
