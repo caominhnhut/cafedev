@@ -9,12 +9,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +57,7 @@ public class FeedRepositoryImpl implements FeedRepository {
 			query.setFirstResult(request.getMetadata().getPagination().getOffset());
 			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
 		}
-		
+
 		return query.getResultList();
 	}
 
@@ -87,10 +84,10 @@ public class FeedRepositoryImpl implements FeedRepository {
 			query.setFirstResult(request.getMetadata().getPagination().getOffset());
 			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
 		}
-		
+
 		return query.getResultList();
 	}
-	
+
 	@Override
 	public List<Feed> findFeedById(long id) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -116,8 +113,5 @@ public class FeedRepositoryImpl implements FeedRepository {
 		.where(cb.between(createDate, startTime, endTime));
 		Query query = em.createQuery(cq);
 		return query.getResultList().size();
-		
-//		return em.createQuery("select f from Feed f where f.createDate BETWEEN :timestamp AND CURRENT_TIMESTAMP")
-//		.setParameter("timestamp", startTime).getResultList().size();
 	}
 }
