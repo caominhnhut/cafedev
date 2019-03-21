@@ -147,4 +147,19 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		// 	e.preventDefault();
 		// }
 	}
+
+	$scope.countFeedComment = function(){
+		$http({
+			url: 'rest/no-auth/feed/count-by-date',
+			method: 'GET',
+			headers: authService.createAuthorizationTokenHeader()
+		})
+		.then(function(res){
+			$scope.feedcomment = res.data;
+		})
+		.catch(function(response) {
+			console.log("Can't not show your assigments. Please try again a minute");
+		});
+	}
+	$scope.countFeedComment();
 }]);

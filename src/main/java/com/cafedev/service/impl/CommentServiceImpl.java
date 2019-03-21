@@ -18,7 +18,7 @@ import com.cafedev.service.CommentService;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-
+		
 	@Autowired
 	private CommentRepository commentRepository;
 	
@@ -61,5 +61,4 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return true;
 	}
-
 }

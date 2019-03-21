@@ -16,7 +16,6 @@ public interface FeedService {
 
 	public List<FeedDTO> findByOwnerId(RequestDTO<Long> request);
 	public List<FeedDTO> findLatest(RequestDTO<Object> request);
-	public List<Feed> findToDay();
 	public ResponseDTO<Feed> save(Feed feed);
 	
 }

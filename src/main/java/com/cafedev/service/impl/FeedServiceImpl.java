@@ -17,7 +17,6 @@ import com.cafedev.model.Comment;
 import com.cafedev.model.Feed;
 import com.cafedev.repository.CommentRepository;
 import com.cafedev.repository.FeedRepository;
-import com.cafedev.repository.UserRepository;
 import com.cafedev.service.FeedService;
 
 /**
@@ -29,24 +28,20 @@ public class FeedServiceImpl implements FeedService {
 
 	@Autowired
 	private AppConfigurationProperties config;
-
+	
 	@Autowired
 	private FeedRepository feedRepository;
-
+	
 	@Autowired
 	private CommentRepository commentRepository;
-
-	@Autowired
-	private UserRepository userRepository;
-
+	
 	@Override
 	public List<FeedDTO> findByOwnerId(RequestDTO<Long> request) {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
 		List<Feed> feeds = feedRepository.findByOwnerId(request);
-		/* Get 3rd comments ** */
+		/*Get 3rd comments ***/
 		RequestDTO<Long> requestDto = new RequestDTO<Long>();
-		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC,
-				config.getSortValue());
+		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
 			requestDto.setData(feed.getId());
@@ -58,14 +53,13 @@ public class FeedServiceImpl implements FeedService {
 		}
 		return feedDTOs;
 	}
-
+	
 	@Override
 	public List<FeedDTO> findLatest(RequestDTO<Object> request) {
 		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
 		List<Feed> feeds = feedRepository.findLatest(request);
 		RequestDTO<Long> requestDto = new RequestDTO<Long>();
-		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC,
-				config.getSortValue());
+		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
 			requestDto.setData(feed.getId());
@@ -77,12 +71,7 @@ public class FeedServiceImpl implements FeedService {
 		}
 		return feedDTOs;
 	}
-
-	@Override
-	public List<Feed> findToDay() {
-		return feedRepository.findToDay();
-	}
-
+	
 	public ResponseDTO<Feed> save(Feed feed) {
 		ResponseDTO<Feed> response = new ResponseDTO<Feed>();
 		boolean isValid = checkValidate(feed, response);
@@ -104,5 +93,4 @@ public class FeedServiceImpl implements FeedService {
 		}
 		return true;
 	}
-
 }

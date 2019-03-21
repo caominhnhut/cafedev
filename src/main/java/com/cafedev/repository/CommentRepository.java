@@ -10,7 +10,7 @@ import com.cafedev.model.Comment;
  */
 
 public interface CommentRepository {
-	List<Comment> findByFeedId(RequestDTO<Long> request);
-	Comment save(Comment comment);
-	
+	public List<Comment> findByFeedId(RequestDTO<Long> request);
+	public Comment save(Comment comment);
+	public int countByDate();
 }

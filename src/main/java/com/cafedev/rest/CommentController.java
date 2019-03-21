@@ -36,5 +36,4 @@ public class CommentController {
 		}
 		return new ResponseEntity<ResponseDTO<CommentDTO>>(response,HttpStatus.OK);
 	}
-
 }

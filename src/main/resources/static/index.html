@@ -30,7 +30,6 @@
 <script src="js/app/controllers/chart-controller.js"></script>
 <script src="js/app/controllers/setting-controller.js"></script>
 <script src="js/app/controllers/setting-controller.js"></script>
-<script src="js/app/controllers/addfeed-controller.js"></script>
 <script src="js/app/controllers/programmes-controller.js"></script>
 <script src="js/app/controllers/notify-controller.js"></script>
 <script src="js/app/controllers/about-controller.js"></script>
@@ -109,7 +108,7 @@
 			</div>
 			<div class="col-md-3 right-content" ng-hide="isFullScreen">
 
-				<a href="#/add-feed" class="btn btn-warning btn-new-topic">
+				<a href="#" data-toggle="modal" data-target="#modal-add-feed" class="btn btn-warning btn-new-topic">
 					<b>POST NEW TOPIC</b>
 				</a>
 				<!-- ASSIGNMENTS -->
@@ -152,8 +151,8 @@
 				</div>
 				<div class="panel-right-content">
 					<ul>
-						<li><b>Total Post:</b><i>120</i></li>
-						<li><b>Answers</b><i>20</i></li>
+						<li><b>Total Post:</b><i>{{feedcomment.numberFeed}}</i></li>
+						<li><b>Answers:</b><i>{{feedcomment.numberComment}}</i></li>
 						<li><a href="#/chart">Chart</a><i class="glyphicon glyphicon-stats"></i></li>
 						<li><a href="#/setting">Setting</a><i class="glyphicon glyphicon-cog"></i></li>
 					</ul>
@@ -182,5 +181,6 @@
 	</div>
 	<ng-include src="'views/modal/login.html'"></ng-include>
 	<ng-include src="'views/modal/register.html'"></ng-include>
+	<ng-include src="'views/modal/addfeed.html'"></ng-include>
 </body>
 </html>

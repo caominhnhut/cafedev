@@ -36,7 +36,7 @@ import com.cafedev.service.ExaminationService;
 import com.cafedev.service.FileStorageService;
 
 @RestController
-@RequestMapping(value = "/rest/no-auth/examination/")
+@RequestMapping(value = "/rest/examination/")
 public class ExaminationController {
 	
 	Logger logger = LoggerFactory.getLogger(ExaminationController.class);
