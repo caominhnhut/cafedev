@@ -58,16 +58,4 @@ public class FeedController {
 	public FeedCommentDTO countByDate() {
 		return feedCommentService.countByDate();
 	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="no-auth/feed/find-today")
-	public ResponseEntity<List<FeedDTO>> findToDay(){
-		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
-		List<Feed> feeds = feedService.findToDay();
-		for (Feed feed : feeds) {
-			FeedDTO feedDTO = new FeedDTO();
-			feedDTO.copyFrom(feed);
-			feedDTOs.add(feedDTO);
-		}
-		return new ResponseEntity<List<FeedDTO>>(feedDTOs, HttpStatus.OK);
-	}
 }

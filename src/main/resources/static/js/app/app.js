@@ -25,9 +25,6 @@ cafedevApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/setting', {
 		templateUrl : 'views/setting.html',
 		controller : 'SettingCtrl'
-	}).when('/add-feed', {
-		templateUrl : 'views/add-feed.html',
-		controller : 'AddFeedCtrl'
 	}).when('/programmes', {
 		templateUrl : 'views/programmes.html',
 		controller : 'ProgrammesCtrl'
