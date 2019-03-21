@@ -23,17 +23,19 @@ public class FeedDTO {
 	
 	private List<CommentDTO> comments = new ArrayList<CommentDTO>();
 
-	public void copyFrom(Feed feed){
+	public void copyFrom(Feed feed) {
 		this.id = feed.getId();
 		this.description = feed.getDescription();
-		this.filePath = feed.getFilePath();
+		this.filePath = feed.getFilePath().replace("\\", "/");
 		this.createDate = feed.getCreateDate();
 		this.user = new UserDTO();
 		this.user.copyFrom(feed.getUser());
-		for(Comment cm:feed.getComments()){
-			CommentDTO cmd = new CommentDTO();
-			cmd.copyFrom(cm);
-			this.comments.add(cmd);
+		if (feed.getComments() != null) {
+			for (Comment cm : feed.getComments()) {
+				CommentDTO cmd = new CommentDTO();
+				cmd.copyFrom(cm);
+				this.comments.add(cmd);
+			}
 		}
 	}
 	

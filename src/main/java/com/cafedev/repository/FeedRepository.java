@@ -3,6 +3,7 @@ package com.cafedev.repository;
 import java.util.List;
 
 import com.cafedev.dto.RequestDTO;
+import com.cafedev.dto.ResponseDTO;
 import com.cafedev.model.Feed;
 
 /**
@@ -15,5 +16,6 @@ public interface FeedRepository {
 	public List<Feed> findLatest(RequestDTO<Object> request);
 	public List<Feed> findFeedById(long id);
 	public List<Feed> findToDay();
+	public Feed save(Feed feed);
 
 }

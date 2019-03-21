@@ -1,5 +1,6 @@
 package com.cafedev.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -34,6 +36,7 @@ public class Comment{
 	private String content;
 
 	@Column(name = "create_date")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date createDate;
 
 	@JsonIgnore
@@ -102,7 +105,8 @@ public class Comment{
 	}
 
 	public String getCreateDate() {
-		return createDate.toString();
+		String formatCreateDate = new SimpleDateFormat("dd/MM/yyyy").format(createDate);
+		return formatCreateDate;
 	}
 
 	public void setCreateDate(Date createDate) {

@@ -14,7 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import com.cafedev.common.TimeProvider;
 
 /**
  * Created by Nhut Nguyen on 01-07-2018.
@@ -45,9 +46,6 @@ public class Feed{
 	@OneToMany(mappedBy = "feed", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Comment> comments;
 	
-	@Transient
-	private byte[] files;
-
 	public Long getId() {
 		return id;
 	}
@@ -73,19 +71,11 @@ public class Feed{
 	}
 
 	public String getCreateDate() {
-		return createDate.toString();
+		return TimeProvider.convertDateToString(this.createDate);
 	}
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
-	}
-
-	public byte[] getFiles() {
-		return files;
-	}
-
-	public void setFiles(byte[] files) {
-		this.files = files;
 	}
 	
 	public List<Comment> getComments() {

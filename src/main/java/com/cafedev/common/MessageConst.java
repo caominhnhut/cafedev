@@ -22,4 +22,7 @@ public class MessageConst {
 	public static final String ERROR_FILE_NOTFOUND = "File not found %s";
 	public static final String ERROR_FILE_TYPE = "Could not determine file type";
 	public static final String FILE_DOWNLOAD = "/rest/examination/downloadFile/";
+	public static final String ERROR_DESCRIPTION_EMPTY="Description data is null";
+	public static final String ERROR_FILEPATH_EMPTY="FilePath data is null";
+	
 }

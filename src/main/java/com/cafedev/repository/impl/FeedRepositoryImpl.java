@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafedev.dto.RequestDTO;
 import com.cafedev.model.Feed;
@@ -42,10 +43,12 @@ public class FeedRepositoryImpl implements FeedRepository {
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:
-				cq.orderBy(cb.asc(root.get(request.getMetadata().getSortValue())));
+				cq.orderBy(cb.asc(root
+						.get(request.getMetadata().getSortValue())));
 				break;
 			case DESC:
-				cq.orderBy(cb.desc(root.get(request.getMetadata().getSortValue())));
+				cq.orderBy(cb.desc(root.get(request.getMetadata()
+						.getSortValue())));
 				break;
 			default:
 				break;
@@ -54,8 +57,10 @@ public class FeedRepositoryImpl implements FeedRepository {
 
 		Query query = em.createQuery(cq);
 		if (request.getMetadata().getPagination() != null) {
-			query.setFirstResult(request.getMetadata().getPagination().getOffset());
-			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
+			query.setFirstResult(request.getMetadata().getPagination()
+					.getOffset());
+			query.setMaxResults(request.getMetadata().getPagination()
+					.getMaxResult());
 		}
 
 		return query.getResultList();
@@ -69,10 +74,12 @@ public class FeedRepositoryImpl implements FeedRepository {
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:
-				cq.orderBy(cb.asc(root.get(request.getMetadata().getSortValue())));
+				cq.orderBy(cb.asc(root
+						.get(request.getMetadata().getSortValue())));
 				break;
 			case DESC:
-				cq.orderBy(cb.desc(root.get(request.getMetadata().getSortValue())));
+				cq.orderBy(cb.desc(root.get(request.getMetadata()
+						.getSortValue())));
 				break;
 			default:
 				break;
@@ -81,8 +88,10 @@ public class FeedRepositoryImpl implements FeedRepository {
 
 		Query query = em.createQuery(cq);
 		if (request.getMetadata().getPagination() != null) {
-			query.setFirstResult(request.getMetadata().getPagination().getOffset());
-			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
+			query.setFirstResult(request.getMetadata().getPagination()
+					.getOffset());
+			query.setMaxResults(request.getMetadata().getPagination()
+					.getMaxResult());
 		}
 
 		return query.getResultList();
@@ -109,17 +118,25 @@ public class FeedRepositoryImpl implements FeedRepository {
 		// 0, 0))));
 		// List res = query.getResultList();
 
-		Timestamp startDate = Timestamp.valueOf(LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0)));
+		Timestamp startDate = Timestamp.valueOf(LocalDateTime.of(
+				LocalDate.now(), LocalTime.of(0, 0, 0)));
 		Timestamp endDate = Timestamp.valueOf(LocalDateTime.now());
 		System.out.println(startDate);
 		System.out.println(endDate);
-		
+
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Feed> cq = cb.createQuery(Feed.class);
 		Root<Feed> root = cq.from(Feed.class);
-		Path<Date> date = root.<Date>get("createDate");
+		Path<Date> date = root.<Date> get("createDate");
 		cq.select(root);
 		cq.where(cb.between(date, startDate, endDate));
 		return em.createQuery(cq).getResultList();
+	}
+
+	@Override
+	@Transactional
+	public Feed save(Feed feed) {
+		em.persist(feed);
+		return feed;
 	}
 }
