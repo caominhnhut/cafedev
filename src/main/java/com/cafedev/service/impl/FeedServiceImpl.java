@@ -1,14 +1,17 @@
 package com.cafedev.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cafedev.common.MessageConst;
 import com.cafedev.config.AppConfigurationProperties;
 import com.cafedev.dto.FeedDTO;
 import com.cafedev.dto.RequestDTO;
+import com.cafedev.dto.ResponseDTO;
 import com.cafedev.enums.ESortType;
 import com.cafedev.model.Comment;
 import com.cafedev.model.Feed;
@@ -67,5 +70,27 @@ public class FeedServiceImpl implements FeedService {
 			feedDTOs.add(feedDTO);
 		}
 		return feedDTOs;
+	}
+	
+	public ResponseDTO<Feed> save(Feed feed) {
+		ResponseDTO<Feed> response = new ResponseDTO<Feed>();
+		boolean isValid = checkValidate(feed, response);
+		if (isValid) {
+			feed.setCreateDate(new Date());
+			Feed feedResult = feedRepository.save(feed);
+			response.setData(feedResult);
+		}
+		return response;
+	}
+
+	private boolean checkValidate(Feed feed, ResponseDTO<Feed> response) {
+		if (feed.getDescription().isEmpty()) {
+			response.setErrorMessage(MessageConst.ERROR_DESCRIPTION_EMPTY);
+			return false;
+		} else if (feed.getFilePath().isEmpty()) {
+			response.setErrorMessage(MessageConst.ERROR_FILEPATH_EMPTY);
+			return false;
+		}
+		return true;
 	}
 }

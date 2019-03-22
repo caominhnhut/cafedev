@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -113,5 +114,12 @@ public class FeedRepositoryImpl implements FeedRepository {
 		.where(cb.between(createDate, startTime, endTime));
 		Query query = em.createQuery(cq);
 		return query.getResultList().size();
+	}
+	
+	@Override
+	@Transactional
+	public Feed save(Feed feed) {
+		em.persist(feed);
+		return feed;
 	}
 }

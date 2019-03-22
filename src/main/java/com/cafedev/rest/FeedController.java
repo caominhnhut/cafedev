@@ -10,15 +10,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.cafedev.common.MessageConst;
 import com.cafedev.dto.FeedCommentDTO;
 import com.cafedev.dto.FeedDTO;
 import com.cafedev.dto.RequestDTO;
+import com.cafedev.dto.ResponseDTO;
 import com.cafedev.model.Feed;
 import com.cafedev.service.FeedCommentService;
 import com.cafedev.service.FeedService;
+import com.cafedev.service.FileStorageService;
 
 /**
  * Created by Nhut Nguyen on 01-07-2018.
@@ -33,6 +39,9 @@ public class FeedController {
 	
 	@Autowired
 	private FeedCommentService feedCommentService;
+	
+	@Autowired
+	private FileStorageService fileStorageService;
 	
 	
 	@RequestMapping(method=RequestMethod.POST, value="feed/find-by-owner")
@@ -57,5 +66,29 @@ public class FeedController {
 	@ResponseBody
 	public FeedCommentDTO countByDate() {
 		return feedCommentService.countByDate();
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "feed/save")
+	public ResponseEntity<ResponseDTO<FeedDTO>> save(
+			@RequestParam("file") MultipartFile file,
+			@RequestParam("description") String description) {
+		ResponseDTO<FeedDTO> response = new ResponseDTO<FeedDTO>();
+		String fileName = fileStorageService.storeFile(file);
+		String fileDownloadUri = ServletUriComponentsBuilder
+				.fromCurrentContextPath().path(MessageConst.FILE_DOWNLOAD)
+				.path(fileName).toUriString();
+		Feed feed = new Feed();
+		feed.setFilePath(fileDownloadUri);
+		feed.setDescription(description);
+		ResponseDTO<Feed> feedResult = this.feedService.save(feed);
+		if (feedResult.getData() != null) {
+			FeedDTO feedDto = new FeedDTO();
+			feedDto.copyFrom(feedResult.getData());
+			response.setData(feedDto);
+
+		} else {
+			response.setErrorMessage(feedResult.getErrorMessage());
+		}
+		return new ResponseEntity<ResponseDTO<FeedDTO>>(response, HttpStatus.OK);
 	}
 }
