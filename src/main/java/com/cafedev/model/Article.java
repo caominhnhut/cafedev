@@ -40,11 +40,11 @@ public class Article {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "topic_id")
 	private Topic topic;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
 	private User user;
 

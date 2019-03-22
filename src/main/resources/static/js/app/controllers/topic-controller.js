@@ -7,7 +7,7 @@ function($scope, $http, authService,$routeParams){
 				"metadata": {
 					"pagination": {
 						"offset": 0,
-						"maxResult": 3
+						"maxResult": 10
 					},
 					"sortType": "DESC",
 					"sortValue": "createDate"

@@ -6,6 +6,8 @@ import java.util.List;
 public class ArticlesDTO {
 	private String topicName;
 	
+	private String authorName;
+	
 	private List<ArticleDTO> articles = new ArrayList<ArticleDTO>();
 	
 	public String getTopicName() {
@@ -23,6 +25,13 @@ public class ArticlesDTO {
 	public void setArticles(List<ArticleDTO> articles) {
 		this.articles = articles;
 	}
-	
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
 	
 }

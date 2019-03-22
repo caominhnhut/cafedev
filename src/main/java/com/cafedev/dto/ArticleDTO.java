@@ -1,5 +1,6 @@
 package com.cafedev.dto;
 
+import com.cafedev.common.TimeProvider;
 import com.cafedev.model.Article;
 
 public class ArticleDTO {
@@ -15,6 +16,7 @@ public class ArticleDTO {
 		this.name = art.getName();
 		this.description = art.getDescription();
 		this.content = art.getContent();
+		this.createDate = TimeProvider.convertDateToString(art.getCreateDate());
 	}
 	
 	public Long getId() {

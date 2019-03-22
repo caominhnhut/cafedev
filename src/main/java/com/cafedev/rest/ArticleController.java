@@ -30,11 +30,12 @@ public class ArticleController {
 		
 		List<Article> articles = articleService.findAllByTopicId(requestDTO);
 		if(articles==null) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<ArticlesDTO>(HttpStatus.NO_CONTENT);
 		}
 		
 		ArticlesDTO articlesDTO = new ArticlesDTO();
 		articlesDTO.setTopicName(articles.get(0).getTopic().getName());
+		articlesDTO.setAuthorName(articles.get(0).getUser().getFirstName() + " " + articles.get(0).getUser().getLastName());	
 		
 		List<ArticleDTO> articleList = new ArrayList<ArticleDTO>();
 		
@@ -47,6 +48,7 @@ public class ArticleController {
 		articlesDTO.setArticles(articleList);
 		return new ResponseEntity<ArticlesDTO>(articlesDTO, HttpStatus.OK);
 	}
+	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "article/content")
 	public ResponseEntity<ArticleDTO> getContentById(@RequestParam("id") Long articleId){
