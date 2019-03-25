@@ -24,5 +24,7 @@ public class MessageConst {
 	public static final String FILE_DOWNLOAD = "/rest/examination/downloadFile/";
 	public static final String ERROR_DESCRIPTION_EMPTY="Description data is null";
 	public static final String ERROR_FILEPATH_EMPTY="FilePath data is null";
+	public static final String ERROR_RECEIVER_NOT_EXIST = "Receiver's id is null";
+	public static final String ERROR_CONTENT_NOT_NULL = "Content is null";
 	
 }

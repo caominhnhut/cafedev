@@ -78,7 +78,7 @@
 			<li><a ng-class="{'active':className=='home'}"  ng-click="setClass('home')" href="javascript:void(0)">HOME</a></li>
 			<li><a ng-class="{'active':className=='forum'}" ng-click="setClass('forum')" href="javascript:void(0)">FORUM</a></li>
 			<li><a ng-class="{'active':className=='programmes'}" ng-click="setClass('programmes')" href="#/programmes">PROGRAMMES</a></li>
-			<li><a ng-class="{'active':className=='notify'}" ng-click="setClass('notify')" href="#/notify">NOTIFY &nbsp; <span class="notify">20</span></a></li>
+			<li><a ng-class="{'active':className=='notify'}" ng-click="setClass('notify')" href="#/notify">NOTIFY &nbsp; <span class="notify">{{numOfNotify}}</span></a></li>
 			<li><a ng-class="{'active':className=='about'}" ng-click="setClass('about')" href="#/about">ABOUT</a></li>
 			<li class="search-control">
 				<div class="input-group">

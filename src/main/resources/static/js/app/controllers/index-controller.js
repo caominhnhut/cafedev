@@ -3,7 +3,9 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	
 	$scope.isFullScreen = false;
 	$scope.isError = false;
-
+	$scope.numOfNotify = 2;
+	
+	
 	$scope.setClass = function(path){
 		$scope.className = path;
 		$window.location.href = '#/'+path;
@@ -162,4 +164,20 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		});
 	}
 	$scope.countFeedComment();
+	
+	$scope.getNumOfNotify = function(){
+		$http({
+			url: 'rest/notify/count-all-notify-unread',
+			method: 'GET',
+			headers: authService.createAuthorizationTokenHeader()
+		})
+		.then(function(res){
+			$scope.numOfNotify = res.data;
+			console.log("xxxxxxxxxxx",$scope.numOfNotify);
+		})
+		.catch(function(response) {
+			console.log("Can't not show your notify. Please try again a minute");
+		});
+	}
+	$scope.getNumOfNotify();
 }]);
