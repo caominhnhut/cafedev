@@ -13,4 +13,6 @@ public interface ArticleRepository{
 	
 	public Article getContentById(Long articleId);
 	
+	public List<Article> findAllByTopic(Long topicId);
+	
 }

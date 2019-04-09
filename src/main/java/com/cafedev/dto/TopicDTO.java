@@ -24,6 +24,7 @@ public class TopicDTO {
 				articleDto.setName(article.getName());
 				articleDto.setDescription(article.getDescription());
 				articleDto.setCreateDate(TimeProvider.convertDateToString(article.getCreateDate()));
+				articleDto.setAuthorName(article.getUser().getFirstName() + " " + article.getUser().getLastName());
 				articles.add(articleDto);
 			}
 		}

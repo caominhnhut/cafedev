@@ -19,23 +19,22 @@ import com.cafedev.model.Article;
 import com.cafedev.service.ArticleService;
 
 @RestController
-@RequestMapping(value="/rest/no-auth/")
+@RequestMapping(value="/rest/no-auth/article/")
 public class ArticleController {
 	
 	@Autowired
 	private ArticleService articleService;
 	
-	@RequestMapping(method = RequestMethod.POST, value="article/find-all-by-topic-id")
+	@RequestMapping(method = RequestMethod.POST, value="find-all-by-topic-id")
 	public ResponseEntity<ArticlesDTO> findAllByTopicId(@RequestBody RequestDTO<Long> requestDTO){
 		
 		List<Article> articles = articleService.findAllByTopicId(requestDTO);
-		if(articles==null) {
+		if(articles.size() == 0) {
 			return new ResponseEntity<ArticlesDTO>(HttpStatus.NO_CONTENT);
 		}
 		
 		ArticlesDTO articlesDTO = new ArticlesDTO();
 		articlesDTO.setTopicName(articles.get(0).getTopic().getName());
-		articlesDTO.setAuthorName(articles.get(0).getUser().getFirstName() + " " + articles.get(0).getUser().getLastName());	
 		
 		List<ArticleDTO> articleList = new ArrayList<ArticleDTO>();
 		
@@ -50,7 +49,7 @@ public class ArticleController {
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.GET, value = "article/content")
+	@RequestMapping(method = RequestMethod.GET, value = "content")
 	public ResponseEntity<ArticleDTO> getContentById(@RequestParam("id") Long articleId){
 		Article article = articleService.getContentById(articleId);
 		if(article == null) {
@@ -62,4 +61,11 @@ public class ArticleController {
 		
 		return new ResponseEntity<ArticleDTO>(articleDTO, HttpStatus.OK);
 	}
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value="count-list-article" )
+	public int getAllByTopic(@RequestParam("id") Long topicId){
+		return articleService.findAllByTopic(topicId).size();
+	}
+	
 }

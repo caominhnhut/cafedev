@@ -10,6 +10,7 @@ public class ArticleDTO {
 	private String description;
 	private String content;
 	private String createDate;
+	private String authorName;
 	
 	public void coppyFrom(Article art) {
 		this.id = art.getId();
@@ -17,6 +18,7 @@ public class ArticleDTO {
 		this.description = art.getDescription();
 		this.content = art.getContent();
 		this.createDate = TimeProvider.convertDateToString(art.getCreateDate());
+		this.authorName = art.getUser().getFirstName() + " " + art.getUser().getLastName();
 	}
 	
 	public Long getId() {
@@ -57,5 +59,13 @@ public class ArticleDTO {
 
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 }

@@ -95,5 +95,15 @@ public class ArticleRepositoryImpl implements ArticleRepository{
 		Query query = em.createQuery(cq);
 		return (Article) query.getSingleResult();
 	}
+
+	@Override
+	public List<Article> findAllByTopic(Long topicId) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Article> cq = cb.createQuery(Article.class);
+		Root<Article> root = cq.from(Article.class);
+		cq.where(cb.equal(root.get("topic").get("id"), topicId));
+		Query query = em.createQuery(cq);
+		return query.getResultList();
+	}
 	
 }

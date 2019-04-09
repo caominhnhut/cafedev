@@ -1,32 +1,35 @@
 <div class="topic">
 	<ul>
 		<li>
-			<h4>
-				{{articleData.topicName}}
+			<h4 >
+				{{topicName}}
 			</h4>
 			<ul>
-				<li ng-repeat="article in articleData.articles" class="row sub-topic">
-					<div class="col-md-1 icon"></div>
-					<div class="col-md-5">
-						<div class="title">
-							<b><a href="#/sub-topic/{{article.id}}">{{article.name}}</a></b>
+				<div class="article">
+					<li ng-repeat="article in arrData" class="row sub-topic">
+
+						<div class="col-md-1 icon"></div>
+						<div class="col-md-5">
+							<div class="title">
+								<b><a href="#/sub-topic/{{article.id}}">{{article.name}}</a></b>
+							</div>
+							<div>
+								{{article.description}}
+							</div>
 						</div>
-						<div>
-							{{article.description}}
+						<div class="col-md-2">3 Posts</div>
+						<div class="col-md-4">
+							<div class="title">
+								Last post by <b>{{article.authorName}}</b>
+							</div>
+							<div>{{article.createDate}}</div>
 						</div>
-					</div>
-					<div class="col-md-2">3 Posts</div>
-					<div class="col-md-4">
-						<div class="title">
-							Last post by <b>{{articleData.authorName}}</b>
-						</div>
-						<div>{{article.createDate}}</div>
-					</div>
-				</li>
+					</li>
+				</div>
 
 			</ul>
 			<div class="wrapper">
-				<button class="button">Show More</button>
+				<button class="button" ng-click="showMore()">Show More</button>
 			</div>
 		</li>
 	</ul>

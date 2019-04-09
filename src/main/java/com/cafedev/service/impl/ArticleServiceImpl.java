@@ -32,4 +32,9 @@ public class ArticleServiceImpl implements ArticleService {
 		
 	}
 
+
+	@Override
+	public List<Article> findAllByTopic(Long topicId) {
+		return articleRepository.findAllByTopic(topicId);
+	}
 }
