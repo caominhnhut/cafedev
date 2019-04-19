@@ -29,11 +29,11 @@ public class NotifyServiceImpl implements NotifyService {
 
 		return notifyRepository.findByUserId(userId);
 	}
-	
+
 	@Override
 	public int count(Long userId) {
 
-		return notifyRepository.cont(userId);
+		return notifyRepository.count(userId);
 	}
 
 	@Override
@@ -62,7 +62,5 @@ public class NotifyServiceImpl implements NotifyService {
 		}
 		return true;
 	}
-
-
 
 }

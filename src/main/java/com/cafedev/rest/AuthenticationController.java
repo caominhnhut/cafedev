@@ -59,20 +59,21 @@ public class AuthenticationController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
 			HttpServletResponse response, Device device){
 
-		String token = authenticatedUsers.get(authenticationRequest.getUsername());
-		if (token != null && !token.isEmpty()) {
-			boolean isTokenExpired = tokenHelper.isTokenExpired(token);
-			if (!isTokenExpired) {
-				ResponseMessageDTO<String> responseMsg =new ResponseMessageDTO<String>();
-				responseMsg.setStatusCode(HttpStatus.UNAUTHORIZED.value());
-				responseMsg.setData("This user has already logined");
-				return ResponseEntity.ok(responseMsg);
-			} else {
-				return doLogin(authenticationRequest, device);
-			}
-		} else {
-			return doLogin(authenticationRequest, device);
-		}
+//		String token = authenticatedUsers.get(authenticationRequest.getUsername());
+//		if (token != null && !token.isEmpty()) {
+//			boolean isTokenExpired = tokenHelper.isTokenExpired(token);
+//			if (!isTokenExpired) {
+//				ResponseMessageDTO<String> responseMsg =new ResponseMessageDTO<String>();
+//				responseMsg.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+//				responseMsg.setData("This user has already logined");
+//				return ResponseEntity.ok(responseMsg);
+//			} else {
+//				return doLogin(authenticationRequest, device);
+//			}
+//		} else {
+//			return doLogin(authenticationRequest, device);
+//		}
+		return doLogin(authenticationRequest, device);
 	}
 	
 	@RequestMapping(value = "logout", method = RequestMethod.POST)

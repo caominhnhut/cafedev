@@ -38,7 +38,7 @@ public class NotifyController {
 		List<NotifyDTO> notifyDTOs = new ArrayList<NotifyDTO>();
 		for (Notify notify : notifys) {
 			NotifyDTO notifyDTO = new NotifyDTO();
-			//notifyDTO.copyFrom(notify);
+			notifyDTO.copyFrom(notify);
 			notifyDTOs.add(notifyDTO);
 		}
 		return new ResponseEntity<List<NotifyDTO>>(notifyDTOs, HttpStatus.OK);

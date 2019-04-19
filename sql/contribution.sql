@@ -124,5 +124,18 @@ insert into examination_user(user_id, examination_id) values (2, 5);
 insert into examination_user(user_id, examination_id) values (2, 6);
 
 update examination_user
-set status = 1
+set status = 1;
+
+insert into notify(id,content,status,type,receiver,sender) values (1,"Khang Vo vua danh dau ban trong mot binh luan","UNREAD","MESSAGE",1,2);
+insert into notify(id,content,status,type,receiver,sender) values (2,"Son Vo vua danh dau ban trong mot binh luan","UNREAD","TAGED",2,1);
+insert into notify(id,content,status,type,receiver,sender) values (3,"Nhat Vo vua danh dau ban trong mot binh luan","UNREAD","MESSAGE",1,2);
+insert into notify(id,content,status,type,receiver,sender) values (4,"Long Vo vua danh dau ban trong mot binh luan","UNREAD","TAGED",2,1);
+insert into notify(id,content,status,type,receiver,sender) values (5,"Khang Vo vua gui tin nhan cho ban","UNREAD","MESSAGE",1,2);
+insert into notify(id,content,status,type,receiver,sender) values (6,"Hong Nguyen vua danh dau ban trong mot binh luan","UNREAD","TAGED",1,2);
+insert into notify(id,content,status,type,receiver,sender) values (7,"Khang Vo vua gui tin nhan cho ban","UNREAD","MESSAGE",1,2);
+
+
+
+
+
 

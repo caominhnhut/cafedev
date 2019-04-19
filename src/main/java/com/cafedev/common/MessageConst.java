@@ -26,5 +26,6 @@ public class MessageConst {
 	public static final String ERROR_FILEPATH_EMPTY="FilePath data is null";
 	public static final String ERROR_RECEIVER_NOT_EXIST = "Receiver's id is null";
 	public static final String ERROR_CONTENT_NOT_NULL = "Content is null";
+	public static final String ERROR_STATUS_NOT_NULL = "Status is null";
 	
 }

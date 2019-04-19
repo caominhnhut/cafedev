@@ -3,7 +3,7 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	
 	$scope.isFullScreen = false;
 	$scope.isError = false;
-	$scope.numOfNotify = 2;
+	//$scope.numOfNotify = 2;
 	
 	
 	$scope.setClass = function(path){
@@ -39,6 +39,24 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		});
 	}
 
+	$scope.getNumOfNotify = function(){
+		$http({
+			url: 'rest/notify/count-all-notify-unread',
+			method: 'GET',
+			headers: authService.createAuthorizationTokenHeader()
+		})
+		.then(function(res){
+			$scope.numOfNotify = res.data;
+			if ($scope.numOfNotify<10){
+				$scope.numOfNotify = '0' + $scope.numOfNotify;
+			}
+			console.log("xxxxxxxxxxx",$scope.numOfNotify);
+		})
+		.catch(function(response) {
+			console.log("Can't not show the number of your notify. Please try again a minute");
+		});
+	}
+
 	$scope.loadPage = function(){
 		var token = authService.getValueByKey(TOKEN_KEY);
 		if(token != null){
@@ -46,6 +64,7 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			$scope.username = authService.getValueByKey(USERNAME_KEY);
 			$scope.getAssignment();
 			$scope.getExamination();
+			$scope.getNumOfNotify();
 		}else{
 			$rootScope.authenticated = false;
 		}
@@ -124,6 +143,8 @@ function($scope, $http, $rootScope, $location, authService, $window){
 			authService.setKeyValue(USERID_KEY, user.data.id);
 			$scope.getAssignment();
 			$scope.getExamination();
+			$scope.getNumOfNotify();
+
 			$window.location.href = '#/';
 		})
 		.catch(function(response) {
@@ -165,19 +186,4 @@ function($scope, $http, $rootScope, $location, authService, $window){
 	}
 	$scope.countFeedComment();
 	
-	$scope.getNumOfNotify = function(){
-		$http({
-			url: 'rest/notify/count-all-notify-unread',
-			method: 'GET',
-			headers: authService.createAuthorizationTokenHeader()
-		})
-		.then(function(res){
-			$scope.numOfNotify = res.data;
-			console.log("xxxxxxxxxxx",$scope.numOfNotify);
-		})
-		.catch(function(response) {
-			console.log("Can't not show your notify. Please try again a minute");
-		});
-	}
-	$scope.getNumOfNotify();
 }]);

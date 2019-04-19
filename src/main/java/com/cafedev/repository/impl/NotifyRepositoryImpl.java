@@ -40,7 +40,6 @@ public class NotifyRepositoryImpl implements NotifyRepository {
 		Predicate predicateNotify = cb.equal(root.get("status"), ENotifyStatus.UNREAD);
 
 		cq.where(cb.and(predicateNotify, predicateUser));
-		// cq.where(predicateUser);
 		RequestDTO<Object> request = new RequestDTO<>();
 		request.createMetadata(config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
 		if (request.getMetadata().getSortType() != null) {
@@ -60,7 +59,7 @@ public class NotifyRepositoryImpl implements NotifyRepository {
 	}
 
 	@Override
-	public int cont(Long userId) {
+	public int count(Long userId) {
 		return findByUserId(userId).size();
 	}
 
@@ -77,6 +76,24 @@ public class NotifyRepositoryImpl implements NotifyRepository {
 	public Notify add(Notify notify) {
 		em.persist(notify);
 		return notify;
+	}
+
+	@Override
+	public String getTaged(Notify notify) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getContent(Notify notify) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getSender(Notify notify) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
