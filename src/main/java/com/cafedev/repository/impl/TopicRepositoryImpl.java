@@ -52,7 +52,6 @@ public class TopicRepositoryImpl implements TopicRepository{
 			query.setFirstResult(request.getMetadata().getPagination().getOffset());
 			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
 		}
-		
 		return query.getResultList();
 	}
 }

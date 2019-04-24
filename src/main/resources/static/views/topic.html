@@ -17,16 +17,15 @@
 								{{article.description}}
 							</div>
 						</div>
-						<div class="col-md-2">3 Posts</div>
-						<div class="col-md-4">
-							<div class="title">
-								Last post by <b>{{article.authorName}}</b>
-							</div>
-							<div>{{article.createDate}}</div>
+					<div class="col-md-2">3 Posts</div>
+					<div class="col-md-4">
+						<div class="title">
+							Last post by <b>{{articleData.authorName}}</b>
 						</div>
-					</li>
+						<div>{{article.createDate}}</div>
+					</div>
+				</li>
 				</div>
-
 			</ul>
 			<div class="wrapper">
 				<button class="button" ng-click="showMore()">Show More</button>

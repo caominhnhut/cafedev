@@ -35,6 +35,7 @@ public class ArticleController {
 		
 		ArticlesDTO articlesDTO = new ArticlesDTO();
 		articlesDTO.setTopicName(articles.get(0).getTopic().getName());
+		articlesDTO.setAuthorName(articles.get(0).getUser().getFirstName() + " " + articles.get(0).getUser().getLastName());
 		
 		List<ArticleDTO> articleList = new ArrayList<ArticleDTO>();
 		
