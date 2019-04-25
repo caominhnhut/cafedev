@@ -1,5 +1,7 @@
 package com.cafedev.service.impl;
 
+import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -15,6 +17,7 @@ import com.cafedev.common.RegexMatcher;
 import com.cafedev.dto.ResponseDTO;
 import com.cafedev.model.User;
 import com.cafedev.repository.UserRepository;
+import com.cafedev.service.FileStorageService;
 import com.cafedev.service.UserService;
 
 /**
@@ -30,6 +33,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	@Lazy
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private FileStorageService fileStorageService;
 
 	@Override
 	public User findByUsername(String username) throws UsernameNotFoundException {
@@ -67,6 +73,30 @@ public class UserServiceImpl implements UserService {
 		return response;
 	}
 	
+	@Override
+	public ResponseDTO<User> update(User user, String fileName, long id) {
+		ResponseDTO<User> response = new ResponseDTO<User>();
+		boolean isValid = validateUpdate(user, response);
+		if (isValid) {
+			try {
+				String avatar= findAvatar(id);
+				System.out.println("1111111"+avatar);
+				if (!fileName.isEmpty()) {
+					fileStorageService.deleteFile(avatar);
+				}
+				User userResult = userRepository.update(user);
+				response.setData(userResult);
+			} catch (Exception e) {
+				Throwable t = e.getCause();
+				if (t instanceof ConstraintViolationException) {
+					response.setErrorMessage(MessageConst.ERROR_USER_EXISTS);
+				}
+			}
+		}
+
+		return response;
+	}
+	
 	private boolean validate(User user, ResponseDTO<User> response){
 		if(user == null){
 			response.setErrorMessage(MessageConst.ERROR_USER_EMPTY);
@@ -91,4 +121,26 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 	}
+	
+	private boolean validateUpdate(User user, ResponseDTO<User> response){
+		if(user.getId() == null){
+			response.setErrorMessage(MessageConst.ERROR_USER_EMPTY);
+			return false;
+		}else{
+			if((user.getEmail() != null && !RegexMatcher.isValidEmail(user.getEmail()))){
+				response.setErrorMessage(MessageConst.ERROR_USER_EMAIL);
+				return false;
+			}if(user.getPhoneNumber() != null && !RegexMatcher.isValidPhone(user.getPhoneNumber())){
+				response.setErrorMessage(MessageConst.ERROR_USER_PHONE);
+				return false;
+			}
+			return true;
+		}
+	}
+
+	@Override
+	public String findAvatar(long id) {
+		return userRepository.findAvatar(id);
+	}
+
 }

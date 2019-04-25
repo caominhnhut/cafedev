@@ -17,7 +17,7 @@ cafedevApp.controller('ExaminationCtrl', ['$scope','$http','$routeParams','AuthS
 	}
 	//$scope.getExaminationDetail();
 
-	$scope.pushExamnination = function(){
+/*	$scope.pushExamnination = function(){
 		var formData = new FormData();
 		var file = $scope.myFile;
 		formData.append("file", file);
@@ -28,6 +28,35 @@ cafedevApp.controller('ExaminationCtrl', ['$scope','$http','$routeParams','AuthS
 		var token = authService.getValueByKey(TOKEN_KEY);
 
 		$http.post('/rest/examination/push-exercise', formData, {
+            transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined,
+				'Authorization': "Bearer " + token
+			}
+        })
+        .success(function(res){
+			console.log(res);
+        })
+        .error(function(){
+        });
+	}*/
+
+	$scope.pushExamnination = function(){
+		debugger;
+		var formData = new FormData();
+		var file = $scope.myFile;
+		formData.append("avatar", file);
+
+		formData.append("id", 1);
+		formData.append("email", "lehatrang1610@gmail.com");
+		formData.append("firstName", "ThanhNhan");
+		formData.append("lastName", "Nguyen");
+		formData.append("phoneNumber", "0906572734");
+		console.log(formData);
+
+		var token = authService.getValueByKey(TOKEN_KEY);
+
+		$http.post('rest/user/update-avatar', formData, {
             transformRequest: angular.identity,
 			headers: {
 				'Content-Type': undefined,
