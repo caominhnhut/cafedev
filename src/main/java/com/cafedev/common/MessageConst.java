@@ -6,7 +6,7 @@ public class MessageConst {
 	public static final String ERROR_USER_EMPTY = "User data is null";
 	public static final String ERROR_USER_FIRST_NAME = "First name should be alphabet and number";
 	public static final String ERROR_USER_LAST_NAME = "Last name should be alphabet and number";
-	public static final String ERROR_USER_EMAIL = "The email is incorect format";
+	public static final String ERROR_USER_EMAIL = "The email is incorrect format";
 	public static final String ERROR_USER_PHONE = "Phone should be number and greater than or equal 10 digitals";
 	public static final String ERROR_USER_ID_EMPTY = "User's id data is null";
 	public static final String ERROR_USER_ID_NOT_EXIST = "User's id  data is not exist";
@@ -27,5 +27,10 @@ public class MessageConst {
 	public static final String ERROR_RECEIVER_NOT_EXIST = "Receiver's id is null";
 	public static final String ERROR_CONTENT_NOT_NULL = "Content is null";
 	public static final String ERROR_STATUS_NOT_NULL = "Status is null";
+	public static final String ERROR_EXPIRY_DATE="OTP requite enter not over 5 minutes";
+	
+	public static final String FRIEND_EMAIL="lehatrang1610@gmail.com";
+	public static final String SUBJECT_EMAIL="[CafeDev]: OPT";
+	public static final String CONTENT_EMAIL="Hi %s.%nYou just requested to change password.Here is your OTP: %s. %nIt will be expired in 5 minutes.";
 	
 }

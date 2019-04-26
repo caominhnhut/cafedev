@@ -1,5 +1,6 @@
 package com.cafedev.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -66,4 +67,18 @@ public class FileStorageService {
             throw new MyFileNotFoundException(String.format(MessageConst.ERROR_FILE_NOTFOUND, fileName), ex);
         }
     }
+
+	public void deleteFile(String avatar) {
+			File files = new File(getFileStorageLocation()
+					+ "\\" + avatar);
+			System.out.println("aaaaa"+files);
+			files.delete();
+    }
+	
+
+
+	public Path getFileStorageLocation() {
+		return fileStorageLocation;
+	}
+	
 }
