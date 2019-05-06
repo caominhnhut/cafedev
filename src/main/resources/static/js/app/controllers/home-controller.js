@@ -87,4 +87,10 @@ function($scope, $http, authService, $window, $rootScope){
 		}
 	}
 
+	$scope.autoGrow = function(event) {
+		event.currentTarget
+		event.currentTarget.style.height = "5px";
+		event.currentTarget.style.height = (event.currentTarget.scrollHeight)+"px";
+	}
+
 }]);

@@ -140,11 +140,14 @@ input:focus{
 }
 .comments textarea{
 	width: 95%;
-    height: 30px;
     border-radius: 10px;
     margin-left: 30px;
    	outline: none;
     padding-left: 10px;
+    resize: none;
+    overflow: hidden;
+    min-height: 50px;
+    border: 1px solid #DDDDDD;
 }
 .comments .avatar-post{
 	vertical-align: middle;
