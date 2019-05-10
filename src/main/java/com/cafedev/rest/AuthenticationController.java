@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafedev.common.DeviceProvider;
-import com.cafedev.dto.ResponseMessageDTO;
 import com.cafedev.model.User;
 import com.cafedev.model.UserTokenState;
 import com.cafedev.security.TokenHelper;

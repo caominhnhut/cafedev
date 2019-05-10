@@ -39,7 +39,7 @@ public class Feed{
 	@Column(name = "create_date")
 	private Date createDate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
     @JoinColumn(name = "owner_id")
 	private User user;
 	

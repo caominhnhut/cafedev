@@ -9,8 +9,7 @@ public class IdRequestDTO extends JsonRequest{
 	
 	@Override
 	public String createJson() {
-		RequestDTO<Long> req = new RequestDTO<Long>();
-		req.createMetadata(10, ESortType.DESC, "createDate");
+		RequestDTO<Long> req = new RequestDTO<Long>(0, 10, ESortType.DESC, "createDate");
 		req.setData(1L);
 		String json = gson.toJson(req);
 		log.info(json);

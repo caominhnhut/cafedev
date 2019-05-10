@@ -29,9 +29,6 @@ public class TopicController {
 	@RequestMapping(method=RequestMethod.GET, value="no-auth/topic")
 	public ResponseEntity<List<TopicDTO>> findAll(){
 		List<TopicDTO> topicDtos = topicService.findAll();
-		if(topicDtos == null){
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
 		return new ResponseEntity<List<TopicDTO>>(topicDtos, HttpStatus.OK);
 	}
 	

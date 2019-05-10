@@ -1,6 +1,5 @@
-cafedevApp.factory('AuthService', function($http) {
-	
-	
+cafedevApp.factory('AuthFactory', function($http) {
+
 	//------USER NAME------
 	var getValueByKey = function(key){
 		return localStorage.getItem(key);

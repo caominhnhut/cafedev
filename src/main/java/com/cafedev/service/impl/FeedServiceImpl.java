@@ -36,61 +36,37 @@ public class FeedServiceImpl implements FeedService {
 	private CommentRepository commentRepository;
 	
 	@Override
-	public List<FeedDTO> findByOwnerId(RequestDTO<Long> request) {
-		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
+	public List<Feed> findByOwnerId(Long userId, int offset) {
+		RequestDTO<Long> request = new RequestDTO<>(offset, 10, ESortType.DESC, "createDate");
+		request.setData(userId);
 		List<Feed> feeds = feedRepository.findByOwnerId(request);
 		/*Get 3rd comments ***/
-		RequestDTO<Long> requestDto = new RequestDTO<Long>();
-		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC, config.getSortValue());
+		request = new RequestDTO<>(0, config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
-			requestDto.setData(feed.getId());
-			List<Comment> comments = commentRepository.findByFeedId(requestDto);
-			feed.getComments().addAll(comments);
-			FeedDTO feedDTO = new FeedDTO();
-			feedDTO.copyFrom(feed);
-			feedDTOs.add(feedDTO);
+			request.setData(feed.getId());
+			List<Comment> comments = commentRepository.findByFeedId(request);
+			feed.getComments().addAll(comments);;
 		}
-		return feedDTOs;
+		return feeds;
 	}
 	
 	@Override
-	public List<FeedDTO> findLatest(RequestDTO<Object> request) {
-		List<FeedDTO> feedDTOs = new ArrayList<FeedDTO>();
+	public List<Feed> findLatest(int offset) {
+		RequestDTO request = new RequestDTO<>(offset, 10, ESortType.DESC, "createDate");
 		List<Feed> feeds = feedRepository.findLatest(request);
-		RequestDTO<Long> requestDto = new RequestDTO<Long>();
-		requestDto.createMetadata(config.getMaxResult(), ESortType.ASC, config.getSortValue());
+		request = new RequestDTO<Long>(0, config.getMaxResult(), ESortType.ASC, config.getSortValue());
 		for (Feed feed : feeds) {
 			feed.getComments().clear();
-			requestDto.setData(feed.getId());
-			List<Comment> comments = commentRepository.findByFeedId(requestDto);
+			request.setData(feed.getId());
+			List<Comment> comments = commentRepository.findByFeedId(request);
 			feed.getComments().addAll(comments);
-			FeedDTO feedDTO = new FeedDTO();
-			feedDTO.copyFrom(feed);
-			feedDTOs.add(feedDTO);
 		}
-		return feedDTOs;
+		return feeds;
 	}
 	
-	public ResponseDTO<Feed> save(Feed feed) {
-		ResponseDTO<Feed> response = new ResponseDTO<Feed>();
-		boolean isValid = checkValidate(feed, response);
-		if (isValid) {
-			feed.setCreateDate(new Date());
-			Feed feedResult = feedRepository.save(feed);
-			response.setData(feedResult);
-		}
-		return response;
-	}
-
-	private boolean checkValidate(Feed feed, ResponseDTO<Feed> response) {
-		if (feed.getDescription().isEmpty()) {
-			response.setErrorMessage(MessageConst.ERROR_DESCRIPTION_EMPTY);
-			return false;
-		} else if (feed.getFilePath().isEmpty()) {
-			response.setErrorMessage(MessageConst.ERROR_FILEPATH_EMPTY);
-			return false;
-		}
-		return true;
+	public Feed save(Feed feed) {	
+		feed.setCreateDate(new Date());
+		return feedRepository.save(feed);
 	}
 }

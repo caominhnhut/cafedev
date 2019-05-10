@@ -1,5 +1,5 @@
-cafedevApp.controller('NotifyCtrl', [ '$scope', '$http', 'AuthService','$routeParam',
-function($scope, $http, authService,$routeParam) {
+cafedevApp.controller('NotifyCtrl', [ '$scope', '$http', 'AuthFactory','$routeParam',
+function($scope, $http, authFactory,$routeParam) {
 
 		$scope.isFullScreen = false;
 		$scope.isError = false;
@@ -25,7 +25,7 @@ function($scope, $http, authService,$routeParam) {
 				url: 'rest/notify/find-by-user-id',
 				method: 'GET',
 				data: request,
-				headers: authService.createAuthorizationTokenHeader()
+				headers: authFactory.createAuthorizationTokenHeader()
 			})
 			.then(function(res){
 				$scope.notifies = res.data;
@@ -41,7 +41,7 @@ function($scope, $http, authService,$routeParam) {
 		$http({
 			url: 'rest/no-auth/article/count-list-article?id=' + $routeParams.id,
 			method: 'GET',
-			headers: authService.createAuthorizationTokenHeader()
+			headers: authFactory.createAuthorizationTokenHeader()
 		})
 		.then(function(res){
 			var maxItem = res.data;

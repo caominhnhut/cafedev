@@ -1,4 +1,7 @@
-var cafedevApp = angular.module('cafedevApp', [ 'ngRoute', ]);
+var cafedevApp = angular.module('cafedevApp', [ 
+	'ngRoute',
+	'ui.bootstrap'
+]);
 
 cafedevApp.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {

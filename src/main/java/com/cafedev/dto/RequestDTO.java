@@ -12,8 +12,8 @@ public class RequestDTO<T> {
 	
 	public RequestDTO(){};
 	
-	public void createMetadata(int maxNumber, ESortType sortType, String sortValue){
-		Pagination pagination = new Pagination(0, maxNumber);
+	public RequestDTO(int offset, int maxNumber, ESortType sortType, String sortValue){
+		Pagination pagination = new Pagination(offset, maxNumber);
 		metadata = new Metadata(pagination, sortType, sortValue);
 	}
 	

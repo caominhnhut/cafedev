@@ -1,79 +1,44 @@
-cafedevApp.controller('HomeCtrl', ['$scope','$http','AuthService', '$window','$rootScope', 
-function($scope, $http, authService, $window, $rootScope){
+cafedevApp.controller('HomeCtrl', ['$scope','$http','AuthFactory', '$window','$rootScope', 'ApiProviderService',
+function($scope, $http, authFactory, $window, $rootScope, apiProviderService){
 
 	//Clear everything when browser close.
 //	$scope.onExit = function() {
 //		$rootScope.authenticated = false;
-//		authService.removeJwtToken();
-//		authService.removeUsername();
+//		authFactory.removeJwtToken();
+//		authFactory.removeUsername();
 //	};	
 	//$window.onbeforeunload =  $scope.onExit;
 	
-	$scope.getFeedsByOwner = function(){
-		var request = {
-				"metadata": {
-					"pagination": {
-						"offset": 0,
-						"maxResult": 10
-					},
-					"sortType": "DESC",
-					"sortValue": "createDate"
-				},
-				"data": authService.getValueByKey(USERID_KEY)
-			}
-		$http({
-			url: 'rest/feed/find-by-owner/',
-			method: 'POST',
-			data: request,
-			headers: authService.createAuthorizationTokenHeader()
+	$scope.findFeedsByOwner = function(){
+		var promise = apiProviderService.getApi(URL_FIND_FEED_BY_OWNER+0);
+		promise.then(function (response) {
+			$scope.feeds = response;
+		}, function (errorPayload) {
+			alert('Can not show your feeds. Please try again latter');
 		})
-		.then(function(res) {
-			$scope.feeds = res.data;
-		})
-		.catch(function(response) {
-			alert("Server is error, please try again!")
-		});
 	}
 	
-	$scope.getLatestFeeds = function(){
-		var request = {
-				"metadata": {
-					"pagination": {
-						"offset": 0,
-						"maxResult": 10
-					},
-					"sortType": "DESC",
-					"sortValue": "createDate"
-				}
-			}
-		$http({
-			url: 'rest/no-auth/feed/find-latest',
-			method: 'POST',
-			data: request,
-			headers: authService.createAuthorizationTokenHeader()
+	$scope.findLatestFeeds = function(){
+		var promise = apiProviderService.getApi(URL_FIND_LASTEST_FEED+0);
+		promise.then(function (response) {
+			$scope.feeds = response;
+		}, function (errorPayload) {
+			alert('Can not show your feeds. Please try again latter');
 		})
-		.then(function(res) {
-			$scope.feeds = res.data;
-		})
-		.catch(function(response) {
-			alert("Server is error, please try again!")
-		});
 	}
 	
-	$scope.loadFeeds = function(){
-		var token = authService.getValueByKey(TOKEN_KEY);
+	$scope.onLoad = function(){
+		var token = authFactory.getValueByKey(TOKEN_KEY);
 		if(token != null){
 			$rootScope.authenticated = true;
-			$scope.username = authService.getValueByKey(USERNAME_KEY);
-			$scope.getFeedsByOwner();
-			console.log("Find feeds by owner");
+			$scope.username = authFactory.getValueByKey(USERNAME_KEY);
+			$scope.findFeedsByOwner();
 		}else{
 			$rootScope.authenticated = false;
-			$scope.getLatestFeeds();
-			console.log("Find latest feeds");
+			$scope.findLatestFeeds();
 		}
 	}
-	$scope.loadFeeds();
+	$scope.onLoad();
 	
 	$scope.isShowReplyField = 0;
 	var previousId = -1;

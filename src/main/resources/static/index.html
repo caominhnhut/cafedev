@@ -13,12 +13,19 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/angular-1.4.5/angular.min.js"></script>
 <script src="js/angular-1.4.5/angular-route.js"></script>
+<script src="js/ui-bootstrap-2.5.0.min.js"></script>
+<script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
 
 <script src="js/app/app.js"></script>
-<script src="js/app/services/const-uri.js"></script>
 
-<script src="js/app/services/authentication-service.js"></script>
+<script src="js/app/factory/authen-factory.js"></script>
+
+<script src="js/app/services/const-uri.js"></script>
+<script src="js/app/services/api-provider-service.js"></script>
+
 <script src="https://kendo.cdn.telerik.com/2018.3.1017/js/kendo.all.min.js"></script>
+
+<script src="js/app/directive/file-directive.js"></script>
 
 <script src="js/app/controllers/index-controller.js"></script>
 <script src="js/app/controllers/home-controller.js"></script>
@@ -34,8 +41,7 @@
 <script src="js/app/controllers/notify-controller.js"></script>
 <script src="js/app/controllers/about-controller.js"></script>
 <script src="js/app/controllers/test-controller.js"></script>
-
-<script src="js/app/directive/file-directive.js"></script>
+<script src="js/app/controllers/modal/add-feed-controller.js"></script>
 
 </head>
 <body ng-controller="IndexContrl">
@@ -107,10 +113,7 @@
 				<div ng-view></div>
 			</div>
 			<div class="col-md-3 right-content" ng-hide="isFullScreen">
-
-				<a href="#" data-toggle="modal" data-target="#modal-add-feed" class="btn btn-warning btn-new-topic">
-					<b>POST NEW TOPIC</b>
-				</a>
+				<button class="btn btn-warning btn-new-topic" ng-click="openDialog()">START NEW FEED</button>
 				<!-- ASSIGNMENTS -->
 				<div class="panel-right-title">
 					<i class="glyphicon glyphicon-time"></i>
@@ -180,7 +183,7 @@
 			Reserved. Designed by: Nhut Nguyen.</div>
 	</div>
 	<ng-include src="'views/modal/login.html'"></ng-include>
-	<ng-include src="'views/modal/register.html'"></ng-include>
-	<ng-include src="'views/modal/addfeed.html'"></ng-include>
+	<!-- <ng-include src="'views/modal/register.html'"></ng-include>
+	<ng-include src="'views/modal/addfeed.html'"></ng-include> -->
 </body>
 </html>

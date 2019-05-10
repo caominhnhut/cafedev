@@ -32,8 +32,7 @@ public class TopicRepositoryImpl implements TopicRepository{
 		CriteriaQuery<Topic> cq = cb.createQuery(Topic.class);
 		Root<Topic> root = cq.from(Topic.class);
 		cq.select(root);
-		RequestDTO<Object> request = new RequestDTO<>();
-		request.createMetadata(config.getMaxTopicNumber(), ESortType.DESC, config.getSortTopicValue());
+		RequestDTO<Object> request = new RequestDTO<>(0,config.getMaxTopicNumber(), ESortType.DESC, config.getSortTopicValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:

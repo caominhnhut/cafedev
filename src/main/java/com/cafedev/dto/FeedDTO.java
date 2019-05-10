@@ -26,7 +26,9 @@ public class FeedDTO {
 	public void copyFrom(Feed feed) {
 		this.id = feed.getId();
 		this.description = feed.getDescription();
-		this.filePath = feed.getFilePath().replace("\\", "/");
+		if (feed.getFilePath() != null){
+			this.filePath = feed.getFilePath().replace("\\", "/");
+		}
 		this.createDate = feed.getCreateDate();
 		this.user = new UserDTO();
 		this.user.copyFrom(feed.getUser());
