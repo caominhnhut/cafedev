@@ -32,7 +32,7 @@ import com.cafedev.service.ExaminationService;
 import com.cafedev.service.FileStorageService;
 
 @RestController
-@RequestMapping(value = "/rest/examination/")
+@RequestMapping(value = "/rest/")
 public class ExaminationController extends RestApiController{
 
 	@Autowired
@@ -41,7 +41,7 @@ public class ExaminationController extends RestApiController{
 	@Autowired
 	private FileStorageService fileStorageService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "find-by-user")
+	@RequestMapping(method = RequestMethod.GET, value = "examination/find-by-user")
 	public ResponseEntity<List<ExaminationDTO>> findByUser() {
 		User user = getAuthenticatedUser();
 		List<Examination> examinations = examinationService.findByUserId(user.getId());
@@ -54,7 +54,7 @@ public class ExaminationController extends RestApiController{
 		return new ResponseEntity<List<ExaminationDTO>>(examinationDTOs, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "find-by-id-and-user")
+	@RequestMapping(method = RequestMethod.GET, value = "examination/find-by-id-and-user")
 	public ResponseEntity<ExaminationDetailDTO> findByIdAndUser(@PathParam("examId") Long examId) {
 		User user = getAuthenticatedUser();
 		ExaminationUser examinationUser = examinationService.findByUserAndExam(user.getId(), examId);
@@ -66,14 +66,14 @@ public class ExaminationController extends RestApiController{
 		return new ResponseEntity<ExaminationDetailDTO>(examinationDetailDTO,HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="push-exercise", consumes={"multipart/form-data"})
+	@RequestMapping(method=RequestMethod.POST, value="examination/push-exercise", consumes={"multipart/form-data"})
 	public ResponseEntity<UploadFileResponseDTO> pushExercise(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName){
 		String fileName = fileStorageService.storeFile(file);
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(MessageConst.FILE_DOWNLOAD).path(fileName).toUriString();
 		return new ResponseEntity<UploadFileResponseDTO>(new UploadFileResponseDTO(fileName, fileDownloadUri, file.getContentType(), file.getSize()),HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="downloadFile/{fileName:.+}")
+	@RequestMapping(method=RequestMethod.GET, value="examination/downloadFile/{fileName:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
 		Resource resource = fileStorageService.loadFileAsResource(fileName);
 

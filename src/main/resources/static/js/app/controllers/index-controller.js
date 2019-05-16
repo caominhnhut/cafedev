@@ -1,12 +1,12 @@
-cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$location', 'ApiProviderService','$window', 
+cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$location', 'ApiProviderService','$window',
 '$uibModal', 'AuthFactory', function($scope, $http, $rootScope, $location, apiProviderService, $window, $uibModal, authFactory){
 	
 	$scope.isFullScreen = false;
 	$scope.isError = false;
-	$scope.numOfNotify = 0;
+	$rootScope.numOfNotify = 0;
 	$scope.credentials = {};
 	$scope.registerInfo = {};
-
+	
 	$scope.setClass = function(path){
 		$scope.className = path;
 		$window.location.href = '#/'+path;
@@ -23,7 +23,7 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 	$scope.getAssignment = function(){
 		var promise = apiProviderService.getApi(URL_GET_ALL_ASSIGNMENT);
 		promise.then(function (response) {
-			$scope.assignments = response;
+			$rootScope.assignments = response;
 		}, function (errorPayload) {
 			console.log("errorPayload",errorPayload);
 		})
@@ -32,7 +32,7 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 	$scope.getExamination = function(){
 		var promise = apiProviderService.getApi(URL_GET_ALL_EXAMINATION);
 		promise.then(function (response) {
-			$scope.examinations = response;
+			$rootScope.examinations = response;
 		}, function (errorPayload) {
 			console.log("errorPayload",errorPayload);
 		})
@@ -41,9 +41,9 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 	$scope.getNumOfNotify = function(){
 		var promise = apiProviderService.getApi(URL_COUNT_NOTIFY);
 		promise.then(function (response) {
-			$scope.numOfNotify = response;
-			if ($scope.numOfNotify < 10 && $scope.numOfNotify > 0){
-				$scope.numOfNotify = '0' + $scope.numOfNotify;
+			$rootScope.numOfNotify = response;
+			if ($rootScope.numOfNotify < 10 && $rootScope.numOfNotify > 0){
+				$rootScope.numOfNotify = '0' + $rootScope.numOfNotify;
 			}
 		}, function (errorPayload) {
 			console.log("errorPayload",errorPayload);
@@ -53,7 +53,7 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 	$scope.countFeedComment = function(){
 		var promise = apiProviderService.getApi(URL_COUNT_COMMENT);
 		promise.then(function (response) {
-			$scope.feedcomment = response;
+			$rootScope.feedcomment = response;
 		}, function (errorPayload) {
 			console.log("errorPayload",errorPayload);
 		})
@@ -126,33 +126,31 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 	}
 
 	$scope.login = function() {
-		$http({
-			url: 'auth/login',
-			method: 'POST',
-			data: $scope.credentials,
-			headers: authFactory.createAuthorizationTokenHeader()
+		var promise = apiProviderService.postApi(URL_USER_LOGIN, $scope.credentials);
+		promise.then(function (response) {
+			console.log("response.data", response.data);
+			if(response.data != null){
+				$rootScope.authenticated = true;
+				$scope.isError = false;
+				authFactory.setKeyValue(TOKEN_KEY, response.data.access_token);	
+				return apiProviderService.getApi(URL_WHO_AM_I);
+			}else{
+				$scope.errorMessage = response.errorMessage;
+				$scope.isError = true;
+			}
 		})
-		.then(function(res) {
-			$rootScope.authenticated = true;
-			$scope.isError = false;
-			authFactory.setKeyValue(TOKEN_KEY, res.data.access_token);
-			$('#modal-login').modal('hide');
-			return authFactory.getUser();
-		})
-		.then(function(user) {
-			$scope.username = user.data.firstName+" "+user.data.lastName;
-			authFactory.setKeyValue(USERNAME_KEY, $scope.username);
-			$scope.getAssignment();
-			$scope.getExamination();
-			$scope.getNumOfNotify();
-			$scope.countFeedComment();
-			$window.location.href = '#/';
-		})
-		.catch(function(response) {
-			$rootScope.authenticated = false;
-			$scope.isError = true;
-			authFactory.removeByKey(TOKEN_KEY);
-			authFactory.removeByKey(USERNAME_KEY);
+		.then((user)=> {
+			if(!$scope.isError){
+				$rootScope.username = user.firstName+" "+user.lastName;
+				authFactory.setKeyValue(USERNAME_KEY, $rootScope.username);
+				$scope.getAssignment();
+				$scope.getExamination();
+				$scope.getNumOfNotify();
+				$scope.countFeedComment();
+				$scope.$dismiss();
+			}
+		}).catch(function(error){
+			console.log("error", error);
 		});
 	}
 	
@@ -164,7 +162,7 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 		$window.location.reload();
 	}
 
-	$scope.openDialog = function (){
+	$scope.openNewFeedDialog = function (){
 		var modalInstance = $uibModal.open({
 			templateUrl: "views/modal/addfeed.html",
 			controller: "addFeedController"
@@ -183,4 +181,18 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 		// })
 	}
 
+	$scope.openLoginDialog = function (){
+		var modalInstance = $uibModal.open({
+			templateUrl: "views/modal/login.html",
+			controller: "IndexContrl"
+		})
+	}
+	
+	$scope.cancel = function () {
+		$scope.$dismiss();
+	};
+
+	$scope.onKeyUpEvent = function(){
+		$scope.isError = false;
+	}
 }]);

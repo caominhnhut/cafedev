@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafedev.common.DeviceProvider;
+import com.cafedev.common.MessageConst;
+import com.cafedev.dto.ResponseDTO;
 import com.cafedev.model.User;
 import com.cafedev.model.UserTokenState;
 import com.cafedev.security.TokenHelper;
@@ -84,22 +86,30 @@ public class AuthenticationController {
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
-	private ResponseEntity<?> doLogin(JwtAuthenticationRequest authenticationRequest, Device device) {
-		// Perform the security
-		final Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
-						authenticationRequest.getPassword()));
+	private ResponseEntity<ResponseDTO<UserTokenState>> doLogin(JwtAuthenticationRequest authenticationRequest, Device device) {
+		ResponseDTO<UserTokenState> response = new ResponseDTO<UserTokenState>();
+		try {
+			final Authentication authentication = authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+							authenticationRequest.getPassword()));
 
-		// Inject into security context
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+			// Inject into security context
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		// token creation
-		User user = (User) authentication.getPrincipal();
-		String jws = tokenHelper.generateToken(user.getUsername(), device);
-		authenticatedUsers.put(user.getUsername(), jws);
-		int expiresIn = tokenHelper.getExpiredIn(device);
-		// Return the token
-		return ResponseEntity.ok(new UserTokenState(jws, expiresIn));
+			// token creation
+			User user = (User) authentication.getPrincipal();
+			String jws = tokenHelper.generateToken(user.getUsername(), device);
+			authenticatedUsers.put(user.getUsername(), jws);
+			int expiresIn = tokenHelper.getExpiredIn(device);
+			// Return the token
+			
+			response.setData(new UserTokenState(jws, expiresIn));
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			response.setErrorMessage(MessageConst.ERROR_WRONG_USER_PASSWORD);
+		}
+		return new ResponseEntity<ResponseDTO<UserTokenState>>(response, HttpStatus.OK);
+		
 	}
 
 	@RequestMapping(value = "/refresh", method = RequestMethod.POST)

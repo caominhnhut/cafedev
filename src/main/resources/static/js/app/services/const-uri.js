@@ -11,3 +11,5 @@ URL_FIND_ALL_TOPIC = 'rest/no-auth/topic';
 URL_FIND_FEED_BY_OWNER = 'rest/feed/find-by-owner?offset=';
 URL_FIND_LASTEST_FEED = 'rest/no-auth/feed/find-latest?offset=';
 URL_ADD_FEED = 'rest/feed/create';
+URL_USER_LOGIN = 'auth/login';
+URL_WHO_AM_I = '/rest/whoami';

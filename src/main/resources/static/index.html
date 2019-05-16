@@ -56,7 +56,7 @@
 				<!-- will be shown after log on -->
 				<div class="dropdown user-profile" ng-show="authenticated" ng-cloak>
 					<button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
-					Hi ! {{username}}
+						Hi ! {{username}}
 					<span class="caret"></span></button>
 					<ul class="dropdown-menu">
 						<li><a href="#">Setting</a></li>
@@ -65,9 +65,7 @@
 				</div>
 				<!-- should be dispaly if user has not log on yet -->
 				<ul class="list-inline" ng-hide="authenticated">
-					<li><a href="#" data-toggle="modal" data-target="#modal-login">
-							<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;Login
-					</a></li>
+					<li><button class="btn btn-warning btn-new-topic" ng-click="openLoginDialog()">LOGIN</button></li>
 					<li>|</li>
 					<li><a href="#" data-toggle="modal" data-target="#modal-register">
 						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Register
@@ -113,7 +111,7 @@
 				<div ng-view></div>
 			</div>
 			<div class="col-md-3 right-content" ng-hide="isFullScreen">
-				<button class="btn btn-warning btn-new-topic" ng-click="openDialog()">START NEW FEED</button>
+				<button class="btn btn-warning btn-new-topic" ng-click="openNewFeedDialog()">START NEW FEED</button>
 				<!-- ASSIGNMENTS -->
 				<div class="panel-right-title">
 					<i class="glyphicon glyphicon-time"></i>
@@ -182,7 +180,7 @@
 		<div class="author">Copyright 201 © CafeDev. All Rights
 			Reserved. Designed by: Nhut Nguyen.</div>
 	</div>
-	<ng-include src="'views/modal/login.html'"></ng-include>
+	<!-- <ng-include src="'views/modal/login.html'"></ng-include> -->
 	<!-- <ng-include src="'views/modal/register.html'"></ng-include>
 	<ng-include src="'views/modal/addfeed.html'"></ng-include> -->
 </body>

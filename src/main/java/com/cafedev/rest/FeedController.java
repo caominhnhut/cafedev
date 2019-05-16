@@ -1,12 +1,18 @@
 package com.cafedev.rest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -103,5 +109,14 @@ public class FeedController extends RestApiController{
 		feedDto.copyFrom(feedResult);
 		response.setData(feedDto);
 		return new ResponseEntity<ResponseDTO<FeedDTO>>(response, HttpStatus.OK);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="no-auth/feed/download")
+	public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String fileName){
+		Resource resource = fileStorageService.loadFileAsResource(fileName);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
 	}
 }

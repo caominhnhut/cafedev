@@ -339,7 +339,7 @@ input:focus{
 }
 #modal-login .modal-footer,
 #modal-register .modal-footer{
-	text-align: left;	
+	text-align: right;	
 }
 #modal-login .modal-footer .btn-info,
 #modal-register .modal-footer .btn-info{
@@ -347,8 +347,9 @@ input:focus{
     height: 40px;
     border-radius: 0px;
 }
-#modal-login .login-error{
-	padding: 5px;
+#modal-login h5{
+	text-align: center;
+    margin-top: 10px;
 }
 /* SUB TOPIC */
 .sub-topic .content{
