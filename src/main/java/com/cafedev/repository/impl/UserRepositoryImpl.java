@@ -8,12 +8,15 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cafedev.enums.EUserRoleName;
 import com.cafedev.model.ExaminationUser;
 import com.cafedev.model.Role;
 import com.cafedev.model.User;
@@ -106,6 +109,19 @@ public class UserRepositoryImpl implements UserRepository {
 		em.createQuery(u).executeUpdate();
 		return user;
 
+	}
+
+	@Override
+	public List<Role> getRolesByNames(List<EUserRoleName> names) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Role> cq = cb.createQuery(Role.class);
+		Root<Role> root = cq.from(Role.class);
+		cq.select(root);
+		Expression<EUserRoleName> expression = root.get("name");
+		Predicate predicate = expression.in(names);
+		cq.where(predicate);
+		Query query = em.createQuery(cq);
+		return query.getResultList();
 	}
 	
 }

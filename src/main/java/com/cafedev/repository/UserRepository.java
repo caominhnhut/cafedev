@@ -2,6 +2,7 @@ package com.cafedev.repository;
 
 import java.util.List;
 
+import com.cafedev.enums.EUserRoleName;
 import com.cafedev.model.Role;
 import com.cafedev.model.User;
 
@@ -16,5 +17,6 @@ public interface UserRepository {
 	List<User> findUserById(long id);
 	String findAvatar(long id);
 	User update(User user);
+	List<Role> getRolesByNames(List<EUserRoleName> names);
 }
 

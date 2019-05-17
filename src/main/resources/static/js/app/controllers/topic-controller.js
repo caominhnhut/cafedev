@@ -1,5 +1,5 @@
-cafedevApp.controller('TopicCtrl', ['$scope','$http','AuthService','$routeParams', 
-function($scope, $http, authService,$routeParams){
+cafedevApp.controller('TopicCtrl', ['$scope','$http','AuthFactory','$routeParams', 
+function($scope, $http, authFactory,$routeParams){
 	var numOfItem = 0;
 	$scope.arrData = [];
 
@@ -19,7 +19,7 @@ function($scope, $http, authService,$routeParams){
 			url: 'rest/no-auth/article/find-all-by-topic-id',
 			method: 'POST',
 			data: request,
-			headers: authService.createAuthorizationTokenHeader()
+			headers: authFactory.createAuthorizationTokenHeader()
 		})
 		.then(function(res) {
 			$scope.topicName = res.data.topicName;
@@ -51,7 +51,7 @@ function($scope, $http, authService,$routeParams){
 			url: 'rest/no-auth/article/find-all-by-topic-id',
 			method: 'POST',
 			data: request,
-			headers: authService.createAuthorizationTokenHeader()
+			headers: authFactory.createAuthorizationTokenHeader()
 		})
 		.then(function(res) {
 			if(res.data.articles !== undefined){
@@ -69,7 +69,7 @@ function($scope, $http, authService,$routeParams){
 		$http({
 			url: 'rest/no-auth/article/count-list-article?id=' + $routeParams.id,
 			method: 'GET',
-			headers: authService.createAuthorizationTokenHeader()
+			headers: authFactory.createAuthorizationTokenHeader()
 		})
 		.then(function(res){
 			var maxItem = res.data;

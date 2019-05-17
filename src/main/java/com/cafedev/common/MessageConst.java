@@ -10,6 +10,8 @@ public class MessageConst {
 	public static final String ERROR_USER_PHONE = "Phone should be number and greater than or equal 10 digitals";
 	public static final String ERROR_USER_ID_EMPTY = "User's id data is null";
 	public static final String ERROR_USER_ID_NOT_EXIST = "User's id  data is not exist";
+	public static final String ERROR_WRONG_USER_PASSWORD = "Username or password is incorrect";
+	public static final String ERROR_WRONG_PASSWORD_LENGTH = "The password should be more than 3 letters";
 
 	public static final String ERROR_ROLE_INVALID = "The roles are not valid";
 
@@ -22,7 +24,7 @@ public class MessageConst {
 	public static final String ERROR_FILE_NOTFOUND = "File not found %s";
 	public static final String ERROR_FILE_TYPE = "Could not determine file type";
 	public static final String FILE_DOWNLOAD = "/rest/examination/downloadFile/";
-	public static final String ERROR_DESCRIPTION_EMPTY="Description data is null";
+	public static final String ERROR_DESCRIPTION_EMPTY="Description should be not empty";
 	public static final String ERROR_FILEPATH_EMPTY="FilePath data is null";
 	public static final String ERROR_RECEIVER_NOT_EXIST = "Receiver's id is null";
 	public static final String ERROR_CONTENT_NOT_NULL = "Content is null";

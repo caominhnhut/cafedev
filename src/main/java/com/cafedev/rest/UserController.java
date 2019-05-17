@@ -76,23 +76,19 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "no-auth/user")
-	public ResponseEntity<ResponseDTO<UserDTO>> create(@RequestBody UserRequestDTO userRequestDto) {
-		ResponseDTO<UserDTO> response = new ResponseDTO<UserDTO>();
-		User user = new User();
+	public ResponseEntity<ResponseDTO<Boolean>> create(@RequestBody UserRequestDTO userRequestDto) {
+		ResponseDTO<Boolean> response = new ResponseDTO<Boolean>();
 		try {
-			user = userRequestDto.toUser();
-			ResponseDTO<User> userResult = this.userService.save(user);
-			
+			User user = userRequestDto.toUser();
+			ResponseDTO<Boolean> userResult = this.userService.save(user);
 			if(userResult.getData() != null){
-				UserDTO userDTO = new UserDTO();
-				userDTO.copyFrom(userResult.getData());
-				response.setData(userDTO);
+				response.setData(userResult.getData());
 			}
 			response.setErrorMessage(userResult.getErrorMessage());
 		} catch (IllegalArgumentException e) {
 			response.setErrorMessage(MessageConst.ERROR_ROLE_INVALID);
 		}
-		return new ResponseEntity<ResponseDTO<UserDTO>>(response, HttpStatus.OK);
+		return new ResponseEntity<ResponseDTO<Boolean>>(response, HttpStatus.OK);
 	}
 	
 	/*@RequestMapping(method = RequestMethod.PUT, value = "user")

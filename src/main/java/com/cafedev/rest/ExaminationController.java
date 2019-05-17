@@ -7,16 +7,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,10 +32,8 @@ import com.cafedev.service.ExaminationService;
 import com.cafedev.service.FileStorageService;
 
 @RestController
-@RequestMapping(value = "/rest/examination/")
-public class ExaminationController {
-	
-	Logger logger = LoggerFactory.getLogger(ExaminationController.class);
+@RequestMapping(value = "/rest/")
+public class ExaminationController extends RestApiController{
 
 	@Autowired
 	private ExaminationService examinationService;
@@ -47,50 +41,39 @@ public class ExaminationController {
 	@Autowired
 	private FileStorageService fileStorageService;
 
-
-	@RequestMapping(method = RequestMethod.GET, value = "find-by-user")
-	public ResponseEntity<List<ExaminationDTO>> findByOwnerId() {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-		
+	@RequestMapping(method = RequestMethod.GET, value = "examination/find-by-user")
+	public ResponseEntity<List<ExaminationDTO>> findByUser() {
+		User user = getAuthenticatedUser();
 		List<Examination> examinations = examinationService.findByUserId(user.getId());
-		if (examinations.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
-		
 		List<ExaminationDTO> examinationDTOs = new ArrayList<ExaminationDTO>();
 		for (Examination examination : examinations) {
 			ExaminationDTO examinationDTO = new ExaminationDTO();
 			examinationDTO.copyFrom(examination);
 			examinationDTOs.add(examinationDTO);
 		}
-		
 		return new ResponseEntity<List<ExaminationDTO>>(examinationDTOs, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "find-by-user-exam")
-	public ResponseEntity<ExaminationDetailDTO> findByUserAndExam(
-			@PathParam("idUser") Long userId, @PathParam("idExam") Long examId) {		
-		ExaminationUser examinationUser = examinationService.findByUserAndExam(
-				userId, examId);
+	@RequestMapping(method = RequestMethod.GET, value = "examination/find-by-id-and-user")
+	public ResponseEntity<ExaminationDetailDTO> findByIdAndUser(@PathParam("examId") Long examId) {
+		User user = getAuthenticatedUser();
+		ExaminationUser examinationUser = examinationService.findByUserAndExam(user.getId(), examId);
 		ExaminationDetailDTO examinationDetailDTO = new ExaminationDetailDTO();
-		if (examinationDetailDTO == null) {
+		if (examinationUser == null) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
 		examinationDetailDTO.copyFrom(examinationUser);
-		return new ResponseEntity<ExaminationDetailDTO>(examinationDetailDTO,
-				HttpStatus.OK);
+		return new ResponseEntity<ExaminationDetailDTO>(examinationDetailDTO,HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="push-exercise", consumes={"multipart/form-data"})
+	@RequestMapping(method=RequestMethod.POST, value="examination/push-exercise", consumes={"multipart/form-data"})
 	public ResponseEntity<UploadFileResponseDTO> pushExercise(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName){
 		String fileName = fileStorageService.storeFile(file);
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(MessageConst.FILE_DOWNLOAD).path(fileName).toUriString();
 		return new ResponseEntity<UploadFileResponseDTO>(new UploadFileResponseDTO(fileName, fileDownloadUri, file.getContentType(), file.getSize()),HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="downloadFile/{fileName:.+}")
+	@RequestMapping(method=RequestMethod.GET, value="examination/downloadFile/{fileName:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
 		Resource resource = fileStorageService.loadFileAsResource(fileName);
 

@@ -1,6 +1,5 @@
-cafedevApp.factory('AuthService', function($http) {
-	
-	
+cafedevApp.factory('AuthFactory', function($http) {
+
 	//------USER NAME------
 	var getValueByKey = function(key){
 		return localStorage.getItem(key);
@@ -28,16 +27,7 @@ cafedevApp.factory('AuthService', function($http) {
 		}
 	};
 
-	var getUser = function() {
-		return $http({
-			headers : createAuthorizationTokenHeader(),
-			method : 'GET',
-			url : '/rest/whoami'
-		});
-	};
-
 	return {
-		getUser : getUser,
 		getValueByKey : getValueByKey,
 		setKeyValue : setKeyValue,
 		removeByKey : removeByKey,

@@ -1,4 +1,4 @@
-cafedevApp.controller('TestCtrl', ['$scope','$http','$routeParams','$timeout','AuthService', function($scope, $http,$routeParams,$timeout,authService){
+cafedevApp.controller('TestCtrl', ['$scope','$http','$routeParams','$timeout','AuthFactory', function($scope, $http,$routeParams,$timeout,authFactory){
     $(document).ready(function () {
         $("#progressBar").kendoProgressBar({
             min: 0,

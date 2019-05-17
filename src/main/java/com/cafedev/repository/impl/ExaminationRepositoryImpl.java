@@ -48,9 +48,7 @@ public class ExaminationRepositoryImpl implements ExaminationRepository {
 		Predicate predicateExam = cb.equal(root.get("examination").get("id"), examId);
 		
 		cq.where(cb.and(predicateUser, predicateExam));
-		ExaminationUser examinationUser = em.createQuery(cq).getSingleResult();
-		
+		ExaminationUser examinationUser = (ExaminationUser) em.createQuery(cq).getSingleResult();
 		return examinationUser;
-
 	}
 }

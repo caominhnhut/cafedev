@@ -33,8 +33,7 @@ public class ArticleRepositoryImpl implements ArticleRepository{
 		Root<Article> root = cq.from(Article.class);
 		cq.where(cb.equal(root.get("topic").get("id"), topicId));
 		
-		RequestDTO<Object> request = new RequestDTO<>();
-		request.createMetadata(config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
+		RequestDTO<Object> request = new RequestDTO<>(0, config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:

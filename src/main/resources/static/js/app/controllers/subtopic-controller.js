@@ -1,10 +1,10 @@
-cafedevApp.controller('SubTopicCtrl', ['$scope','$http','AuthService','$routeParams', 
-function($scope, $http, authService,$routeParams){
+cafedevApp.controller('SubTopicCtrl', ['$scope','$http','AuthFactory','$routeParams', 
+function($scope, $http, authFactory,$routeParams){
 	$scope.getContent = function(){
 		$http({
 			url: 'rest/no-auth/article/content?id=' + $routeParams.id,
 			method: 'GET',
-			headers: authService.createAuthorizationTokenHeader()
+			headers: authFactory.createAuthorizationTokenHeader()
 		})
 		.then(function(res) {
 			$scope.article = res.data;

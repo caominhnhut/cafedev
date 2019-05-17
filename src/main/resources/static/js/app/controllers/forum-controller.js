@@ -1,19 +1,17 @@
-cafedevApp.controller('ForumCtrl', ['$scope','$http','AuthService', function($scope, $http, authService){
+cafedevApp.controller('ForumCtrl', ['$scope','$http','ApiProviderService', function($scope, $http, apiProviderService){
 	
 	$scope.getTopic = function(){
-		$http({
-			url: 'rest/no-auth/topic',
-			method: 'GET',
-			headers: authService.createAuthorizationTokenHeader()
+		var promise = apiProviderService.getApi(URL_FIND_ALL_TOPIC);
+		promise.then(function(response){
+			$scope.topics = response;
+		}, function(error){
+			alert('Can not show topics. Please try again latter');
 		})
-		.then(function(res) {
-			$scope.topics = res.data;
-			console.log($scope.topics);
-		})
-		.catch(function(response) {
-			alert("Server is error, please try again!")
-		});
 	}
-	$scope.getTopic();
+
+	$scope.onLoad = function(){
+		$scope.getTopic();
+	}
+	$scope.onLoad();
 	
 }]);

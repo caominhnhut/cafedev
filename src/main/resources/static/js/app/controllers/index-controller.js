@@ -1,70 +1,82 @@
-cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$location', 'AuthService','$window',
-function($scope, $http, $rootScope, $location, authService, $window){
+cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$location', 'ApiProviderService','$window',
+'$uibModal', 'AuthFactory', function($scope, $http, $rootScope, $location, apiProviderService, $window, $uibModal, authFactory){
 	
 	$scope.isFullScreen = false;
 	$scope.isError = false;
-	//$scope.numOfNotify = 2;
-	
+	$rootScope.numOfNotify = 0;
+	$scope.credentials = {};
+	$scope.registerInfo = {};
 	
 	$scope.setClass = function(path){
 		$scope.className = path;
 		$window.location.href = '#/'+path;
 	}
 	
+	$scope.fullScreen = function(){
+		if($scope.isFullScreen){
+			$scope.isFullScreen = false;
+		}else{
+			$scope.isFullScreen = true;
+		}
+	}
+
 	$scope.getAssignment = function(){
-		$http({
-			url: 'rest/assignment/find-by-user-id',
-			method: 'GET',
-			headers: authService.createAuthorizationTokenHeader()
+		var promise = apiProviderService.getApi(URL_GET_ALL_ASSIGNMENT);
+		promise.then(function (response) {
+			$rootScope.assignments = response;
+		}, function (errorPayload) {
+			console.log("errorPayload",errorPayload);
 		})
-		.then(function(res){
-			$scope.assignments = res.data;
-		})
-		.catch(function(response) {
-			console.log("Can't not show your assigments. Please try again a minute");
-		});
 	}
 
 	$scope.getExamination = function(){
-		$http({
-			url: 'rest/examination/find-by-user',
-			method: 'GET',
-			headers: authService.createAuthorizationTokenHeader()
+		var promise = apiProviderService.getApi(URL_GET_ALL_EXAMINATION);
+		promise.then(function (response) {
+			$rootScope.examinations = response;
+		}, function (errorPayload) {
+			console.log("errorPayload",errorPayload);
 		})
-		.then(function(res) {
-			$scope.examinations= res.data;
-		})
-		.catch(function(response) {
-			console.log("Can't not show your examination. Please try again a minute");
-		});
 	}
 
 	$scope.getNumOfNotify = function(){
-		$http({
-			url: 'rest/notify/count-all-notify-unread',
-			method: 'GET',
-			headers: authService.createAuthorizationTokenHeader()
-		})
-		.then(function(res){
-			$scope.numOfNotify = res.data;
-			if ($scope.numOfNotify<10){
-				$scope.numOfNotify = '0' + $scope.numOfNotify;
+		var promise = apiProviderService.getApi(URL_COUNT_NOTIFY);
+		promise.then(function (response) {
+			$rootScope.numOfNotify = response;
+			if ($rootScope.numOfNotify < 10 && $rootScope.numOfNotify > 0){
+				$rootScope.numOfNotify = '0' + $rootScope.numOfNotify;
 			}
-			console.log("xxxxxxxxxxx",$scope.numOfNotify);
+		}, function (errorPayload) {
+			console.log("errorPayload",errorPayload);
 		})
-		.catch(function(response) {
-			console.log("Can't not show the number of your notify. Please try again a minute");
-		});
 	}
 
-	$scope.loadPage = function(){
-		var token = authService.getValueByKey(TOKEN_KEY);
+	$scope.countFeedComment = function(){
+		var promise = apiProviderService.getApi(URL_COUNT_COMMENT);
+		promise.then(function (response) {
+			$rootScope.feedcomment = response;
+		}, function (errorPayload) {
+			console.log("errorPayload",errorPayload);
+		})
+	}
+
+	$scope.refreshToken = function(){
+		var promise = apiProviderService.postApi(URL_REFRESH_TOKEN, null);
+		promise.then(function (response) {
+			 console.log('response',response);
+		}, function (errorPayload) {
+			console.log("errorPayload",errorPayload);
+		})
+	}
+
+	$scope.onLoad = function(){
+		var token = authFactory.getValueByKey(TOKEN_KEY);
 		if(token != null){
 			$rootScope.authenticated = true;
-			$scope.username = authService.getValueByKey(USERNAME_KEY);
+			$scope.username = authFactory.getValueByKey(USERNAME_KEY);
 			$scope.getAssignment();
 			$scope.getExamination();
 			$scope.getNumOfNotify();
+			$scope.countFeedComment();
 		}else{
 			$rootScope.authenticated = false;
 		}
@@ -77,113 +89,117 @@ function($scope, $http, $rootScope, $location, authService, $window){
 		}
 		$scope.setClass(url);
 	}
-	$scope.loadPage();
-
-	$scope.fullScreen = function(){
-		if($scope.isFullScreen){
-			$scope.isFullScreen = false;
+	$scope.onLoad();
+	
+	$scope.register = function(){
+		$scope.isError = false;
+		if($scope.registerInfo.password != $scope.registerInfo.confirmPassword){
+			$scope.isError = true;
+			$scope.errorMessage = "Password is not the same with the informed password";
 		}else{
-			$scope.isFullScreen = true;
-		}
-	}
-	
-	$scope.credentials = {};
-	$scope.registerInfo = {};
-	
-	$scope.create= function(){
-		if($scope.registerInfo.password==$scope.registerInfo.confirmPassword)
-		{
-			
-			$http({
-				url: '/rest/no-auth/create',
-				method: 'POST',
-				data: $scope.registerInfo
-			})
-			.then(function(res){
-				
-				if(res.data.id!=null)
-				{
-					alert("Successful Register, please check your email and try your first login");
-					$('#modal-register').modal('hide');
-					$('#modal-login').modal('show');
-					//$window.location.href = '#/';
-				}
-				else
-				{
-					$scope.userError = true;
+			var promise = apiProviderService.postApi(URL_USER_REGISTER, $scope.registerInfo);
+			promise.then(function(response){
+				if(response.data == true){
+					let credentials = {
+						"username": $scope.registerInfo.userName, 
+						"password": $scope.registerInfo.password
+					}
+					$scope.$dismiss();
+					login(credentials);
+				}else{
+					$scope.isError = true;
+					$scope.errorMessage = response.errorMessage;
 				}
 			})
 			.catch(function(error) {
 				alert("Server is busy now. Please try again later.");
 			});
 		}
-		else
-		{
-			$scope.isError = true;
-		}
 	}
 
 	$scope.login = function() {
-		$http({
-			url: 'auth/login',
-			method: 'POST',
-			data: $scope.credentials,
-			headers: authService.createAuthorizationTokenHeader()
-		})
-		.then(function(res) {
-			$rootScope.authenticated = true;
-			$scope.isError = false;
-			authService.setKeyValue(TOKEN_KEY, res.data.access_token);
-			$('#modal-login').modal('hide');
-			return authService.getUser();
-		})
-		.then(function(user) {
-			$scope.username = user.data.firstName+" "+user.data.lastName;
-			authService.setKeyValue(USERNAME_KEY, $scope.username);
-			authService.setKeyValue(USERID_KEY, user.data.id);
-			$scope.getAssignment();
-			$scope.getExamination();
-			$scope.getNumOfNotify();
+		login($scope.credentials);
+	}
 
-			$window.location.href = '#/';
+	function login(credentials){
+		var promise = apiProviderService.postApi(URL_USER_LOGIN, credentials);
+		promise.then(function (response) {
+			if(response.data != null){
+				$rootScope.authenticated = true;
+				$scope.isError = false;
+				authFactory.setKeyValue(TOKEN_KEY, response.data.access_token);	
+				return apiProviderService.getApi(URL_WHO_AM_I);
+			}else{
+				$scope.errorMessage = response.errorMessage;
+				$scope.isError = true;
+			}
 		})
-		.catch(function(response) {
-			$rootScope.authenticated = false;
-			$scope.isError = true;
-			authService.removeByKey(TOKEN_KEY);
-			authService.removeByKey(USERNAME_KEY);
-			authService.removeByKey(USERID_KEY);
+		.then((user)=> {
+			if(!$scope.isError){
+				if(user.firstName == null || user.lastName){
+					$rootScope.username = "How are you";
+				}else{
+					$rootScope.username = user.firstName+" "+user.lastName;
+				}
+				authFactory.setKeyValue(USERNAME_KEY, $rootScope.username);
+				$scope.getAssignment();
+				$scope.getExamination();
+				$scope.getNumOfNotify();
+				$scope.countFeedComment();
+				$scope.$dismiss();
+			}
+		}).catch(function(error){
+			console.log("error", error);
 		});
 	}
 	
 	$scope.logout = function(){
 		$rootScope.authenticated = false;
 		$scope.isError = false;
-		authService.removeByKey(TOKEN_KEY);
-		authService.removeByKey(USERNAME_KEY);
-		authService.removeByKey(USERID_KEY);
+		authFactory.removeByKey(TOKEN_KEY);
+		authFactory.removeByKey(USERNAME_KEY);
 		$window.location.reload();
 	}
-	
-	$scope.doOperation = function($event,idExam){
-		// if(id ==2|| id==1){
-		// 	e.preventDefault();
-		// }
+
+	$scope.openNewFeedDialog = function (){
+		var modalInstance = $uibModal.open({
+			templateUrl: "views/modal/addfeed.html",
+			controller: "addFeedController"
+			// ,
+			// resolve: {
+			// 	params: function () {
+			// 		return description = "John";
+			// 	}
+			// }
+		})
+
+		// modalInstance.result.then(function (result){
+		// 	$scope.resultxxx = result;
+		// }, function () {
+		// 	console.log("Dialog dismissed");
+		// })
 	}
 
-	$scope.countFeedComment = function(){
-		$http({
-			url: 'rest/no-auth/feed/count-by-date',
-			method: 'GET',
-			headers: authService.createAuthorizationTokenHeader()
+	$scope.openLoginDialog = function (){
+		var modalInstance = $uibModal.open({
+			templateUrl: "views/modal/login.html",
+			controller: "IndexContrl"
 		})
-		.then(function(res){
-			$scope.feedcomment = res.data;
-		})
-		.catch(function(response) {
-			console.log("Can't not show your assigments. Please try again a minute");
-		});
 	}
-	$scope.countFeedComment();
+
+	$scope.openRegisterDialog = function(){
+		var modalInstance = $uibModal.open({
+			templateUrl: "views/modal/register.html",
+			controller: "IndexContrl"
+		})
+	}
 	
+	$scope.cancel = function () {
+		$scope.$dismiss();
+	};
+
+	$scope.onKeyUpEvent = function(){
+		$scope.isError = false;
+		$scope.errorMessage = "";
+	}
 }]);

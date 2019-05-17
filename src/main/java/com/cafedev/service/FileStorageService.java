@@ -38,12 +38,13 @@ public class FileStorageService {
 	
 	public String storeFile(MultipartFile file){
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		
 		try {
-			
 			if(fileName.contains("..")){
 				throw new FileStorageException(String.format(MessageConst.ERROR_FILE_NAME_INVALID, fileName));
 			}
+			
+			String unitName = System.currentTimeMillis() + "."; 
+			fileName = fileName.replace(".", unitName);
 			
 			Path targetLocation = this.fileStorageLocation.resolve(fileName);
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);

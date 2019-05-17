@@ -1,26 +1,26 @@
-<div class="modal fade" id="modal-add-feed" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Start New Feed</h4>
-			</div>
-			<div class="modal-body">
-				<textarea>
-
-				</textarea>
-				<img src="../assets/sky.jpg">
-			</div>
-			<div class="modal-footer">
-				<div class="upload-image">
-					<img src="../assets/camera-icon.png">
-					<input type="file" file-model = "myFile" class="file-input">
-				</div>
-				<button class="btn btn-primary"><b>Post</b></button>
-			</div>
-			<div class="login-error" ng-show="isError">
-				<div class="alert alert-danger">Username or password is not valid</div>
-			</div>
-		</div>
-	</div>
+<div id="modal-add-feed">
+   <div class="modal-header">
+      <h4 class="modal-title">Start New Feed</h4>
+   </div>
+   <div class="modal-body">
+      <form class="form">
+         <div class="form-group">
+            <textarea ng-keypress="isError=false" ng-model="description" placeholder="What do you want to talk about" rows="15"></textarea>
+            <img ng-src="{{imageSource}}">
+         </div>
+      </form>
+   </div>
+   <div class="modal-footer">
+      <div class="row">
+         <div class="col-md-2 upload-image">
+            <img src="../assets/camera-icon.png">
+            <input type="file" file-model = "myFile" onchange="angular.element(this).scope().loadFile(this)" accept="image/*"><br>
+         </div>
+         <div class="col-md-15">
+            <button type="button" class="btn btn-primary" ng-click="save()">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+         </div>
+      </div>
+      <div ng-show="isError" class="alert alert-danger">{{errorMessage}}</div>
+   </div>
 </div>

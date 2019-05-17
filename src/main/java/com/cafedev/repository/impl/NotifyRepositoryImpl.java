@@ -40,8 +40,7 @@ public class NotifyRepositoryImpl implements NotifyRepository {
 		Predicate predicateNotify = cb.equal(root.get("status"), ENotifyStatus.UNREAD);
 
 		cq.where(cb.and(predicateNotify, predicateUser));
-		RequestDTO<Object> request = new RequestDTO<>();
-		request.createMetadata(config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
+		RequestDTO<Object> request = new RequestDTO<>(0, config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:
