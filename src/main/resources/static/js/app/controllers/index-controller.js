@@ -91,44 +91,39 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 	}
 	$scope.onLoad();
 	
-	$scope.signup = function(){
-
-		if($scope.registerInfo.password==$scope.registerInfo.confirmPassword)
-		{
-			
-			$http({
-				url: '/rest/no-auth/create',
-				method: 'POST',
-				data: $scope.registerInfo
-			})
-			.then(function(res){
-				
-				if(res.data.id!=null)
-				{
-					alert("Successful Register, please check your email and try your first login");
-					$('#modal-register').modal('hide');
-					$('#modal-login').modal('show');
-					//$window.location.href = '#/';
-				}
-				else
-				{
-					$scope.userError = true;
+	$scope.register = function(){
+		$scope.isError = false;
+		if($scope.registerInfo.password != $scope.registerInfo.confirmPassword){
+			$scope.isError = true;
+			$scope.errorMessage = "Password is not the same with the informed password";
+		}else{
+			var promise = apiProviderService.postApi(URL_USER_REGISTER, $scope.registerInfo);
+			promise.then(function(response){
+				if(response.data == true){
+					let credentials = {
+						"username": $scope.registerInfo.userName, 
+						"password": $scope.registerInfo.password
+					}
+					$scope.$dismiss();
+					login(credentials);
+				}else{
+					$scope.isError = true;
+					$scope.errorMessage = response.errorMessage;
 				}
 			})
 			.catch(function(error) {
 				alert("Server is busy now. Please try again later.");
 			});
 		}
-		else
-		{
-			$scope.isError = true;
-		}
 	}
 
 	$scope.login = function() {
-		var promise = apiProviderService.postApi(URL_USER_LOGIN, $scope.credentials);
+		login($scope.credentials);
+	}
+
+	function login(credentials){
+		var promise = apiProviderService.postApi(URL_USER_LOGIN, credentials);
 		promise.then(function (response) {
-			console.log("response.data", response.data);
 			if(response.data != null){
 				$rootScope.authenticated = true;
 				$scope.isError = false;
@@ -141,7 +136,11 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 		})
 		.then((user)=> {
 			if(!$scope.isError){
-				$rootScope.username = user.firstName+" "+user.lastName;
+				if(user.firstName == null || user.lastName){
+					$rootScope.username = "How are you";
+				}else{
+					$rootScope.username = user.firstName+" "+user.lastName;
+				}
 				authFactory.setKeyValue(USERNAME_KEY, $rootScope.username);
 				$scope.getAssignment();
 				$scope.getExamination();
@@ -187,6 +186,13 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 			controller: "IndexContrl"
 		})
 	}
+
+	$scope.openRegisterDialog = function(){
+		var modalInstance = $uibModal.open({
+			templateUrl: "views/modal/register.html",
+			controller: "IndexContrl"
+		})
+	}
 	
 	$scope.cancel = function () {
 		$scope.$dismiss();
@@ -194,5 +200,6 @@ cafedevApp.controller('IndexContrl', ['$scope', '$http', '$rootScope', '$locatio
 
 	$scope.onKeyUpEvent = function(){
 		$scope.isError = false;
+		$scope.errorMessage = "";
 	}
 }]);

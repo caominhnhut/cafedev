@@ -1,6 +1,7 @@
 package com.cafedev.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 import com.cafedev.common.MessageConst;
 import com.cafedev.common.RegexMatcher;
 import com.cafedev.dto.ResponseDTO;
+import com.cafedev.enums.EUserRoleName;
+import com.cafedev.model.Role;
 import com.cafedev.model.User;
 import com.cafedev.repository.UserRepository;
 import com.cafedev.service.FileStorageService;
@@ -53,15 +56,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseDTO<User> save(User user) {
-		ResponseDTO<User> response = new ResponseDTO<User>();
+	public ResponseDTO<Boolean> save(User user) {
+		ResponseDTO<Boolean> response = new ResponseDTO<Boolean>();
+		response.setData(false);
 		boolean isValid = validate(user, response);
 		if(isValid){
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			
+			List<EUserRoleName> names = new ArrayList<EUserRoleName>();
+			for(Role role:user.getRoles()){
+				names.add(role.getName());
+			}
+			List<Role> roles = userRepository.getRolesByNames(names);
+			user.setRoles(roles);
+			user.setCreateDate(new Date());
 			try {
 				User userResult =  userRepository.save(user);
-				response.setData(userResult);
+				if(userResult.getId() != 0){
+					response.setData(true);
+				}
 			} catch (Exception e) {
 				Throwable t = e.getCause();
 				if(t instanceof ConstraintViolationException){
@@ -69,7 +81,6 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 		}
-		
 		return response;
 	}
 	
@@ -97,27 +108,31 @@ public class UserServiceImpl implements UserService {
 		return response;
 	}
 	
-	private boolean validate(User user, ResponseDTO<User> response){
+	private boolean validate(User user, ResponseDTO<Boolean> response){
 		if(user == null){
 			response.setErrorMessage(MessageConst.ERROR_USER_EMPTY);
 			return false;
 		}else{
-			if(user.getFirstName() == null || !RegexMatcher.isValidName(user.getFirstName())){
-				response.setErrorMessage(MessageConst.ERROR_USER_FIRST_NAME);
-				return false;
-			}
-			if(user.getLastName() == null || !RegexMatcher.isValidName(user.getLastName())){
-				response.setErrorMessage(MessageConst.ERROR_USER_LAST_NAME);
-				return false;
-			}
+//			if(user.getFirstName() == null || !RegexMatcher.isValidName(user.getFirstName())){
+//				response.setErrorMessage(MessageConst.ERROR_USER_FIRST_NAME);
+//				return false;
+//			}
+//			if(user.getLastName() == null || !RegexMatcher.isValidName(user.getLastName())){
+//				response.setErrorMessage(MessageConst.ERROR_USER_LAST_NAME);
+//				return false;
+//			}
 			if(user.getEmail() == null || !RegexMatcher.isValidEmail(user.getEmail())){
 				response.setErrorMessage(MessageConst.ERROR_USER_EMAIL);
 				return false;
 			}
-			if(user.getPhoneNumber() == null  || !RegexMatcher.isValidPhone(user.getPhoneNumber())){
-				response.setErrorMessage(MessageConst.ERROR_USER_PHONE);
+			if(user.getPassword().length() < 3){
+				response.setErrorMessage(MessageConst.ERROR_WRONG_PASSWORD_LENGTH);
 				return false;
 			}
+//			if(user.getPhoneNumber() == null  || !RegexMatcher.isValidPhone(user.getPhoneNumber())){
+//				response.setErrorMessage(MessageConst.ERROR_USER_PHONE);
+//				return false;
+//			}
 			return true;
 		}
 	}

@@ -67,9 +67,7 @@
 				<ul class="list-inline" ng-hide="authenticated">
 					<li><button class="btn btn-warning btn-new-topic" ng-click="openLoginDialog()">LOGIN</button></li>
 					<li>|</li>
-					<li><a href="#" data-toggle="modal" data-target="#modal-register">
-						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Register
-					</a></li>
+					<li><button class="btn btn-warning btn-new-topic" ng-click="openRegisterDialog()">REGISTER</button></li>
 				</ul>
 			</div>
 		</div>
@@ -180,8 +178,5 @@
 		<div class="author">Copyright 201 © CafeDev. All Rights
 			Reserved. Designed by: Nhut Nguyen.</div>
 	</div>
-	<!-- <ng-include src="'views/modal/login.html'"></ng-include> -->
-	<!-- <ng-include src="'views/modal/register.html'"></ng-include>
-	<ng-include src="'views/modal/addfeed.html'"></ng-include> -->
 </body>
 </html>

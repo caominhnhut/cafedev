@@ -11,6 +11,7 @@ public class MessageConst {
 	public static final String ERROR_USER_ID_EMPTY = "User's id data is null";
 	public static final String ERROR_USER_ID_NOT_EXIST = "User's id  data is not exist";
 	public static final String ERROR_WRONG_USER_PASSWORD = "Username or password is incorrect";
+	public static final String ERROR_WRONG_PASSWORD_LENGTH = "The password should be more than 3 letters";
 
 	public static final String ERROR_ROLE_INVALID = "The roles are not valid";
 

@@ -14,7 +14,7 @@ public interface UserService {
     User findByUsername(String username);
     List<User> findAll ();
     String findAvatar(long id);
-    ResponseDTO<User> save(User user);
+    ResponseDTO<Boolean> save(User user);
     ResponseDTO<User> update(User user, String fileName,long id);
     
 }
