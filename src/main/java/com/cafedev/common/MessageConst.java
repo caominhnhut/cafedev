@@ -31,8 +31,7 @@ public class MessageConst {
 	public static final String ERROR_STATUS_NOT_NULL = "Status is null";
 	public static final String ERROR_EXPIRY_DATE="OTP requite enter not over 5 minutes";
 	
-	public static final String FRIEND_EMAIL="lehatrang1610@gmail.com";
-	public static final String SUBJECT_EMAIL="[CafeDev]: OPT";
-	public static final String CONTENT_EMAIL="Hi %s.%nYou just requested to change password.Here is your OTP: %s. %nIt will be expired in 5 minutes.";
+	public static final String OTP_SUCCESS = "Entered Otp is valid";
+	public static final String OTP_FAIL = "The OTP is invalid or expired";
 	
 }
