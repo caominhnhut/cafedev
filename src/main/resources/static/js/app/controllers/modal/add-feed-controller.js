@@ -1,4 +1,4 @@
-cafedevApp.controller('addFeedController', ['$scope', '$http', 'ApiProviderService', '$window',
+cafedevApp.controller('AddFeedCtrl', ['$scope', '$http', 'ApiProviderService', '$window',
 function($scope, $http, apiProviderService, $window){
 	// var params = $scope.$resolve.params;
 	// $scope.name = params.name;
