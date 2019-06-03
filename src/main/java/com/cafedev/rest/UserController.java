@@ -1,16 +1,9 @@
 package com.cafedev.rest;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import com.cafedev.common.MessageConst;
-import com.cafedev.dto.FeedDTO;
-import com.cafedev.dto.ResponseDTO;
-import com.cafedev.dto.UserDTO;
-import com.cafedev.dto.UserRequestDTO;
-import com.cafedev.dto.UserUpdateRequestDTO;
-import com.cafedev.model.Feed;
-import com.cafedev.model.User;
-import com.cafedev.service.FileStorageService;
-import com.cafedev.service.UserService;
+import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,16 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.security.Principal;
-import java.util.List;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import com.cafedev.common.MessageConst;
+import com.cafedev.dto.ResponseDTO;
+import com.cafedev.dto.UserDTO;
+import com.cafedev.dto.UserRequestDTO;
+import com.cafedev.model.User;
+import com.cafedev.service.FileStorageService;
+import com.cafedev.service.UserService;
 
 /**
  * Created by Nhut Nguyen on 01-07-2018.
@@ -41,7 +32,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping(value = "/rest/", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserController {
+public class UserController extends RestApiController {
 
 	@Autowired
 	private UserService userService;
@@ -74,14 +65,15 @@ public class UserController {
 		userDto.copyFrom(userRes);
 		return userDto;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "no-auth/user")
-	public ResponseEntity<ResponseDTO<Boolean>> create(@RequestBody UserRequestDTO userRequestDto) {
+	public ResponseEntity<ResponseDTO<Boolean>> create(
+			@RequestBody UserRequestDTO userRequestDto) {
 		ResponseDTO<Boolean> response = new ResponseDTO<Boolean>();
 		try {
 			User user = userRequestDto.toUser();
 			ResponseDTO<Boolean> userResult = this.userService.save(user);
-			if(userResult.getData() != null){
+			if (userResult.getData() != null) {
 				response.setData(userResult.getData());
 			}
 			response.setErrorMessage(userResult.getErrorMessage());
@@ -90,52 +82,20 @@ public class UserController {
 		}
 		return new ResponseEntity<ResponseDTO<Boolean>>(response, HttpStatus.OK);
 	}
-	
-	/*@RequestMapping(method = RequestMethod.PUT, value = "user")
-	public ResponseEntity<ResponseDTO<UserDTO>> update(@RequestBody UserUpdateRequestDTO userRequestDto) {
-		ResponseDTO<UserDTO> response = new ResponseDTO<UserDTO>();
-		User user = new User();
-		try {
-			user = userRequestDto.toUser();
-			ResponseDTO<User> userResult = this.userService.update(user,fileName,id);
-			
-			if(userResult.getData() != null){
-				UserDTO userDTO = new UserDTO();
-				userDTO.copyFrom(userResult.getData());
-				response.setData(userDTO);
-			}
-			response.setErrorMessage(userResult.getErrorMessage());
-		} catch (IllegalArgumentException e) {
-			response.setErrorMessage(MessageConst.ERROR_ROLE_INVALID);
-		}
-		return new ResponseEntity<ResponseDTO<UserDTO>>(response, HttpStatus.OK);
-	}*/
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "user/update-avatar")
 	public ResponseEntity<ResponseDTO<UserDTO>> updateAvatar(
 			@RequestParam("avatar") MultipartFile file,
-			@RequestParam("id") long id, @RequestParam("email") String email,
-			@RequestParam("firstName") String firstName,
-			@RequestParam("lastName") String lastName,
-			@RequestParam("phoneNumber") String phoneNumber) {
+			@RequestParam("user") String strUser) {
 		ResponseDTO<UserDTO> response = new ResponseDTO<UserDTO>();
 		String fileName = fileStorageService.storeFile(file);
-		String fileDownloadUri = ServletUriComponentsBuilder
-				.fromCurrentContextPath().path(MessageConst.FILE_DOWNLOAD)
-				.path(fileName).toUriString();
-		User user = new User();
-		user.setId(id);
-		user.setAvatar(fileName);
-		user.setEmail(email);
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setPhoneNumber(phoneNumber);
-		ResponseDTO<User> userResult = this.userService.update(user,fileName,id);
+		UserDTO userDto = getGson().fromJson(strUser, UserDTO.class);
+		userDto.setAvatar(fileName);
+		ResponseDTO<User> userResult = this.userService.update(userDto.toUser(userDto));
 		if (userResult.getData() != null) {
 			UserDTO userDTO = new UserDTO();
 			userDTO.copyFrom(userResult.getData());
 			response.setData(userDTO);
-
 		} else {
 			response.setErrorMessage(MessageConst.ERROR_ROLE_INVALID);
 		}

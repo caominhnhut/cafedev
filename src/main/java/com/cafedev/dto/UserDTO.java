@@ -22,6 +22,19 @@ public class UserDTO {
 		this.email= user.getEmail();
 		this.phoneNumber = user.getPhoneNumber();
 	}
+	
+	public User toUser(UserDTO userDTO) {
+		User user = new User();
+		user.setId(userDTO.getId());
+		user.setEmail(userDTO.getEmail());
+		user.setFirstName(userDTO.getFirstName());
+		user.setLastName(userDTO.getLastName());
+		user.setPhoneNumber(userDTO.getPhoneNumber());
+		if(userDTO.getAvatar() != null){
+			user.setAvatar(userDTO.avatar);
+		}
+		return user;
+	}
 
 	public Long getId() {
 		return id;
@@ -70,5 +83,13 @@ public class UserDTO {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", avatar=" + avatar + ", email=" + email
+				+ ", phoneNumber=" + phoneNumber + "]";
+	}
+	
 	
 }

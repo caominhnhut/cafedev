@@ -37,4 +37,10 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<Article> findAllByTopic(Long topicId) {
 		return articleRepository.findAllByTopic(topicId);
 	}
+
+
+	@Override
+	public List<Article> searchByKeyWord(String keyWord) {
+		return articleRepository.searchByKeyWord(keyWord);
+	}
 }

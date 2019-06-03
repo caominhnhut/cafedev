@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,29 +19,33 @@ import com.cafedev.model.Article;
 import com.cafedev.repository.ArticleRepository;
 
 @Repository
-public class ArticleRepositoryImpl implements ArticleRepository{
+public class ArticleRepositoryImpl implements ArticleRepository {
 
 	@Autowired
 	EntityManager em;
-	
+
 	@Autowired
 	AppConfigurationProperties config;
-	
+
 	@Override
 	public List<Article> findByTopicId(Long topicId) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Article> cq = cb.createQuery(Article.class);
 		Root<Article> root = cq.from(Article.class);
 		cq.where(cb.equal(root.get("topic").get("id"), topicId));
-		
-		RequestDTO<Object> request = new RequestDTO<>(0, config.getMaxTopicNumber(), ESortType.DESC, config.getSortValue());
+
+		RequestDTO<Object> request = new RequestDTO<>(0,
+				config.getMaxTopicNumber(), ESortType.DESC,
+				config.getSortValue());
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:
-				cq.orderBy(cb.asc(root.get(request.getMetadata().getSortValue())));
+				cq.orderBy(cb.asc(root
+						.get(request.getMetadata().getSortValue())));
 				break;
 			case DESC:
-				cq.orderBy(cb.desc(root.get(request.getMetadata().getSortValue())));
+				cq.orderBy(cb.desc(root.get(request.getMetadata()
+						.getSortValue())));
 				break;
 			default:
 				break;
@@ -49,27 +54,31 @@ public class ArticleRepositoryImpl implements ArticleRepository{
 
 		Query query = em.createQuery(cq);
 		if (request.getMetadata().getPagination() != null) {
-			query.setFirstResult(request.getMetadata().getPagination().getOffset());
-			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
+			query.setFirstResult(request.getMetadata().getPagination()
+					.getOffset());
+			query.setMaxResults(request.getMetadata().getPagination()
+					.getMaxResult());
 		}
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Article> findAllByTopicId(RequestDTO<Long> request) {
-		
+
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Article> cq = cb.createQuery(Article.class);
 		Root<Article> root = cq.from(Article.class);
 		cq.where(cb.equal(root.get("topic").get("id"), request.getData()));
-		
+
 		if (request.getMetadata().getSortType() != null) {
 			switch (request.getMetadata().getSortType()) {
 			case ASC:
-				cq.orderBy(cb.asc(root.get(request.getMetadata().getSortValue())));
+				cq.orderBy(cb.asc(root
+						.get(request.getMetadata().getSortValue())));
 				break;
 			case DESC:
-				cq.orderBy(cb.desc(root.get(request.getMetadata().getSortValue())));
+				cq.orderBy(cb.desc(root.get(request.getMetadata()
+						.getSortValue())));
 				break;
 			default:
 				break;
@@ -79,8 +88,10 @@ public class ArticleRepositoryImpl implements ArticleRepository{
 
 		Query query = em.createQuery(cq);
 		if (request.getMetadata().getPagination() != null) {
-			query.setFirstResult(request.getMetadata().getPagination().getOffset());
-			query.setMaxResults(request.getMetadata().getPagination().getMaxResult());
+			query.setFirstResult(request.getMetadata().getPagination()
+					.getOffset());
+			query.setMaxResults(request.getMetadata().getPagination()
+					.getMaxResult());
 		}
 		return query.getResultList();
 	}
@@ -104,5 +115,26 @@ public class ArticleRepositoryImpl implements ArticleRepository{
 		Query query = em.createQuery(cq);
 		return query.getResultList();
 	}
-	
+
+	@Override
+	public List<Article> searchByKeyWord(String keyWord) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Article> cq = cb.createQuery(Article.class);
+		Root<Article> root = cq.from(Article.class);
+		Predicate predicateForDescription = cb.like(
+				root.<String> get("description"), "%" + keyWord + "%");
+		Predicate predicateForContent = cb.like(root.<String> get("content"),
+				"%" + keyWord + "%");
+		Predicate predicateForName = cb.like(root.<String> get("name"), "%"
+				+ keyWord + "%");
+		Predicate predicateFindByKeyWord = cb.or(predicateForDescription,
+				predicateForContent, predicateForName);
+		cq.where(predicateFindByKeyWord);
+		List<Article> articles = em.createQuery(cq).getResultList();
+		for (Article article : articles) {
+			System.out.println("aaaa" + article.getDescription());
+		}
+		return articles;
+	}
+
 }
