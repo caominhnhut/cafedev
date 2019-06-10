@@ -1,6 +1,5 @@
 package com.cafedev.service.impl;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,8 +50,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public List<User> findAll() throws AccessDeniedException {
-		// return userRepository.findAll();
-		return null;
+		return userRepository.findAll();
 	}
 
 	@Override
@@ -156,6 +154,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String findAvatar(long id) {
 		return userRepository.findAvatar(id);
+	}
+
+	@Override
+	public List<Role> getRoles() {
+		return userRepository.getRoles();
 	}
 
 }

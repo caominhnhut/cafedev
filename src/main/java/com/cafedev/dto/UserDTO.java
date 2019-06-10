@@ -22,6 +22,14 @@ public class UserDTO {
 		this.email= user.getEmail();
 		this.phoneNumber = user.getPhoneNumber();
 	}
+	
+	public void showUser(User user) {
+		this.id = user.getId();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.avatar = user.getAvatar();
+		this.email= user.getEmail();		
+	}
 
 	public Long getId() {
 		return id;

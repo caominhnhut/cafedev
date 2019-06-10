@@ -1,16 +1,11 @@
 package com.cafedev.rest;
 
 
-import com.cafedev.common.MessageConst;
-import com.cafedev.dto.FeedDTO;
-import com.cafedev.dto.ResponseDTO;
-import com.cafedev.dto.UserDTO;
-import com.cafedev.dto.UserRequestDTO;
-import com.cafedev.dto.UserUpdateRequestDTO;
-import com.cafedev.model.Feed;
-import com.cafedev.model.User;
-import com.cafedev.service.FileStorageService;
-import com.cafedev.service.UserService;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,14 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.security.Principal;
-import java.util.List;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import com.cafedev.common.MessageConst;
+import com.cafedev.dto.ResponseDTO;
+import com.cafedev.dto.UserDTO;
+import com.cafedev.dto.UserRequestDTO;
+import com.cafedev.model.Role;
+import com.cafedev.model.User;
+import com.cafedev.service.FileStorageService;
+import com.cafedev.service.UserService;
 
 /**
  * Created by Nhut Nguyen on 01-07-2018.
@@ -57,8 +52,19 @@ public class UserController {
 
 	@RequestMapping(method = GET, value = "/user/all")
 	@PreAuthorize("hasRole('ADMIN')")
-	public List<User> loadAll() {
-		return this.userService.findAll();
+	public ResponseEntity<List<UserDTO>> loadAll() {
+		List<User> users = userService.findAll();
+		if(users.size() == 0) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		
+		List<UserDTO> listUserDto = new ArrayList<UserDTO>();
+		for(User user:users) {
+			UserDTO userDTO = new UserDTO();
+			userDTO.showUser(user);
+			listUserDto.add(userDTO);
+		}
+		return new ResponseEntity<List<UserDTO>>(listUserDto, HttpStatus.OK);
 	}
 
 	/*
@@ -91,6 +97,17 @@ public class UserController {
 		return new ResponseEntity<ResponseDTO<Boolean>>(response, HttpStatus.OK);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "no-auth/get-role")
+	public ResponseEntity<List<Role>> getRole(){
+		List<Role> role = userService.getRoles();
+		if(role.size() == 0) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Role>>(role, HttpStatus.OK);
+	}
+	
+	
+
 	/*@RequestMapping(method = RequestMethod.PUT, value = "user")
 	public ResponseEntity<ResponseDTO<UserDTO>> update(@RequestBody UserUpdateRequestDTO userRequestDto) {
 		ResponseDTO<UserDTO> response = new ResponseDTO<UserDTO>();

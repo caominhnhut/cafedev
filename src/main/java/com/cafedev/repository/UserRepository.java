@@ -18,5 +18,6 @@ public interface UserRepository {
 	String findAvatar(long id);
 	User update(User user);
 	List<Role> getRolesByNames(List<EUserRoleName> names);
+	List<User> findAll();
 }
 

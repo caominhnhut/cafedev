@@ -1,6 +1,5 @@
 package com.cafedev.repository.impl;
 
-import java.io.File;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cafedev.enums.EUserRoleName;
-import com.cafedev.model.ExaminationUser;
 import com.cafedev.model.Role;
 import com.cafedev.model.User;
 import com.cafedev.repository.UserRepository;
@@ -120,6 +118,16 @@ public class UserRepositoryImpl implements UserRepository {
 		Expression<EUserRoleName> expression = root.get("name");
 		Predicate predicate = expression.in(names);
 		cq.where(predicate);
+		Query query = em.createQuery(cq);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<User> findAll() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<User> cq = cb.createQuery(User.class);
+		Root<User> root = cq.from(User.class);
+		cq.select(root);
 		Query query = em.createQuery(cq);
 		return query.getResultList();
 	}
