@@ -48,7 +48,6 @@ public class ArticleController {
 		return new ResponseEntity<ArticlesDTO>(articlesDTO, HttpStatus.OK);
 	}
 	
-	
 	@RequestMapping(method = RequestMethod.GET, value = "content")
 	public ResponseEntity<ArticleDTO> getContentById(@RequestParam("id") Long articleId){
 		Article article = articleService.getContentById(articleId);
@@ -61,7 +60,6 @@ public class ArticleController {
 		
 		return new ResponseEntity<ArticleDTO>(articleDTO, HttpStatus.OK);
 	}
-	
 	
 	@RequestMapping(method = RequestMethod.GET, value="count-list-article" )
 	public int getAllByTopic(@RequestParam("id") Long topicId){
