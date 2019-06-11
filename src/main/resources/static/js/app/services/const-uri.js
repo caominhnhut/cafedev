@@ -14,3 +14,4 @@ URL_ADD_FEED = 'rest/feed/create';
 URL_USER_LOGIN = 'auth/login';
 URL_WHO_AM_I = '/rest/whoami';
 URL_USER_REGISTER = '/rest/no-auth/user';
+URL_PUSH_EXAM = '/rest/user/update-avatar';

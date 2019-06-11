@@ -65,5 +65,22 @@ public class ArticleController {
 	public int getAllByTopic(@RequestParam("id") Long topicId){
 		return articleService.findAllByTopic(topicId).size();
 	}
-	
+
+	@RequestMapping(method = RequestMethod.GET, value = "search")
+	public ResponseEntity<List<ArticleDTO>> searchContent(
+			@RequestParam("keyword") String keyword) {
+		List<Article> articles = articleService.searchByKeyWord(keyword);
+		if (articles.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		List<ArticleDTO> lstArticleDTO = new ArrayList<ArticleDTO>();
+		for (Article article : articles) {
+			ArticleDTO articleDTO = new ArticleDTO();
+			articleDTO.coppyFrom(article);
+			lstArticleDTO.add(articleDTO);
+		}
+		return new ResponseEntity<List<ArticleDTO>>(lstArticleDTO,
+				HttpStatus.OK);
+	}
+
 }
