@@ -14,4 +14,6 @@ public interface ArticleRepository{
 	public Article getContentById(Long articleId);
 	
 	public List<Article> findAllByTopic(Long topicId);
+	
+	public List<Article> searchByKeyWord(String keyWord);
 }

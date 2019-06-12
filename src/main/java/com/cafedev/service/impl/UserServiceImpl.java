@@ -83,14 +83,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public ResponseDTO<User> update(User user, String fileName, long id) {
+	public ResponseDTO<User> update(User user) {
 		ResponseDTO<User> response = new ResponseDTO<User>();
 		boolean isValid = validateUpdate(user, response);
 		if (isValid) {
 			try {
-				String avatar= findAvatar(id);
-				System.out.println("1111111"+avatar);
-				if (!fileName.isEmpty()) {
+				String avatar= findAvatar(user.getId());
+				if (!user.getAvatar().isEmpty()) {
 					fileStorageService.deleteFile(avatar);
 				}
 				User userResult = userRepository.update(user);
@@ -159,6 +158,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Role> getRoles() {
 		return userRepository.getRoles();
+	}
+
+	@Override
+	public ResponseDTO<User> update(User user, String fileName, long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

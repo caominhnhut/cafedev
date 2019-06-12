@@ -1,5 +1,5 @@
-cafedevApp.controller('NotifyCtrl', [ '$scope', '$http', 'AuthFactory','$routeParam',
-function($scope, $http, authFactory,$routeParam) {
+cafedevApp.controller('NotifyCtrl', [ '$scope', '$http', 'AuthFactory',
+function($scope, $http, authFactory) {
 
 		$scope.isFullScreen = false;
 		$scope.isError = false;

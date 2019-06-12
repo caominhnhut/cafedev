@@ -49,7 +49,6 @@ public class ArticleController {
 		return new ResponseEntity<ArticlesDTO>(articlesDTO, HttpStatus.OK);
 	}
 	
-	
 	@RequestMapping(method = RequestMethod.GET, value = "content")
 	public ResponseEntity<ArticleDTO> getContentById(@RequestParam("id") Long articleId){
 		Article article = articleService.getContentById(articleId);
@@ -63,10 +62,26 @@ public class ArticleController {
 		return new ResponseEntity<ArticleDTO>(articleDTO, HttpStatus.OK);
 	}
 	
-	
 	@RequestMapping(method = RequestMethod.GET, value="count-list-article" )
 	public int getAllByTopic(@RequestParam("id") Long topicId){
 		return articleService.findAllByTopic(topicId).size();
 	}
-	
+
+	@RequestMapping(method = RequestMethod.GET, value = "search")
+	public ResponseEntity<List<ArticleDTO>> searchContent(
+			@RequestParam("keyword") String keyword) {
+		List<Article> articles = articleService.searchByKeyWord(keyword);
+		if (articles.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		List<ArticleDTO> lstArticleDTO = new ArrayList<ArticleDTO>();
+		for (Article article : articles) {
+			ArticleDTO articleDTO = new ArticleDTO();
+			articleDTO.coppyFrom(article);
+			lstArticleDTO.add(articleDTO);
+		}
+		return new ResponseEntity<List<ArticleDTO>>(lstArticleDTO,
+				HttpStatus.OK);
+	}
+
 }

@@ -16,27 +16,29 @@ function($scope, $http,$routeParams, apiProviderService){
 	}
 	$scope.onLoad();
 
-/*	$scope.pushExamnination = function(){
+	$scope.pushExamnination = function(){
 		var formData = new FormData();
 		var file = $scope.myFile;
-		formData.append("file", file);
-
-		formData.append("userName", "Thanh Nhan");
-		console.log(formData);
-
-		var token = authFactory.getValueByKey(TOKEN_KEY);
-
-		$http.post('/rest/examination/push-exercise', formData, {
-            transformRequest: angular.identity,
-			headers: {
-				'Content-Type': undefined,
-				'Authorization': "Bearer " + token
+		formData.append("avatar", file);
+		var strUser = {
+				"id":1,
+				"firstName":"Nguyen",
+				"lastName":"Trang",
+				"email":"trang1610@gmail.com",
+				"phoneNumber":"0906572734"
 			}
-        })
-        .success(function(res){
-			console.log(res);
-        })
-        .error(function(){
-        });
-	}*/
+		var strJson = JSON.stringify(strUser);
+		formData.append("user", strJson);
+		
+		console.log("strJson",strJson);
+		console.log("formData",formData);
+
+		var promise = apiProviderService.postMutipartFileApi(URL_PUSH_EXAM,formData);
+		console.log("formDataaaaaaa",formData);
+		promise.then(function(response){
+			console.log(response);
+		}, function (errorPayload){
+			alert("Can not show examination detail");
+		})
+	}
 }]);

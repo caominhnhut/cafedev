@@ -88,8 +88,8 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Article> articles = new ArrayList<Article>();
 	
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ExaminationUser> examinations = new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ExaminationUser> examinations = new ArrayList<>();
 
 	public List<Article> getArticles() {
 		return articles;

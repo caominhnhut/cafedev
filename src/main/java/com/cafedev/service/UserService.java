@@ -11,11 +11,20 @@ import com.cafedev.model.User;
  */
 
 public interface UserService {
+	
     User findById(Long id);
+    
     User findByUsername(String username);
+    
     List<User> findAll ();
+    
     String findAvatar(long id);
+    
     ResponseDTO<Boolean> save(User user);
+    
     ResponseDTO<User> update(User user, String fileName,long id);
-    List<Role> getRoles();   
+    
+    List<Role> getRoles();
+
+	ResponseDTO<User> update(User user);   
 }
